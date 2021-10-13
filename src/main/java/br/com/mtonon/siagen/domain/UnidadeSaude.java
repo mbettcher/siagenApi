@@ -3,10 +3,14 @@ package br.com.mtonon.siagen.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +41,10 @@ public class UnidadeSaude implements Serializable{
 	
 	@Column(name = "usa_ativo", columnDefinition = "BOOLEAN", nullable = false)
 	private Boolean ativo;
+	
+	@ElementCollection
+	@CollectionTable(name = "unidade_saude_telefone")
+	private Set<String> telefones = new HashSet<>();
 	
 	/* Uma Unidade de Saúde tem Uma ou Várias Especialidades */
 	@JsonBackReference
@@ -107,6 +115,15 @@ public class UnidadeSaude implements Serializable{
 
 	public void setEspecialidades(List<Especialidade> especialidades) {
 		this.especialidades = especialidades;
+	}
+	
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override

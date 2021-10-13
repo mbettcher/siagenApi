@@ -1,5 +1,6 @@
 package br.com.mtonon.siagen;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -9,12 +10,21 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.mtonon.siagen.domain.Cidade;
+import br.com.mtonon.siagen.domain.Endereco;
 import br.com.mtonon.siagen.domain.Especialidade;
 import br.com.mtonon.siagen.domain.Estado;
+import br.com.mtonon.siagen.domain.Paciente;
 import br.com.mtonon.siagen.domain.UnidadeSaude;
+import br.com.mtonon.siagen.domain.enums.Emissor;
+import br.com.mtonon.siagen.domain.enums.EstadoCivil;
+import br.com.mtonon.siagen.domain.enums.Etnia;
+import br.com.mtonon.siagen.domain.enums.Sexo;
+import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
+import br.com.mtonon.siagen.repositories.EnderecoRepository;
 import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
 import br.com.mtonon.siagen.repositories.EstadoRepository;
+import br.com.mtonon.siagen.repositories.PacienteRepository;
 import br.com.mtonon.siagen.repositories.UnidadeSaudeRepository;
 
 @SpringBootApplication
@@ -31,6 +41,12 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -69,7 +85,18 @@ public class SiagenApiApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 
+		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
+				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
+				"jose@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "192.168.0.10", Etnia.BRANCO);
+		pac1.getTelefones().addAll(Arrays.asList("2733618200", "27999321234"));
 		
+		Endereco e1 = new Endereco(null, "Avenida Santa Cruz", "123", "Casa", "Santa Mônica", "29220970", pac1, c1);
+		Endereco e2 = new Endereco(null, "Rua das Orquídeas", "478", "Apto 504", "Centro", "28220970", pac1, c3);
+		
+		pac1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		pacienteRepository.saveAll(Arrays.asList(pac1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
