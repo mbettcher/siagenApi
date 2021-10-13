@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity(name = "unidade_saude")
 public class UnidadeSaude implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -37,6 +39,7 @@ public class UnidadeSaude implements Serializable{
 	private Boolean ativo;
 	
 	/* Uma Unidade de Saúde tem Uma ou Várias Especialidades */
+	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "unidade_saude_tem_especialidade",
 			joinColumns = @JoinColumn(name = "unidade_saude_codigo"),
