@@ -14,8 +14,12 @@ import br.com.mtonon.siagen.domain.Endereco;
 import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
 import br.com.mtonon.siagen.domain.Especialidade;
 import br.com.mtonon.siagen.domain.Estado;
+import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Paciente;
+import br.com.mtonon.siagen.domain.Servico;
+import br.com.mtonon.siagen.domain.TipoServico;
 import br.com.mtonon.siagen.domain.UnidadeSaude;
+import br.com.mtonon.siagen.domain.enums.Dose;
 import br.com.mtonon.siagen.domain.enums.Emissor;
 import br.com.mtonon.siagen.domain.enums.EstadoCivil;
 import br.com.mtonon.siagen.domain.enums.Etnia;
@@ -26,7 +30,10 @@ import br.com.mtonon.siagen.repositories.EnderecoRepository;
 import br.com.mtonon.siagen.repositories.EnderecoUnidadeSaudeRepository;
 import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
 import br.com.mtonon.siagen.repositories.EstadoRepository;
+import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
+import br.com.mtonon.siagen.repositories.ServicoRepository;
+import br.com.mtonon.siagen.repositories.TipoServicoRepository;
 import br.com.mtonon.siagen.repositories.UnidadeSaudeRepository;
 
 @SpringBootApplication
@@ -52,6 +59,15 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private EnderecoUnidadeSaudeRepository enderecoUnidadeSaudeRepository;
+	
+	@Autowired
+	private TipoServicoRepository tipoServicoRepository;
+	
+	@Autowired
+	private NomeVacinaRepository nomeVacinaRepository;
+	
+	@Autowired
+	private ServicoRepository servicoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -98,6 +114,18 @@ public class SiagenApiApplication implements CommandLineRunner{
 		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
 		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
 		enderecoUnidadeSaudeRepository.saveAll(Arrays.asList(eus1, eus2, eus3));
+		
+		NomeVacina nva1 = new NomeVacina(null, "Coronavac", "Insituto Butantan");
+		TipoServico tse1 = new TipoServico(null, "Vacinação");
+		
+		Servico ser1 = new Servico(null, "Vacinação contra Covid-19", 2, 18, 120, null, Dose.PRIMEIRA, nva1, tse1);
+		
+		tse1.getServicos().addAll(Arrays.asList(ser1));
+		
+		nomeVacinaRepository.saveAll(Arrays.asList(nva1));
+		tipoServicoRepository.saveAll(Arrays.asList(tse1));
+		servicoRepository.saveAll(Arrays.asList(ser1));
+		
 		
 		
 		
