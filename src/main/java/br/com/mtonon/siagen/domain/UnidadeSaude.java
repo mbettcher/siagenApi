@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -54,6 +55,9 @@ public class UnidadeSaude implements Serializable{
 			inverseJoinColumns = @JoinColumn(name = "especialidade_codigo")
 	)
 	private List<Especialidade> especialidades = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "unidadeSaude")
+	private List<EnderecoUnidadeSaude> enderecos = new ArrayList<>();
 	
 	public UnidadeSaude() {
 	}
@@ -108,7 +112,6 @@ public class UnidadeSaude implements Serializable{
 		this.ativo = ativo;
 	}
 	
-
 	public List<Especialidade> getEspecialidades() {
 		return especialidades;
 	}
@@ -117,13 +120,20 @@ public class UnidadeSaude implements Serializable{
 		this.especialidades = especialidades;
 	}
 	
-
 	public Set<String> getTelefones() {
 		return telefones;
 	}
 
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+	
+	public List<EnderecoUnidadeSaude> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<EnderecoUnidadeSaude> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.mtonon.siagen.domain.Cidade;
 import br.com.mtonon.siagen.domain.Endereco;
+import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
 import br.com.mtonon.siagen.domain.Especialidade;
 import br.com.mtonon.siagen.domain.Estado;
 import br.com.mtonon.siagen.domain.Paciente;
@@ -22,6 +23,7 @@ import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
 import br.com.mtonon.siagen.repositories.EnderecoRepository;
+import br.com.mtonon.siagen.repositories.EnderecoUnidadeSaudeRepository;
 import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
 import br.com.mtonon.siagen.repositories.EstadoRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
@@ -47,6 +49,9 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private EnderecoUnidadeSaudeRepository enderecoUnidadeSaudeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -54,23 +59,6 @@ public class SiagenApiApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		
-		Especialidade esp1 = new Especialidade(null, "Atendimento Básico de Saúde");
-		Especialidade esp2 = new Especialidade(null, "Imunização Básica (PNI)");
-		
-		UnidadeSaude usa1 = new UnidadeSaude(null, "Unidade de Sáude Normília Cunha", LocalDateTime.now(), null, true);
-		UnidadeSaude usa2 = new UnidadeSaude(null, "Centro Municipal de Especialidades", LocalDateTime.now(), null, true);
-		UnidadeSaude usa3 = new UnidadeSaude(null, "Complexo Esportivo Maurice Santos", LocalDateTime.now(), null, true);
-		
-		esp1.getUnidadesSaude().addAll(Arrays.asList(usa1, usa2, usa3));
-		esp2.getUnidadesSaude().addAll(Arrays.asList(usa2));
-		
-		usa1.getEspecialidades().addAll(Arrays.asList(esp1));
-		usa2.getEspecialidades().addAll(Arrays.asList(esp1, esp2));
-		usa3.getEspecialidades().addAll(Arrays.asList(esp1));
-		
-		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
-		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
 		
 		Estado est1 = new Estado(null, "Espírito Santo");
 		Estado est2 = new Estado(null, "Rio de Janeiro");
@@ -84,6 +72,35 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
+		Especialidade esp1 = new Especialidade(null, "Atendimento Básico de Saúde");
+		Especialidade esp2 = new Especialidade(null, "Imunização Básica (PNI)");
+		
+		UnidadeSaude usa1 = new UnidadeSaude(null, "Unidade de Sáude Normília Cunha", LocalDateTime.now(), null, true);
+		UnidadeSaude usa2 = new UnidadeSaude(null, "Centro Municipal de Especialidades", LocalDateTime.now(), null, true);
+		UnidadeSaude usa3 = new UnidadeSaude(null, "Complexo Esportivo Maurice Santos", LocalDateTime.now(), null, true);
+
+		esp1.getUnidadesSaude().addAll(Arrays.asList(usa1, usa2, usa3));
+		esp2.getUnidadesSaude().addAll(Arrays.asList(usa2));
+		
+		usa1.getEspecialidades().addAll(Arrays.asList(esp1));
+		usa2.getEspecialidades().addAll(Arrays.asList(esp1, esp2));
+		usa3.getEspecialidades().addAll(Arrays.asList(esp1));
+		
+		EnderecoUnidadeSaude eus1 = new EnderecoUnidadeSaude(null, "Rodovia do Sol", "120", null, "Perocão", "29200000", c1, usa1);
+		EnderecoUnidadeSaude eus2 = new EnderecoUnidadeSaude(null, "Rua das Flores", "321", null, "Muquiçaba", "29200000", c1, usa2);
+		EnderecoUnidadeSaude eus3 = new EnderecoUnidadeSaude(null, "Rua dos Atletas", "100", "Complexo", "Muquiçaba", "29200000", c1, usa3);
+		
+		usa1.getEnderecos().addAll(Arrays.asList(eus1));
+		usa2.getEnderecos().addAll(Arrays.asList(eus2));
+		usa3.getEnderecos().addAll(Arrays.asList(eus3));
+		
+		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
+		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
+		enderecoUnidadeSaudeRepository.saveAll(Arrays.asList(eus1, eus2, eus3));
+		
+		
+		
 
 		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
 				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
