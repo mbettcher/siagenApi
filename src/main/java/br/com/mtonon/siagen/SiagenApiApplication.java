@@ -2,6 +2,7 @@ package br.com.mtonon.siagen;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.mtonon.siagen.domain.Cidade;
+import br.com.mtonon.siagen.domain.Dia;
+import br.com.mtonon.siagen.domain.DiaTemHorario;
 import br.com.mtonon.siagen.domain.Endereco;
 import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
 import br.com.mtonon.siagen.domain.Especialidade;
 import br.com.mtonon.siagen.domain.Estado;
+import br.com.mtonon.siagen.domain.Horario;
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Paciente;
 import br.com.mtonon.siagen.domain.Servico;
@@ -26,10 +30,13 @@ import br.com.mtonon.siagen.domain.enums.Etnia;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
+import br.com.mtonon.siagen.repositories.DiaRepository;
+import br.com.mtonon.siagen.repositories.DiaTemHorarioRepository;
 import br.com.mtonon.siagen.repositories.EnderecoRepository;
 import br.com.mtonon.siagen.repositories.EnderecoUnidadeSaudeRepository;
 import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
 import br.com.mtonon.siagen.repositories.EstadoRepository;
+import br.com.mtonon.siagen.repositories.HorarioRepository;
 import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
 import br.com.mtonon.siagen.repositories.ServicoRepository;
@@ -68,6 +75,15 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ServicoRepository servicoRepository;
+	
+	@Autowired
+	private DiaRepository diaRepository;
+	
+	@Autowired
+	private HorarioRepository horarioRepository;
+	
+	@Autowired
+	private DiaTemHorarioRepository diaTemHorarioRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -142,6 +158,24 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		pacienteRepository.saveAll(Arrays.asList(pac1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
+		Dia d1 = new Dia(null, LocalDate.of(2021, 10, 15));
+		Dia d2 = new Dia(null, LocalDate.of(2021, 10, 16));
+		
+		Horario h1 = new Horario(null, LocalTime.of(8, 0));
+		Horario h2 = new Horario(null, LocalTime.of(8, 2));
+		Horario h3 = new Horario(null, LocalTime.of(8, 4));
+		
+		DiaTemHorario dth1 = new DiaTemHorario(null, true, d1, h1);
+		DiaTemHorario dth2 = new DiaTemHorario(null, true, d1, h2);
+		DiaTemHorario dth3 = new DiaTemHorario(null, true, d1, h3);
+		DiaTemHorario dth4 = new DiaTemHorario(null, true, d2, h1);
+		DiaTemHorario dth5 = new DiaTemHorario(null, true, d2, h2);
+		
+		diaRepository.saveAll(Arrays.asList(d1,d2));
+		horarioRepository.saveAll(Arrays.asList(h1,h2,h3));
+		diaTemHorarioRepository.saveAll(Arrays.asList(dth1,dth2,dth3,dth4,dth5));
+		
 	}
 
 }
