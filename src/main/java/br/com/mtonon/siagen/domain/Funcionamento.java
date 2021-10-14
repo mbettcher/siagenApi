@@ -65,6 +65,14 @@ public class Funcionamento implements Serializable{
 		this.horaFechamento = horaFechamento;
 	}
 
+	public List<DiaSemana> getDiasSemana() {
+		return diasSemana;
+	}
+
+	public void setDiasSemana(List<DiaSemana> diasSemana) {
+		this.diasSemana = diasSemana;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

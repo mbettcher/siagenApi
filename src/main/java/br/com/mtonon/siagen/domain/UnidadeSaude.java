@@ -66,6 +66,13 @@ public class UnidadeSaude implements Serializable{
 	)
 	private List<Servico> servicos = new ArrayList<>();
 	
+	@ManyToMany
+	@JoinTable(name = "unidade_saude_tem_dia_fucionamento", 
+		joinColumns = @JoinColumn(name = "udf_unidade_saude_codigo"), 
+		inverseJoinColumns = @JoinColumn(name = "udf_dia_semana_codigo")
+	)
+	private List<DiaSemana> diasFuncionamento = new ArrayList<>();
+	
 	public UnidadeSaude() {
 	}
 
@@ -149,6 +156,14 @@ public class UnidadeSaude implements Serializable{
 
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
+	}
+	
+	public List<DiaSemana> getDiasFuncionamento() {
+		return diasFuncionamento;
+	}
+
+	public void setDiasFuncionamento(List<DiaSemana> diasFuncionamento) {
+		this.diasFuncionamento = diasFuncionamento;
 	}
 
 	@Override

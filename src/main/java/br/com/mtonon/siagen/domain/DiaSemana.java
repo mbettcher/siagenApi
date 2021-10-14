@@ -1,6 +1,8 @@
 package br.com.mtonon.siagen.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "dia_semana")
@@ -29,6 +32,9 @@ public class DiaSemana implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "dse_funcionamento_codigo")
 	private Funcionamento funcionamento;
+	
+	@ManyToMany(mappedBy = "diasFuncionamento")
+	private List<UnidadeSaude> unidadesSaude = new ArrayList<>();
 	
 	public DiaSemana() {
 	}
@@ -62,6 +68,22 @@ public class DiaSemana implements Serializable{
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+	
+	public Funcionamento getFuncionamento() {
+		return funcionamento;
+	}
+
+	public void setFuncionamento(Funcionamento funcionamento) {
+		this.funcionamento = funcionamento;
+	}
+
+	public List<UnidadeSaude> getUnidadesSaude() {
+		return unidadesSaude;
+	}
+
+	public void setUnidadesSaude(List<UnidadeSaude> unidadesSaude) {
+		this.unidadesSaude = unidadesSaude;
 	}
 
 	@Override
