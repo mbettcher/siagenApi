@@ -73,6 +73,10 @@ public class UnidadeSaude implements Serializable{
 	)
 	private List<DiaSemana> diasFuncionamento = new ArrayList<>();
 	
+	/* Uma Unidade de Saúde tem um ou muitos Agendamentos */
+	@OneToMany(mappedBy = "unidadeSaude")
+	private List<Agendamento> agendamentos = new ArrayList<>();
+	
 	public UnidadeSaude() {
 	}
 

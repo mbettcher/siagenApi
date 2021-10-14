@@ -58,9 +58,15 @@ public class Agendamento implements Serializable{
 	@FutureOrPresent(message = "A data de alteração do agendamento deve ser o dia de hoje ou data futura")
 	private LocalDateTime dataAlteracao;
 	
+	/* Muitos Agendamentos para um Paciente*/
 	@ManyToOne
 	@JoinColumn(name = "age_paciente_codigo")
 	private Paciente pacienteAgendamento;
+	
+	/* Muitos Agendamentos para Uma Unidade Saúde */
+	@ManyToOne
+	@JoinColumn(name = "age_unidade_saude_codigo")
+	private UnidadeSaude unidadeSaude;
 
 	public Agendamento() {
 	}
