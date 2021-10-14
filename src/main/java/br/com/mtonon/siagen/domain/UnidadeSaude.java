@@ -59,6 +59,13 @@ public class UnidadeSaude implements Serializable{
 	@OneToMany(mappedBy = "unidadeSaude")
 	private List<EnderecoUnidadeSaude> enderecos = new ArrayList<>();
 	
+	@ManyToMany
+	@JoinTable(name = "unidade_saude_tem_servico", 
+		joinColumns = @JoinColumn(name = "uss_unidade_saude_codigo"), 
+		inverseJoinColumns = @JoinColumn(name = "uss_servico_codigo")
+	)
+	private List<Servico> servicos = new ArrayList<>();
+	
 	public UnidadeSaude() {
 	}
 
@@ -134,6 +141,14 @@ public class UnidadeSaude implements Serializable{
 
 	public void setEnderecos(List<EnderecoUnidadeSaude> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package br.com.mtonon.siagen.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import br.com.mtonon.siagen.domain.enums.Dose;
@@ -47,6 +50,9 @@ public class Servico implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "ser_tipo_servico_codigo")
 	private TipoServico tipoServico;
+	
+	@ManyToMany(mappedBy = "servicos")
+	private List<UnidadeSaude> unidadesSaude = new ArrayList<>();
 	
 	public Servico() {
 	}
@@ -135,6 +141,14 @@ public class Servico implements Serializable{
 
 	public void setTipoServico(TipoServico tipoServico) {
 		this.tipoServico = tipoServico;
+	}
+
+	public List<UnidadeSaude> getUnidadesSaude() {
+		return unidadesSaude;
+	}
+
+	public void setUnidadesSaude(List<UnidadeSaude> unidadesSaude) {
+		this.unidadesSaude = unidadesSaude;
 	}
 
 	@Override

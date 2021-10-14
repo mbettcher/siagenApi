@@ -125,6 +125,17 @@ public class SiagenApiApplication implements CommandLineRunner{
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
+		NomeVacina nva1 = new NomeVacina(null, "Coronavac", "Insituto Butantan");
+		TipoServico tse1 = new TipoServico(null, "Vacinação");
+		
+		Servico ser1 = new Servico(null, "Vacinação contra Covid-19", 2, 18, 120, null, Dose.PRIMEIRA, nva1, tse1);
+		
+		tse1.getServicos().addAll(Arrays.asList(ser1));
+		
+		nomeVacinaRepository.saveAll(Arrays.asList(nva1));
+		tipoServicoRepository.saveAll(Arrays.asList(tse1));
+		
+		
 		Especialidade esp1 = new Especialidade(null, "Atendimento Básico de Saúde");
 		Especialidade esp2 = new Especialidade(null, "Imunização Básica (PNI)");
 		
@@ -147,22 +158,20 @@ public class SiagenApiApplication implements CommandLineRunner{
 		usa2.getEnderecos().addAll(Arrays.asList(eus2));
 		usa3.getEnderecos().addAll(Arrays.asList(eus3));
 		
+		ser1.getUnidadesSaude().addAll(Arrays.asList(usa1, usa2, usa3));
+		
+		usa1.getServicos().addAll(Arrays.asList(ser1));
+		usa2.getServicos().addAll(Arrays.asList(ser1));
+		usa3.getServicos().addAll(Arrays.asList(ser1));
+		
+		
+		servicoRepository.saveAll(Arrays.asList(ser1));
 		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
 		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
 		enderecoUnidadeSaudeRepository.saveAll(Arrays.asList(eus1, eus2, eus3));
 		
-		NomeVacina nva1 = new NomeVacina(null, "Coronavac", "Insituto Butantan");
-		TipoServico tse1 = new TipoServico(null, "Vacinação");
 		
-		Servico ser1 = new Servico(null, "Vacinação contra Covid-19", 2, 18, 120, null, Dose.PRIMEIRA, nva1, tse1);
 		
-		tse1.getServicos().addAll(Arrays.asList(ser1));
-		
-		nomeVacinaRepository.saveAll(Arrays.asList(nva1));
-		tipoServicoRepository.saveAll(Arrays.asList(tse1));
-		servicoRepository.saveAll(Arrays.asList(ser1));
-
-
 		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
 				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
 				"jose@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "192.168.0.10", Etnia.BRANCO);
