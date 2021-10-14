@@ -88,6 +88,10 @@ public class Paciente implements Serializable {
 	@OneToMany(mappedBy = "pacienteAgendamento")
 	private List<Agendamento> agendamentos = new ArrayList<>();
 	
+	/* Um paciente tem um ou Muitos Históricos */
+	@OneToMany(mappedBy = "paciente")
+	private List<HistoricoPaciente> historicosPaciente = new ArrayList<>();
+	
 	public Paciente() {
 	}
 

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "dia_has_horario")
+@Entity(name = "dia_tem_horario")
 public class DiaTemHorario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

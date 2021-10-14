@@ -67,13 +67,18 @@ public class Agendamento implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "age_unidade_saude_codigo")
 	private UnidadeSaude unidadeSaude;
+	
+	@ManyToOne
+	@JoinColumn(name = "age_servico_codigo")
+	private Servico servico;
 
 	public Agendamento() {
 	}
 
 	public Agendamento(Integer id, LocalDateTime dataAgendamento, String addrAgendamento, LocalDateTime dataInicio,
 			LocalDateTime dataFim, boolean diaInteiro, StatusEvento statusEvento, String titulo, String descricao,
-			String chaveAgendamento, LocalDateTime dataAlteracao, Paciente pacienteAgendamento) {
+			String chaveAgendamento, LocalDateTime dataAlteracao, Paciente pacienteAgendamento, UnidadeSaude unidadeSaude,
+			Servico servico) {
 		super();
 		this.id = id;
 		this.dataAgendamento = dataAgendamento;
@@ -87,6 +92,8 @@ public class Agendamento implements Serializable{
 		this.chaveAgendamento = chaveAgendamento;
 		this.dataAlteracao = dataAlteracao;
 		this.pacienteAgendamento = pacienteAgendamento;
+		this.unidadeSaude = unidadeSaude;
+		this.servico = servico;
 	}
 
 	public Integer getId() {
@@ -183,6 +190,22 @@ public class Agendamento implements Serializable{
 
 	public void setPacienteAgendamento(Paciente pacienteAgendamento) {
 		this.pacienteAgendamento = pacienteAgendamento;
+	}
+
+	public UnidadeSaude getUnidadeSaude() {
+		return unidadeSaude;
+	}
+
+	public void setUnidadeSaude(UnidadeSaude unidadeSaude) {
+		this.unidadeSaude = unidadeSaude;
+	}
+
+	public Servico getServico() {
+		return servico;
+	}
+
+	public void setServico(Servico servico) {
+		this.servico = servico;
 	}
 
 	@Override

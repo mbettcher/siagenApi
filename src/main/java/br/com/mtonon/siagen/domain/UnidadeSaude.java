@@ -170,6 +170,15 @@ public class UnidadeSaude implements Serializable{
 		this.diasFuncionamento = diasFuncionamento;
 	}
 
+
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
