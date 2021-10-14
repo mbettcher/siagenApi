@@ -1,6 +1,6 @@
 package br.com.mtonon.siagen.domain.enums;
 
-public enum TipoEvento {
+public enum StatusEvento {
 	
 	PADRAO(1, "Padrão",""),
 	URGENTE(2, "Urgente","urgente"),
@@ -11,7 +11,7 @@ public enum TipoEvento {
 	private String descricao;
 	private String css;
 	
-	private TipoEvento(Integer codigo, String descricao, String css) {
+	private StatusEvento(Integer codigo, String descricao, String css) {
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.css = css;
@@ -29,13 +29,13 @@ public enum TipoEvento {
 		return this.css;
 	}
 	
-	public static TipoEvento toEnum(Integer codigo) {
+	public static StatusEvento toEnum(Integer codigo) {
 		
 		if(codigo == null) {
 			return null;
 		}
 		
-		for(TipoEvento x : TipoEvento.values()) {
+		for(StatusEvento x : StatusEvento.values()) {
 			if(codigo.equals(x.getCodigo())) {
 				return x;
 			}
