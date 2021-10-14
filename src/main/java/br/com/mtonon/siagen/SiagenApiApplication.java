@@ -21,10 +21,12 @@ import br.com.mtonon.siagen.domain.Horario;
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Paciente;
 import br.com.mtonon.siagen.domain.Perfil;
+import br.com.mtonon.siagen.domain.PerguntaReposta;
 import br.com.mtonon.siagen.domain.Servico;
 import br.com.mtonon.siagen.domain.TipoServico;
 import br.com.mtonon.siagen.domain.UnidadeSaude;
 import br.com.mtonon.siagen.domain.Usuario;
+import br.com.mtonon.siagen.domain.Versiculo;
 import br.com.mtonon.siagen.domain.enums.Dose;
 import br.com.mtonon.siagen.domain.enums.Emissor;
 import br.com.mtonon.siagen.domain.enums.EstadoCivil;
@@ -42,10 +44,12 @@ import br.com.mtonon.siagen.repositories.HorarioRepository;
 import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
 import br.com.mtonon.siagen.repositories.PerfilRepository;
+import br.com.mtonon.siagen.repositories.PerguntaRespostaRepository;
 import br.com.mtonon.siagen.repositories.ServicoRepository;
 import br.com.mtonon.siagen.repositories.TipoServicoRepository;
 import br.com.mtonon.siagen.repositories.UnidadeSaudeRepository;
 import br.com.mtonon.siagen.repositories.UsuarioRepository;
+import br.com.mtonon.siagen.repositories.VersiculoRepository;
 
 @SpringBootApplication
 public class SiagenApiApplication implements CommandLineRunner{
@@ -94,6 +98,12 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private PerguntaRespostaRepository perguntaRespostaRepository;
+	
+	@Autowired
+	private VersiculoRepository versiculoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -151,10 +161,7 @@ public class SiagenApiApplication implements CommandLineRunner{
 		nomeVacinaRepository.saveAll(Arrays.asList(nva1));
 		tipoServicoRepository.saveAll(Arrays.asList(tse1));
 		servicoRepository.saveAll(Arrays.asList(ser1));
-		
-		
-		
-		
+
 
 		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
 				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
@@ -199,6 +206,22 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		perfilRepository.saveAll(Arrays.asList(pe1,pe2,pe3));
 		usuarioRepository.saveAll(Arrays.asList(us1, us2, us3));
+		
+
+		PerguntaReposta per1 = new PerguntaReposta(null, "Por que a galinha atravessou a rua?", "Pra chegar do outro lado.");
+		PerguntaReposta per2 = new PerguntaReposta(null, "O quê cai em pé e corre deitado?", "A chuva.");
+		PerguntaReposta per3 = new PerguntaReposta(null, "O quê passa dentro da água e não se molha?", "A sombra.");
+		
+		perguntaRespostaRepository.saveAll(Arrays.asList(per1, per2, per3));
+		
+		Versiculo ver1 = new Versiculo(null, "João 3:16", "Porque Deus tanto amou o mundo que deu o seu Filho Unigênito, para que todo o que nele crer não pereça, mas tenha a vida eterna.");
+		Versiculo ver2 = new Versiculo(null, "Mateus 28:19-20", "Portanto, vão e façam discípulos de todas as nações, batizando-os em nome do Pai e do Filho e do Espírito Santo, ensinando-os a obedecer a tudo o que eu lhes ordenei. E eu estarei sempre com vocês, até o fim dos tempos");
+		Versiculo ver3 = new Versiculo(null, "Mateus 6:33", "Busquem, pois, em primeiro lugar o Reino de Deus e a sua justiça, e todas essas coisas lhes serão acrescentadas.");
+		Versiculo ver4 = new Versiculo(null, "Filipenses 4:7", "E a paz de Deus, que excede todo o entendimento, guardará os seus corações e as suas mentes em Cristo Jesus.");
+		Versiculo ver5 = new Versiculo(null, "Jeremias 29:11", "Porque sou eu que conheço os planos que tenho para vocês, diz o Senhor, planos de fazê-los prosperar e não de causar dano, planos de dar a vocês esperança e um futuro.");
+		Versiculo ver6 = new Versiculo(null, "João 14:6", "Respondeu Jesus: \"Eu sou o caminho, a verdade e a vida. Ninguém vem ao Pai, a não ser por mim.\"");
+		
+		versiculoRepository.saveAll(Arrays.asList(ver1,ver2,ver3,ver4,ver5,ver6));
 		
 	}
 
