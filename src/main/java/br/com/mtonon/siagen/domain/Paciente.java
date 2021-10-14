@@ -84,6 +84,10 @@ public class Paciente implements Serializable {
 	@CollectionTable(name = "paciente_telefone")
 	private Set<String> telefones = new HashSet<>();
 	
+	/* Um Paciente tem muitos Agendamentos */
+	@OneToMany(mappedBy = "pacienteAgendamento")
+	private List<Agendamento> agendamentos = new ArrayList<>();
+	
 	public Paciente() {
 	}
 

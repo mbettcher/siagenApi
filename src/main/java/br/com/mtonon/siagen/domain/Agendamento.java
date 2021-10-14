@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.FutureOrPresent;
 
 import br.com.mtonon.siagen.domain.enums.StatusEvento;
@@ -55,13 +57,17 @@ public class Agendamento implements Serializable{
 	@Column(name = "age_data_alteracao")
 	@FutureOrPresent(message = "A data de alteração do agendamento deve ser o dia de hoje ou data futura")
 	private LocalDateTime dataAlteracao;
+	
+	@ManyToOne
+	@JoinColumn(name = "age_paciente_codigo")
+	private Paciente pacienteAgendamento;
 
 	public Agendamento() {
 	}
 
 	public Agendamento(Integer id, LocalDateTime dataAgendamento, String addrAgendamento, LocalDateTime dataInicio,
 			LocalDateTime dataFim, boolean diaInteiro, StatusEvento statusEvento, String titulo, String descricao,
-			String chaveAgendamento, LocalDateTime dataAlteracao) {
+			String chaveAgendamento, LocalDateTime dataAlteracao, Paciente pacienteAgendamento) {
 		super();
 		this.id = id;
 		this.dataAgendamento = dataAgendamento;
@@ -74,6 +80,7 @@ public class Agendamento implements Serializable{
 		this.descricao = descricao;
 		this.chaveAgendamento = chaveAgendamento;
 		this.dataAlteracao = dataAlteracao;
+		this.pacienteAgendamento = pacienteAgendamento;
 	}
 
 	public Integer getId() {
@@ -162,6 +169,14 @@ public class Agendamento implements Serializable{
 
 	public void setDataAlteracao(LocalDateTime dataAlteracao) {
 		this.dataAlteracao = dataAlteracao;
+	}
+
+	public Paciente getPacienteAgendamento() {
+		return pacienteAgendamento;
+	}
+
+	public void setPacienteAgendamento(Paciente pacienteAgendamento) {
+		this.pacienteAgendamento = pacienteAgendamento;
 	}
 
 	@Override
