@@ -192,11 +192,11 @@ public class SiagenApiApplication implements CommandLineRunner{
 		Horario h2 = new Horario(null, LocalTime.of(8, 2));
 		Horario h3 = new Horario(null, LocalTime.of(8, 4));
 		
-		DiaTemHorario dth1 = new DiaTemHorario(null, true, d1, h1);
-		DiaTemHorario dth2 = new DiaTemHorario(null, true, d1, h2);
-		DiaTemHorario dth3 = new DiaTemHorario(null, true, d1, h3);
-		DiaTemHorario dth4 = new DiaTemHorario(null, true, d2, h1);
-		DiaTemHorario dth5 = new DiaTemHorario(null, true, d2, h2);
+		DiaTemHorario dth1 = new DiaTemHorario(null, true, d1, h1, ser1, usa1);
+		DiaTemHorario dth2 = new DiaTemHorario(null, true, d1, h2, ser1, usa1);
+		DiaTemHorario dth3 = new DiaTemHorario(null, true, d1, h3, ser1, usa1);
+		DiaTemHorario dth4 = new DiaTemHorario(null, true, d2, h1, ser1, usa2);
+		DiaTemHorario dth5 = new DiaTemHorario(null, true, d2, h2, ser1, usa2);
 		
 		diaRepository.saveAll(Arrays.asList(d1,d2));
 		horarioRepository.saveAll(Arrays.asList(h1,h2,h3));

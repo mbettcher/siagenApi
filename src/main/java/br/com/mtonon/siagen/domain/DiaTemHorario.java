@@ -28,18 +28,28 @@ public class DiaTemHorario implements Serializable{
 	private Dia dia;
 	
 	@ManyToOne
-	@JoinColumn(name = "dhh_hor_codigo")
+	@JoinColumn(name = "dhh_horario_codigo")
 	private Horario horario;
+	
+	@ManyToOne
+	@JoinColumn(name = "dhh_servico_codigo")
+	private Servico servico;
+	
+	@ManyToOne
+	@JoinColumn(name = "dhh_unidade_saude_codigo")
+	private UnidadeSaude unidadeSaude;
 	
 	public DiaTemHorario() {
 	}
 
-	public DiaTemHorario(Integer id, boolean disponivel, Dia dia, Horario horario) {
+	public DiaTemHorario(Integer id, boolean disponivel, Dia dia, Horario horario, Servico servico, UnidadeSaude unidadeSaude) {
 		super();
 		this.id = id;
 		this.disponivel = disponivel;
 		this.dia = dia;
 		this.horario = horario;
+		this.servico = servico;
+		this.unidadeSaude = unidadeSaude;
 	}
 
 	public Integer getId() {
@@ -72,6 +82,22 @@ public class DiaTemHorario implements Serializable{
 
 	public void setHorario(Horario horario) {
 		this.horario = horario;
+	}
+
+	public Servico getServico() {
+		return servico;
+	}
+
+	public void setServico(Servico servico) {
+		this.servico = servico;
+	}
+
+	public UnidadeSaude getUnidadeSaude() {
+		return unidadeSaude;
+	}
+
+	public void setUnidadeSaude(UnidadeSaude unidadeSaude) {
+		this.unidadeSaude = unidadeSaude;
 	}
 
 	@Override
