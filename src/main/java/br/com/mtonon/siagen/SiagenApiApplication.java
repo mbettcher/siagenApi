@@ -11,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.mtonon.siagen.domain.Cidade;
+import br.com.mtonon.siagen.domain.ConfigAgendamento;
+import br.com.mtonon.siagen.domain.ConfigInformacaoAgendamento;
 import br.com.mtonon.siagen.domain.Dia;
 import br.com.mtonon.siagen.domain.DiaSemana;
 import br.com.mtonon.siagen.domain.DiaTemHorario;
@@ -36,6 +38,8 @@ import br.com.mtonon.siagen.domain.enums.Etnia;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
+import br.com.mtonon.siagen.repositories.ConfigAgendamentoRepository;
+import br.com.mtonon.siagen.repositories.ConfigInformacaoAgendamentoRepository;
 import br.com.mtonon.siagen.repositories.DiaRepository;
 import br.com.mtonon.siagen.repositories.DiaSemanaRepository;
 import br.com.mtonon.siagen.repositories.DiaTemHorarioRepository;
@@ -114,6 +118,12 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private DiaSemanaRepository diaSemanaRepository;
+	
+	@Autowired
+	private ConfigAgendamentoRepository configAgendamentoRepository;
+	
+	@Autowired
+	private ConfigInformacaoAgendamentoRepository configInformacaoAgendamentoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -254,6 +264,14 @@ public class SiagenApiApplication implements CommandLineRunner{
 		Versiculo ver6 = new Versiculo(null, "João 14:6", "Respondeu Jesus: \"Eu sou o caminho, a verdade e a vida. Ninguém vem ao Pai, a não ser por mim.\"");
 		
 		versiculoRepository.saveAll(Arrays.asList(ver1,ver2,ver3,ver4,ver5,ver6));
+		
+		ConfigAgendamento cfa1 = new ConfigAgendamento(null, LocalDate.of(2021, 10, 20), LocalDate.of(2021, 10, 20), LocalTime.of(8, 0), LocalTime.of(16, 0), false, false, true);
+		
+		ConfigInformacaoAgendamento cfi1 = new ConfigInformacaoAgendamento(null, true, "Agendamento para Pessoas com Comorbidades", "Todas as Pessoas com mais de 18 anos que possuirem laudo médico de comorbidade", "RG", "Documentos de Apresentação Obrigatória", null, null, null, null, null, null, null, null, null, true, false, false, false, false, false, false, false, false, false);
+		
+		configAgendamentoRepository.saveAll(Arrays.asList(cfa1));
+		
+		configInformacaoAgendamentoRepository.saveAll(Arrays.asList(cfi1));
 		
 	}
 
