@@ -47,7 +47,7 @@ public class UnidadeSaude implements Serializable{
 	@CollectionTable(name = "unidade_saude_telefone")
 	private Set<String> telefones = new HashSet<>();
 	
-	/* Uma Unidade de Saúde tem Uma ou Várias Especialidades */
+	/* Uma Unidade de Saúde tem Um ou Muitos Especialidades */
 	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "unidade_saude_tem_especialidade",
@@ -56,9 +56,12 @@ public class UnidadeSaude implements Serializable{
 	)
 	private List<Especialidade> especialidades = new ArrayList<>();
 	
+	/* Uma Unidade de Saúde tem Um ou Muitos Endereços ??? */
 	@OneToMany(mappedBy = "unidadeSaude")
 	private List<EnderecoUnidadeSaude> enderecos = new ArrayList<>();
 	
+	
+	/* Uma UnidadeSaude tem Um ou Muitos Serviços */
 	@ManyToMany
 	@JoinTable(name = "unidade_saude_tem_servico", 
 		joinColumns = @JoinColumn(name = "uss_unidade_saude_codigo"), 

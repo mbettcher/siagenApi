@@ -174,12 +174,6 @@ public class SiagenApiApplication implements CommandLineRunner{
 		usa2.getServicos().addAll(Arrays.asList(ser1));
 		usa3.getServicos().addAll(Arrays.asList(ser1));
 		
-		
-		servicoRepository.saveAll(Arrays.asList(ser1));
-		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
-		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
-		enderecoUnidadeSaudeRepository.saveAll(Arrays.asList(eus1, eus2, eus3));
-		
 		Funcionamento f1 = new Funcionamento(null, LocalTime.of(8, 0), LocalTime.of(16, 0));
 		DiaSemana ds1 = new DiaSemana(null, "segunda-feira", true, f1);
 		DiaSemana ds2 = new DiaSemana(null, "terça-feira", true, f1);
@@ -189,6 +183,17 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		funcionamentoRepository.saveAll(Arrays.asList(f1));
 		diaSemanaRepository.saveAll(Arrays.asList(ds1,ds2,ds3,ds4,ds5));
+		
+		usa1.getDiasFuncionamento().addAll(Arrays.asList(ds1,ds2,ds3,ds4,ds5));
+		usa2.getDiasFuncionamento().addAll(Arrays.asList(ds1,ds2,ds3,ds4,ds5));
+		usa3.getDiasFuncionamento().addAll(Arrays.asList(ds1,ds2,ds3,ds4));
+		
+		servicoRepository.saveAll(Arrays.asList(ser1));
+		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
+		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
+		enderecoUnidadeSaudeRepository.saveAll(Arrays.asList(eus1, eus2, eus3));
+		
+		
 		
 		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
 				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
