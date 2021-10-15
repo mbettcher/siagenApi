@@ -13,10 +13,10 @@ import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 public class EspecialidadeService {
 
 	@Autowired
-	private EspecialidadeRepository repo;
+	private EspecialidadeRepository especialidadeRepository;
 
 	public Especialidade buscar(Integer id) {
-		Optional<Especialidade> obj = repo.findById(id);
+		Optional<Especialidade> obj = especialidadeRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Especialidade.class.getName()));
 	}

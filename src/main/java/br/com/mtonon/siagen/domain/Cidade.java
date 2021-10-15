@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity(name = "cidade")
 public class Cidade {
 	
@@ -21,6 +23,7 @@ public class Cidade {
 	@Column(name = "cid_nome", nullable = false)
 	private String nome;
 	
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "cid_estado_codigo")
 	private Estado estado;

@@ -23,6 +23,8 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.mtonon.siagen.domain.enums.Emissor;
 import br.com.mtonon.siagen.domain.enums.EstadoCivil;
 import br.com.mtonon.siagen.domain.enums.Etnia;
@@ -88,6 +90,7 @@ public class Paciente implements Serializable {
 	
 	/* Um Paciente tem Um ou Muitos Enderecos */
 	@OneToMany(mappedBy = "paciente")
+	@JsonManagedReference
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	/* Um Paciente tem uma coleção de Telefones */
@@ -97,6 +100,7 @@ public class Paciente implements Serializable {
 	
 	/* Um Paciente tem muitos Agendamentos */
 	@OneToMany(mappedBy = "pacienteAgendamento")
+	@JsonManagedReference
 	private List<Agendamento> agendamentos = new ArrayList<>();
 	
 	/* Um paciente tem um ou Muitos Históricos */

@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.mtonon.siagen.domain.enums.Dose;
 
 @Entity(name = "servico")
@@ -49,8 +51,10 @@ public class Servico implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "ser_tipo_servico_codigo")
+	@JsonManagedReference
 	private TipoServico tipoServico;
 	
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "servicos")
 	private List<UnidadeSaude> unidadesSaude = new ArrayList<>();
 	
