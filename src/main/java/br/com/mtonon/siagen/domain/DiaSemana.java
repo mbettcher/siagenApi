@@ -39,11 +39,12 @@ public class DiaSemana implements Serializable{
 	public DiaSemana() {
 	}
 
-	public DiaSemana(Integer id, String dia, boolean ativo) {
+	public DiaSemana(Integer id, String dia, boolean ativo, Funcionamento funcionamento) {
 		super();
 		this.id = id;
 		this.dia = dia;
 		this.ativo = ativo;
+		this.funcionamento = funcionamento;
 	}
 
 	public Integer getId() {

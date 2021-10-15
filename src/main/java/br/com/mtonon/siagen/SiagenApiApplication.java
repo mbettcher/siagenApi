@@ -12,11 +12,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.mtonon.siagen.domain.Cidade;
 import br.com.mtonon.siagen.domain.Dia;
+import br.com.mtonon.siagen.domain.DiaSemana;
 import br.com.mtonon.siagen.domain.DiaTemHorario;
 import br.com.mtonon.siagen.domain.Endereco;
 import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
 import br.com.mtonon.siagen.domain.Especialidade;
 import br.com.mtonon.siagen.domain.Estado;
+import br.com.mtonon.siagen.domain.Funcionamento;
 import br.com.mtonon.siagen.domain.Horario;
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Paciente;
@@ -35,11 +37,13 @@ import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
 import br.com.mtonon.siagen.repositories.DiaRepository;
+import br.com.mtonon.siagen.repositories.DiaSemanaRepository;
 import br.com.mtonon.siagen.repositories.DiaTemHorarioRepository;
 import br.com.mtonon.siagen.repositories.EnderecoRepository;
 import br.com.mtonon.siagen.repositories.EnderecoUnidadeSaudeRepository;
 import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
 import br.com.mtonon.siagen.repositories.EstadoRepository;
+import br.com.mtonon.siagen.repositories.FuncionamentoRepository;
 import br.com.mtonon.siagen.repositories.HorarioRepository;
 import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
@@ -104,6 +108,12 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private VersiculoRepository versiculoRepository;
+	
+	@Autowired
+	private FuncionamentoRepository funcionamentoRepository;
+	
+	@Autowired
+	private DiaSemanaRepository diaSemanaRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -170,7 +180,15 @@ public class SiagenApiApplication implements CommandLineRunner{
 		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
 		enderecoUnidadeSaudeRepository.saveAll(Arrays.asList(eus1, eus2, eus3));
 		
+		Funcionamento f1 = new Funcionamento(null, LocalTime.of(8, 0), LocalTime.of(16, 0));
+		DiaSemana ds1 = new DiaSemana(null, "segunda-feira", true, f1);
+		DiaSemana ds2 = new DiaSemana(null, "terça-feira", true, f1);
+		DiaSemana ds3 = new DiaSemana(null, "quarta-feira", true, f1);
+		DiaSemana ds4 = new DiaSemana(null, "quinta-feira", true, f1);
+		DiaSemana ds5 = new DiaSemana(null, "sexta-feira", true, f1);
 		
+		funcionamentoRepository.saveAll(Arrays.asList(f1));
+		diaSemanaRepository.saveAll(Arrays.asList(ds1,ds2,ds3,ds4,ds5));
 		
 		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
 				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
