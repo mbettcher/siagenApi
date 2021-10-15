@@ -20,7 +20,7 @@ public class DiaTemHorario implements Serializable{
 	@Column(name = "dhh_codigo")
 	private Integer id;
 	
-	@Column(name = "dhh_disponivel", columnDefinition = "BOOLEAN", nullable = false)
+	@Column(name = "dhh_disponivel", columnDefinition = "boolean default true")
 	private boolean disponivel;
 	
 	@ManyToOne
