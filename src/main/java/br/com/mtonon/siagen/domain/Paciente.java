@@ -17,6 +17,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import br.com.mtonon.siagen.domain.enums.Emissor;
 import br.com.mtonon.siagen.domain.enums.EstadoCivil;
@@ -37,18 +42,22 @@ public class Paciente implements Serializable {
 	private String nome;
 	
 	@Column(name = "pac_cpf", nullable = false, unique = true)
+	@CPF(message = "O número informado para o CPF não é válido")
+	@NotBlank(message = "O campo CPF é obrigatório")
 	private String cpf;
 	
 	@Column(name = "pac_rg", nullable = false, unique = true)
+	@NotBlank(message = "O campo CPF é obrigatório")
 	private String rg;
 	
-	@Column(name = "pac_emissor")
+	@Column(name = "pac_emissor", nullable = false)
 	private Integer emissor;
 	
 	@Column(name = "pac_cartao_sus")
 	private String cartaoSus;
 	
 	@Column(name = "pac_data_nascimento")
+	@Past(message = "A data de nascimento deve ser uma data pretérita")
 	private LocalDate dataNascimento;
 	
 	@Column(name = "pac_sexo")
@@ -58,6 +67,8 @@ public class Paciente implements Serializable {
 	private Integer estadoCivil;
 	
 	@Column(name = "pac_email")
+	@Email(message = "O e-mail informado não é um endereço válido")
+	@NotBlank(message = "O campo e-mail é obrigatório")
 	private String email;
 	
 	@Column(name = "pac_data_cadastro")

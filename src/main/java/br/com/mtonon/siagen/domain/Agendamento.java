@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 
 import br.com.mtonon.siagen.domain.enums.StatusEvento;
 
@@ -25,7 +26,7 @@ public class Agendamento implements Serializable{
 	private Integer id;
 	
 	@Column(name = "age_data_agendamento", nullable = false)
-	@FutureOrPresent(message = "A data da realização do agendamento deve ser o dia de hoje")
+	@PastOrPresent(message = "A data da realização do agendamento deve ser o dia de hoje")
 	private LocalDateTime dataAgendamento;
 	
 	@Column(name = "age_addr_agendamento", nullable = false)
@@ -58,7 +59,7 @@ public class Agendamento implements Serializable{
 	@FutureOrPresent(message = "A data de alteração do agendamento deve ser o dia de hoje ou data futura")
 	private LocalDateTime dataAlteracao;
 	
-	/* Muitos Agendamentos para um Paciente*/
+	/* Agendamento Muitos para Um Paciente*/
 	@ManyToOne
 	@JoinColumn(name = "age_paciente_codigo")
 	private Paciente pacienteAgendamento;

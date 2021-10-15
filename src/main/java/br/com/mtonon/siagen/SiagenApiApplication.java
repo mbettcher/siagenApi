@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.mtonon.siagen.domain.Agendamento;
 import br.com.mtonon.siagen.domain.Cidade;
 import br.com.mtonon.siagen.domain.ConfigAgendamento;
 import br.com.mtonon.siagen.domain.ConfigInformacaoAgendamento;
@@ -38,6 +39,8 @@ import br.com.mtonon.siagen.domain.enums.EstadoCivil;
 import br.com.mtonon.siagen.domain.enums.Etnia;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
+import br.com.mtonon.siagen.domain.enums.StatusEvento;
+import br.com.mtonon.siagen.repositories.AgendamentoRepository;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
 import br.com.mtonon.siagen.repositories.ConfigAgendamentoRepository;
 import br.com.mtonon.siagen.repositories.ConfigInformacaoAgendamentoRepository;
@@ -129,6 +132,9 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private HistoricoPacienteRepository historicoPacienteRepository;
+	
+	@Autowired
+	private AgendamentoRepository agendamentoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -220,7 +226,7 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		pac1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
-		HistoricoPaciente his1 = new HistoricoPaciente(null, LocalDateTime.now().plusMinutes(10), "Teste de Registro de Histórico de Paciente", pac1);
+		HistoricoPaciente his1 = new HistoricoPaciente(null, LocalDateTime.now(), "Teste de Registro de Histórico de Paciente", pac1);
 		
 		
 		
@@ -284,6 +290,14 @@ public class SiagenApiApplication implements CommandLineRunner{
 		configAgendamentoRepository.saveAll(Arrays.asList(cfa1));
 		
 		configInformacaoAgendamentoRepository.saveAll(Arrays.asList(cfi1));
+		
+		Agendamento age1 = new Agendamento(null, LocalDateTime.now(), "192.168.0.100", 
+				LocalDateTime.of(2021, 10, 20, 8, 0), LocalDateTime.of(2021, 10, 20, 8, 2), 
+				false, StatusEvento.PADRAO, "Vacinação Covid-19", 
+				"Pessoas com 18 anos ou mais e portadoras de Comorbidades", 
+				"a1b2c3d4", null, pac1, usa3, ser1);
+		
+		agendamentoRepository.save(age1);
 		
 	}
 

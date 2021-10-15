@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.PastOrPresent;
 
 @Entity(name = "historico_paciente")
 public class HistoricoPaciente implements Serializable {
@@ -23,7 +23,7 @@ public class HistoricoPaciente implements Serializable {
 	private Integer id;
 	
 	@Column(name = "hpa_data_historico")
-	@FutureOrPresent(message = "A data do histórico deve ser a data atual ou data futura")
+	@PastOrPresent(message = "A data do histórico deve ser a data atual ou data pretérita")
 	private LocalDateTime dataHistorico;
 	
 	@Column(name = "hpa_observacao", nullable = false)
