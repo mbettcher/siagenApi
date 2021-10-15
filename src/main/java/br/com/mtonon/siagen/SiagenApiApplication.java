@@ -21,6 +21,7 @@ import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
 import br.com.mtonon.siagen.domain.Especialidade;
 import br.com.mtonon.siagen.domain.Estado;
 import br.com.mtonon.siagen.domain.Funcionamento;
+import br.com.mtonon.siagen.domain.HistoricoPaciente;
 import br.com.mtonon.siagen.domain.Horario;
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Paciente;
@@ -48,6 +49,7 @@ import br.com.mtonon.siagen.repositories.EnderecoUnidadeSaudeRepository;
 import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
 import br.com.mtonon.siagen.repositories.EstadoRepository;
 import br.com.mtonon.siagen.repositories.FuncionamentoRepository;
+import br.com.mtonon.siagen.repositories.HistoricoPacienteRepository;
 import br.com.mtonon.siagen.repositories.HorarioRepository;
 import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
@@ -124,6 +126,9 @@ public class SiagenApiApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ConfigInformacaoAgendamentoRepository configInformacaoAgendamentoRepository;
+	
+	@Autowired
+	private HistoricoPacienteRepository historicoPacienteRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SiagenApiApplication.class, args);
@@ -215,7 +220,14 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		pac1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
+		HistoricoPaciente his1 = new HistoricoPaciente(null, LocalDateTime.now().plusMinutes(10), "Teste de Registro de Histórico de Paciente", pac1);
+		
+		
+		
+		pac1.getHistoricosPaciente().addAll(Arrays.asList(his1));
+		
 		pacienteRepository.saveAll(Arrays.asList(pac1));
+		historicoPacienteRepository.saveAll(Arrays.asList(his1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
 		Dia d1 = new Dia(null, LocalDate.of(2021, 10, 15));

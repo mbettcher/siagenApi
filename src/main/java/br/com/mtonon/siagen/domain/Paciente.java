@@ -252,6 +252,22 @@ public class Paciente implements Serializable {
 		this.etnia = etnia.getCodigo();
 	}
 
+	public List<Agendamento> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<Agendamento> agendamentos) {
+		this.agendamentos = agendamentos;
+	}
+
+	public List<HistoricoPaciente> getHistoricosPaciente() {
+		return historicosPaciente;
+	}
+
+	public void setHistoricosPaciente(List<HistoricoPaciente> historicosPaciente) {
+		this.historicosPaciente = historicosPaciente;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
