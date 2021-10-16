@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "dia_semana")
 public class DiaSemana implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -70,7 +72,7 @@ public class DiaSemana implements Serializable{
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
+
 	public Funcionamento getFuncionamento() {
 		return funcionamento;
 	}
@@ -79,6 +81,7 @@ public class DiaSemana implements Serializable{
 		this.funcionamento = funcionamento;
 	}
 
+	@JsonIgnore
 	public List<UnidadeSaude> getUnidadesSaude() {
 		return unidadesSaude;
 	}

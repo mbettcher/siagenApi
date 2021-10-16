@@ -137,6 +137,7 @@ public class Servico implements Serializable{
 		this.nomeVacina = nomeVacina;
 	}
 
+	@JsonIgnore
 	public TipoServico getTipoServico() {
 		return tipoServico;
 	}
@@ -145,7 +146,6 @@ public class Servico implements Serializable{
 		this.tipoServico = tipoServico;
 	}
 
-	@JsonIgnore
 	public List<UnidadeSaude> getUnidadesSaude() {
 		return unidadesSaude;
 	}

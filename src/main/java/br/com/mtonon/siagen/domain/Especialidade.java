@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "especialidade")
 public class Especialidade implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -53,6 +55,7 @@ public class Especialidade implements Serializable{
 		this.descricao = descricao;
 	}
 	
+	@JsonIgnore
 	public List<UnidadeSaude> getUnidadesSaude() {
 		return unidadesSaude;
 	}

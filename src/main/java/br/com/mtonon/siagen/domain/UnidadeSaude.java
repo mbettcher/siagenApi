@@ -20,6 +20,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "unidade_saude")
 public class UnidadeSaude implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -154,6 +156,7 @@ public class UnidadeSaude implements Serializable{
 		this.enderecos = enderecos;
 	}
 
+	@JsonIgnore
 	public List<Servico> getServicos() {
 		return servicos;
 	}
@@ -161,7 +164,7 @@ public class UnidadeSaude implements Serializable{
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
 	}
-	
+
 	public List<DiaSemana> getDiasFuncionamento() {
 		return diasFuncionamento;
 	}
@@ -170,7 +173,7 @@ public class UnidadeSaude implements Serializable{
 		this.diasFuncionamento = diasFuncionamento;
 	}
 
-
+	@JsonIgnore
 	public List<Agendamento> getAgendamentos() {
 		return agendamentos;
 	}
