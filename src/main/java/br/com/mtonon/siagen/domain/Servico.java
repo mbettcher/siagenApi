@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.mtonon.siagen.domain.enums.Dose;
 
 @Entity(name = "servico")
@@ -143,6 +145,7 @@ public class Servico implements Serializable{
 		this.tipoServico = tipoServico;
 	}
 
+	@JsonIgnore
 	public List<UnidadeSaude> getUnidadesSaude() {
 		return unidadesSaude;
 	}
