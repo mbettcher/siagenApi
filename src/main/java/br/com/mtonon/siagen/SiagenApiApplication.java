@@ -209,6 +209,10 @@ public class SiagenApiApplication implements CommandLineRunner{
 		usa2.getDiasFuncionamento().addAll(Arrays.asList(ds1,ds2,ds3,ds4,ds5));
 		usa3.getDiasFuncionamento().addAll(Arrays.asList(ds1,ds2,ds3,ds4));
 		
+		usa1.getTelefones().addAll(Arrays.asList("2733618200", "2733618201"));
+		usa2.getTelefones().addAll(Arrays.asList("2733624512"));
+		usa3.getTelefones().addAll(Arrays.asList("2732004210"));
+		
 		servicoRepository.saveAll(Arrays.asList(ser1));
 		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
 		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));

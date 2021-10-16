@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity(name = "especialidade")
 public class Especialidade implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -27,7 +25,6 @@ public class Especialidade implements Serializable{
 	private String descricao;
 	
 	/* Uma Especialidade tem várias Unidades de Saúde */
-	@JsonManagedReference
 	@ManyToMany(mappedBy = "especialidades")
 	private List<UnidadeSaude> unidadesSaude = new ArrayList<>();
 	

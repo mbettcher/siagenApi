@@ -4,13 +4,12 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "cidade")
 public class Cidade {
@@ -22,9 +21,8 @@ public class Cidade {
 	
 	@Column(name = "cid_nome", nullable = false)
 	private String nome;
-	
-	@JsonManagedReference
-	@ManyToOne
+
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cid_estado_codigo")
 	private Estado estado;
 	

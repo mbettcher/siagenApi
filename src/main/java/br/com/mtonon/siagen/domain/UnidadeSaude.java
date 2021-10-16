@@ -20,9 +20,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity(name = "unidade_saude")
 public class UnidadeSaude implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -49,7 +46,6 @@ public class UnidadeSaude implements Serializable{
 	private Set<String> telefones = new HashSet<>();
 	
 	/* Uma Unidade de Saúde tem Um ou Muitos Especialidades */
-	@JsonBackReference
 	@ManyToMany
 	@JoinTable(name = "unidade_saude_tem_especialidade",
 			joinColumns = @JoinColumn(name = "unidade_saude_codigo"),
@@ -59,7 +55,6 @@ public class UnidadeSaude implements Serializable{
 	
 	/* Uma Unidade de Saúde tem Um ou Muitos Endereços ??? */
 	@OneToMany(mappedBy = "unidadeSaude")
-	@JsonManagedReference
 	private List<EnderecoUnidadeSaude> enderecos = new ArrayList<>();
 	
 	
@@ -69,7 +64,6 @@ public class UnidadeSaude implements Serializable{
 		joinColumns = @JoinColumn(name = "uss_unidade_saude_codigo"), 
 		inverseJoinColumns = @JoinColumn(name = "uss_servico_codigo")
 	)
-	@JsonBackReference
 	private List<Servico> servicos = new ArrayList<>();
 	
 	@ManyToMany
@@ -77,12 +71,10 @@ public class UnidadeSaude implements Serializable{
 		joinColumns = @JoinColumn(name = "udf_unidade_saude_codigo"), 
 		inverseJoinColumns = @JoinColumn(name = "udf_dia_semana_codigo")
 	)
-	@JsonManagedReference
 	private List<DiaSemana> diasFuncionamento = new ArrayList<>();
 	
 	/* Uma Unidade de Saúde tem um ou muitos Agendamentos */
 	@OneToMany(mappedBy = "unidadeSaude")
-	@JsonBackReference
 	private List<Agendamento> agendamentos = new ArrayList<>();
 	
 	public UnidadeSaude() {

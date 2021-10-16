@@ -14,9 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity(name = "dia_semana")
 public class DiaSemana implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -34,11 +31,9 @@ public class DiaSemana implements Serializable{
 
 	@ManyToOne
 	@JoinColumn(name = "dse_funcionamento_codigo")
-	@JsonManagedReference
 	private Funcionamento funcionamento;
 	
 	@ManyToMany(mappedBy = "diasFuncionamento")
-	@JsonBackReference
 	private List<UnidadeSaude> unidadesSaude = new ArrayList<>();
 	
 	public DiaSemana() {

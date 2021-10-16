@@ -14,9 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import br.com.mtonon.siagen.domain.enums.StatusEvento;
 
 @Entity(name = "agendamento")
@@ -65,13 +62,11 @@ public class Agendamento implements Serializable{
 	/* Agendamento Muitos para Um Paciente*/
 	@ManyToOne
 	@JoinColumn(name = "age_paciente_codigo")
-	@JsonBackReference
 	private Paciente pacienteAgendamento;
 	
 	/* Muitos Agendamentos para Uma Unidade Saúde */
 	@ManyToOne
 	@JoinColumn(name = "age_unidade_saude_codigo")
-	@JsonManagedReference
 	private UnidadeSaude unidadeSaude;
 	
 	@ManyToOne

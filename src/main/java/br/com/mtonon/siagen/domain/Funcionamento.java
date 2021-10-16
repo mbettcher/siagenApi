@@ -13,8 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity(name = "funcionamento")
 public class Funcionamento implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -30,7 +28,6 @@ public class Funcionamento implements Serializable{
 	@Column(name = "fun_fechamento", nullable = false)
 	private LocalTime horaFechamento;
 	
-	@JsonBackReference
 	@OneToMany(mappedBy = "funcionamento")
 	private List<DiaSemana> diasSemana = new ArrayList<>();
 	

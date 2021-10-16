@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.PastOrPresent;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "historico_paciente")
 public class HistoricoPaciente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -68,6 +70,7 @@ public class HistoricoPaciente implements Serializable {
 		this.dataHistorico = dataHistorico;
 	}
 
+	@JsonIgnore
 	public Paciente getPaciente() {
 		return paciente;
 	}
