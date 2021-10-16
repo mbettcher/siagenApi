@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "tipo_servico")
 public class TipoServico implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -52,6 +54,7 @@ public class TipoServico implements Serializable{
 		this.nome = nome;
 	}
 	
+	@JsonIgnore
 	public List<Servico> getServicos() {
 		return servicos;
 	}
