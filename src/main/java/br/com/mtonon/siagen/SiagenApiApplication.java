@@ -27,7 +27,7 @@ import br.com.mtonon.siagen.domain.Horario;
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Paciente;
 import br.com.mtonon.siagen.domain.Perfil;
-import br.com.mtonon.siagen.domain.PerguntaReposta;
+import br.com.mtonon.siagen.domain.PerguntaResposta;
 import br.com.mtonon.siagen.domain.Servico;
 import br.com.mtonon.siagen.domain.TipoServico;
 import br.com.mtonon.siagen.domain.UnidadeSaude;
@@ -272,9 +272,9 @@ public class SiagenApiApplication implements CommandLineRunner{
 		usuarioRepository.saveAll(Arrays.asList(us1, us2, us3));
 		
 
-		PerguntaReposta per1 = new PerguntaReposta(null, "Por que a galinha atravessou a rua?", "Pra chegar do outro lado.");
-		PerguntaReposta per2 = new PerguntaReposta(null, "O quê cai em pé e corre deitado?", "A chuva.");
-		PerguntaReposta per3 = new PerguntaReposta(null, "O quê passa dentro da água e não se molha?", "A sombra.");
+		PerguntaResposta per1 = new PerguntaResposta(null, "Por que a galinha atravessou a rua?", "Pra chegar do outro lado.");
+		PerguntaResposta per2 = new PerguntaResposta(null, "O quê cai em pé e corre deitado?", "A chuva.");
+		PerguntaResposta per3 = new PerguntaResposta(null, "O quê passa dentro da água e não se molha?", "A sombra.");
 		
 		perguntaRespostaRepository.saveAll(Arrays.asList(per1, per2, per3));
 		

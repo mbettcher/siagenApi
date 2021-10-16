@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "pergunta")
-public class PerguntaReposta implements Serializable {
+public class PerguntaResposta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -24,10 +24,10 @@ public class PerguntaReposta implements Serializable {
 	@Column(name = "per_resposta", nullable = false)
 	private String resposta;
 	
-	public PerguntaReposta() {
+	public PerguntaResposta() {
 	}
 
-	public PerguntaReposta(Integer id, String pergunta, String resposta) {
+	public PerguntaResposta(Integer id, String pergunta, String resposta) {
 		super();
 		this.id = id;
 		this.pergunta = pergunta;
@@ -71,7 +71,7 @@ public class PerguntaReposta implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PerguntaReposta other = (PerguntaReposta) obj;
+		PerguntaResposta other = (PerguntaResposta) obj;
 		return Objects.equals(id, other.id);
 	}
 	
