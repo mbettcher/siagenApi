@@ -240,8 +240,8 @@ public class SiagenApiApplication implements CommandLineRunner{
 		historicoPacienteRepository.saveAll(Arrays.asList(his1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
-		Dia d1 = new Dia(null, LocalDate.of(2021, 10, 15));
-		Dia d2 = new Dia(null, LocalDate.of(2021, 10, 16));
+		Dia d1 = new Dia(null, LocalDate.of(2021, 10, 20));
+		Dia d2 = new Dia(null, LocalDate.of(2021, 10, 21));
 		
 		Horario h1 = new Horario(null, LocalTime.of(8, 0));
 		Horario h2 = new Horario(null, LocalTime.of(8, 2));
