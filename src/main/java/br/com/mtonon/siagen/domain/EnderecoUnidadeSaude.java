@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "unidade_saude_endereco")
 public class EnderecoUnidadeSaude implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -115,6 +117,7 @@ public class EnderecoUnidadeSaude implements Serializable {
 		this.cidade = cidade;
 	}
 
+	@JsonIgnore
 	public UnidadeSaude getUnidadeSaude() {
 		return unidadeSaude;
 	}
