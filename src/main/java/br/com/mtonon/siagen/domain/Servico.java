@@ -146,6 +146,7 @@ public class Servico implements Serializable{
 		this.tipoServico = tipoServico;
 	}
 
+	@JsonIgnore
 	public List<UnidadeSaude> getUnidadesSaude() {
 		return unidadesSaude;
 	}
