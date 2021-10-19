@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.mtonon.siagen.domain.Especialidade;
+import br.com.mtonon.siagen.dto.EspecialidadeDTO;
 import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
@@ -55,6 +56,12 @@ public class EspecialidadeService {
 	public Page<Especialidade> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return especialidadeRepository.findAll(pageRequest);
+	}
+	
+	/** Método auxiliar que converte um objeto do tipo EspecialidadeDTO em um objeto do tipo
+	 * Especialidade */
+	public Especialidade fromDTO(EspecialidadeDTO objDTO) {
+		return new Especialidade(objDTO.getId(), objDTO.getDescricao());
 	}
 
 }
