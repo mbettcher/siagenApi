@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.mtonon.siagen.domain.Estado;
 import br.com.mtonon.siagen.dto.EstadoDTO;
 import br.com.mtonon.siagen.repositories.EstadoRepository;
+import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -40,5 +42,16 @@ public class EstadoService {
 	
 	public Estado fromDTO(EstadoDTO objDTO) {
 		return new Estado(objDTO.getId(), objDTO.getNome());
+	}
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			estadoRepository.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException(
+					"Não é possível excluir um Estado que esteja sendo usado por uma Cidade"
+					);
+		}
 	}
 }

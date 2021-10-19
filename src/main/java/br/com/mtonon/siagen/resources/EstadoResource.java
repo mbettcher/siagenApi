@@ -51,5 +51,11 @@ public class EstadoResource {
 		obj = estadoService.update(obj);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		estadoService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
 
 }
