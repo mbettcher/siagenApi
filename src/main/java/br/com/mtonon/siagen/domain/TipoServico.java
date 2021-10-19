@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import br.com.mtonon.siagen.dto.TipoServicoDTO;
+
 @Entity(name = "tipo_servico")
 public class TipoServico implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -28,6 +30,11 @@ public class TipoServico implements Serializable{
 	private List<Servico> servicos = new ArrayList<>(); 
 	
 	public TipoServico() {
+	}
+	
+	public TipoServico(TipoServicoDTO objDTO) {
+		this.id = objDTO.getId();
+		this.nome = objDTO.getNome();
 	}
 
 	public TipoServico(Integer id, String nome) {

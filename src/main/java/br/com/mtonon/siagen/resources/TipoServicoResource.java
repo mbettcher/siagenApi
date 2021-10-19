@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +42,8 @@ public class TipoServicoResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody TipoServico obj) {
+	public ResponseEntity<Void> save(@Valid @RequestBody TipoServicoDTO objDTO) {
+		TipoServico obj = new TipoServico(objDTO);
 		obj = tipoServicoService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -48,7 +51,8 @@ public class TipoServicoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody TipoServico obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody TipoServicoDTO objDTO, @PathVariable Integer id) {
+		TipoServico obj = new TipoServico(objDTO);
 		obj.setId(id);
 		obj = tipoServicoService.update(obj);
 		return ResponseEntity.noContent().build();

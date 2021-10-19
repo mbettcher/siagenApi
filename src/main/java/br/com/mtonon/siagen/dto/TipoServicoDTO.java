@@ -2,12 +2,17 @@ package br.com.mtonon.siagen.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import br.com.mtonon.siagen.domain.TipoServico;
 
 public class TipoServicoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	@NotEmpty(message = "O campo é de preenchimento obrigatório!")
+	@Size(min = 5, max = 100, message = "O tamanho com campo deve ser entre 5 a 100 caracteres!")
 	private String nome;
 	
 	public TipoServicoDTO() {
