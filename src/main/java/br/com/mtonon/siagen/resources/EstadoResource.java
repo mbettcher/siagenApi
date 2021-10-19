@@ -44,5 +44,12 @@ public class EstadoResource {
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Estado obj, @PathVariable Integer id) {
+		obj.setId(id);
+		obj = estadoService.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 
 }

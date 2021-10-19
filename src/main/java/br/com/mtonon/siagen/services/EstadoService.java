@@ -33,6 +33,10 @@ public class EstadoService {
 		return estadoRepository.save(obj);
 	}
 
+	public Estado update(Estado obj) {
+		find(obj.getId());
+		return estadoRepository.save(obj);
+	}
 	
 	public Estado fromDTO(EstadoDTO objDTO) {
 		return new Estado(objDTO.getId(), objDTO.getNome());
