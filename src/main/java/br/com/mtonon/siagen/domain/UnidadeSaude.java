@@ -132,6 +132,7 @@ public class UnidadeSaude implements Serializable{
 		this.ativo = ativo;
 	}
 	
+	@JsonIgnore
 	public List<Especialidade> getEspecialidades() {
 		return especialidades;
 	}

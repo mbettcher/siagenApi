@@ -4,32 +4,32 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.mtonon.siagen.domain.Cidade;
-import br.com.mtonon.siagen.services.CidadeService;
+import br.com.mtonon.siagen.domain.Perfil;
+import br.com.mtonon.siagen.services.PerfilService;
 
 @RestController
-@RequestMapping(value = "/cidades")
-public class CidadeResource {
+@RequestMapping(value = "/perfis")
+public class PerfilResource {
 	
 	@Autowired
-	private CidadeService cidadeService;
+	private PerfilService perfilService;
 	
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cidade>> listar() {
-		List<Cidade> obj = cidadeService.listar();
+	@GetMapping
+	public ResponseEntity<?> listar() {
+		List<Perfil> obj = perfilService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable Integer id) {
-		Cidade obj = cidadeService.buscar(id);
+		Perfil obj = perfilService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
 
 }

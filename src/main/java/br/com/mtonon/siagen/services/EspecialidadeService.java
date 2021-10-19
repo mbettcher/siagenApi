@@ -1,5 +1,6 @@
 package br.com.mtonon.siagen.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class EspecialidadeService {
 		Optional<Especialidade> obj = especialidadeRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Especialidade.class.getName()));
+	}
+	
+	public List<Especialidade> findAll() {
+		return especialidadeRepository.findAll();
 	}
 
 }
