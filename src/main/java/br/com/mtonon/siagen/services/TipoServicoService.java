@@ -32,5 +32,10 @@ public class TipoServicoService {
 		obj.setId(null);
 		return tipoServicoRepository.save(obj);
 	}
+	
+	public TipoServico update(TipoServico obj) {
+		find(obj.getId());
+		return tipoServicoRepository.save(obj);
+	}
 
 }
