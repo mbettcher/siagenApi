@@ -12,8 +12,8 @@ public class EstadoDTO implements Serializable{
 	
 	private Integer id;
 	
-	@NotEmpty(message = "O campo nome do Estado é de preenchimento obrigatório")
-	@Size(min = 4, max = 80, message = "O tamanho do nome do Estado dever ser entre 4 e 80 caracteres")
+	@NotEmpty(message = "O campo é de preenchimento obrigatório")
+	@Size(min = 4, max = 80, message = "O tamanho dever ser entre 4 e 80 caracteres")
 	private String nome;
 	
 	public EstadoDTO() {

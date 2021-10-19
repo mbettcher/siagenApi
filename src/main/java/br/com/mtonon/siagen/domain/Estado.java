@@ -23,7 +23,7 @@ public class Estado implements Serializable {
 	@Column(name = "est_codigo")
 	private Integer id;
 	
-	@Column(name = "est_nome")
+	@Column(name = "est_nome", length = 80)
 	private String nome;
 
 	@OneToMany(mappedBy = "estado")
