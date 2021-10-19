@@ -21,15 +21,18 @@ public class EspecialidadeService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Especialidade.class.getName()));
 	}
-	
-	
+
 	public List<Especialidade> findAll() {
 		return especialidadeRepository.findAll();
 	}
-	
-	
+
 	public Especialidade save(Especialidade obj) {
 		obj.setId(null);
+		return especialidadeRepository.save(obj);
+	}
+	
+	public Especialidade update(Especialidade obj) {
+		find(obj.getId());
 		return especialidadeRepository.save(obj);
 	}
 
