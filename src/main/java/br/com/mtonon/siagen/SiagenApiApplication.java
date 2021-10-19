@@ -169,6 +169,14 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		Especialidade esp1 = new Especialidade(null, "Atendimento Básico de Saúde");
 		Especialidade esp2 = new Especialidade(null, "Imunização Básica (PNI)");
+		Especialidade esp3 = new Especialidade(null, "Realização de Curativos");
+		Especialidade esp4 = new Especialidade(null, "Realização de Inalações");
+		Especialidade esp5 = new Especialidade(null, "Coleta de Exames Laboratoriais");
+		Especialidade esp6 = new Especialidade(null, "Tratamento Odontológico");
+		Especialidade esp7 = new Especialidade(null, "Fornecimento de Medicação Básica");
+		Especialidade esp8 = new Especialidade(null, "Encaminhamento para Especialistas");
+		Especialidade esp9 = new Especialidade(null, "Acompanhamento Psicológico");
+		Especialidade esp10 = new Especialidade(null, "Unidade de Saúde Familiar");
 		
 		UnidadeSaude usa1 = new UnidadeSaude(null, "Unidade de Sáude Normília Cunha", LocalDateTime.now(), null, true);
 		UnidadeSaude usa2 = new UnidadeSaude(null, "Centro Municipal de Especialidades", LocalDateTime.now(), null, true);
@@ -214,7 +222,7 @@ public class SiagenApiApplication implements CommandLineRunner{
 		usa3.getTelefones().addAll(Arrays.asList("2732004210"));
 		
 		servicoRepository.saveAll(Arrays.asList(ser1));
-		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2));
+		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2, esp3, esp4, esp5, esp6, esp7, esp8, esp9, esp10));
 		unidadeSaudeRepository.saveAll(Arrays.asList(usa1, usa2, usa3));
 		enderecoUnidadeSaudeRepository.saveAll(Arrays.asList(eus1, eus2, eus3));
 		
