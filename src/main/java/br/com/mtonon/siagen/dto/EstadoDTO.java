@@ -2,12 +2,18 @@ package br.com.mtonon.siagen.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import br.com.mtonon.siagen.domain.Estado;
 
 public class EstadoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
+	
+	@NotEmpty(message = "O campo nome do Estado é de preenchimento obrigatório")
+	@Size(min = 4, max = 80, message = "O tamanho do nome do Estado dever ser entre 4 e 80 caracteres")
 	private String nome;
 	
 	public EstadoDTO() {
