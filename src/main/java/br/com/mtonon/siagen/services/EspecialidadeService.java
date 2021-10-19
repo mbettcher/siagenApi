@@ -16,14 +16,21 @@ public class EspecialidadeService {
 	@Autowired
 	private EspecialidadeRepository especialidadeRepository;
 
-	public Especialidade buscar(Integer id) {
+	public Especialidade find(Integer id) {
 		Optional<Especialidade> obj = especialidadeRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Especialidade.class.getName()));
 	}
 	
+	
 	public List<Especialidade> findAll() {
 		return especialidadeRepository.findAll();
+	}
+	
+	
+	public Especialidade save(Especialidade obj) {
+		obj.setId(null);
+		return especialidadeRepository.save(obj);
 	}
 
 }
