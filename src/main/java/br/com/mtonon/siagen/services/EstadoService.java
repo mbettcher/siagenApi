@@ -16,7 +16,7 @@ public class EstadoService {
 	@Autowired
 	private EstadoRepository estadoRepository;
 	
-	public List<Estado> listar() {
+	public List<Estado> findAll() {
 		List<Estado> obj = estadoRepository.findAll();
 		return obj;
 	}
