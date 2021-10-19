@@ -45,7 +45,7 @@ public class EstadoResource {
 	public ResponseEntity<Void> save(@Valid @RequestBody EstadoDTO objDTO) {
 		Estado obj = estadoService.fromDTO(objDTO);
 		obj = estadoService.save(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath()
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}

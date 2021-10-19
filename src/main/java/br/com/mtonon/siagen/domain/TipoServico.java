@@ -21,7 +21,7 @@ public class TipoServico implements Serializable{
 	@Column(name = "tse_codigo")
 	private Integer id;
 	
-	@Column(name = "tse_descricao", nullable = false, unique = true)
+	@Column(name = "tse_descricao", length = 100, nullable = false, unique = true)
 	private String nome;
 	
 	@OneToMany(mappedBy = "tipoServico")
