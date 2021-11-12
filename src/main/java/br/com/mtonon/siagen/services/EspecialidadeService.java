@@ -59,7 +59,8 @@ public class EspecialidadeService {
 	}
 	
 	/** Método auxiliar que converte um objeto do tipo EspecialidadeDTO em um objeto do tipo
-	 * Especialidade */
+	 * Especialidade; 
+	**/
 	public Especialidade fromDTO(EspecialidadeDTO objDTO) {
 		return new Especialidade(objDTO.getId(), objDTO.getDescricao());
 	}
