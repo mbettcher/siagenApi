@@ -1,15 +1,17 @@
 package br.com.mtonon.siagen.dto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import br.com.mtonon.siagen.domain.Dia;
 
-public class DiaDTO {
+public class DiaDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
 
+	
 	private Integer id;
 	
 	@NotNull(message = "O campo data é de preenchimento obrigatório.")
