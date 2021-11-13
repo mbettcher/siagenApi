@@ -29,7 +29,7 @@ public class EspecialidadeResource {
 	private EspecialidadeService especialidadeService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Especialidade obj = especialidadeService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -38,6 +38,17 @@ public class EspecialidadeResource {
 	public ResponseEntity<List<EspecialidadeDTO>> findAll() {
 		List<Especialidade> list = especialidadeService.findAll();
 		List<EspecialidadeDTO> listDTO = list.stream().map(obj -> new EspecialidadeDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<EspecialidadeDTO>> findPage(
+			@RequestParam(value = "page", defaultValue = "0") Integer page, 
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
+			@RequestParam(value = "orderBy", defaultValue = "descricao") String orderBy) {
+		Page<Especialidade> list = especialidadeService.findPage(page, linesPerPage, direction, orderBy);
+		Page<EspecialidadeDTO> listDTO = list.map(obj -> new EspecialidadeDTO(obj));
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
@@ -63,16 +74,4 @@ public class EspecialidadeResource {
 		especialidadeService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value = "/page", method = RequestMethod.GET)
-	public ResponseEntity<Page<EspecialidadeDTO>> findPage(
-			@RequestParam(value = "page", defaultValue = "0") Integer page, 
-			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
-			@RequestParam(value = "orderBy", defaultValue = "descricao") String orderBy) {
-		Page<Especialidade> list = especialidadeService.findPage(page, linesPerPage, direction, orderBy);
-		Page<EspecialidadeDTO> listDTO = list.map(obj -> new EspecialidadeDTO(obj));
-		return ResponseEntity.ok().body(listDTO);
-	}
-
 }
