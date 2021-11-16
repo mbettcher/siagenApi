@@ -45,8 +45,9 @@ public class CidadeService {
 	}
 	
 	public Cidade update(Cidade obj) {
-		find(obj.getId());
-		return cidadeRepository.save(obj);
+		Cidade newObj = find(obj.getId());
+		updateData(newObj, obj);
+		return cidadeRepository.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -62,5 +63,9 @@ public class CidadeService {
 	
 	public Cidade fromDTO(CidadeDTO objDTO) {
 		return new Cidade(objDTO.getId(), objDTO.getNome(), new Estado(objDTO.getEstado().getId(), objDTO.getEstado().getNome()));
+	}
+	
+	private void updateData(Cidade newObj, Cidade obj) {
+		newObj.setNome(obj.getNome());
 	}
 }
