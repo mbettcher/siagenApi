@@ -1,131 +1,72 @@
-package br.com.mtonon.siagen.domain;
+package br.com.mtonon.siagen.dto;
 
-import java.io.Serializable;
-import java.util.Objects;
+import javax.validation.constraints.NotBlank;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import br.com.mtonon.siagen.domain.ConfigInformacaoAgendamento;
 
-@Entity(name = "config_informacao_agendamento")
-public class ConfigInformacaoAgendamento implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cin_codigo")
+public class ConfigInformacaoAgendamentoDTO {
+
 	private Integer id;
-	
-	@Column(name = "cin_ativo", columnDefinition = "boolean default false")
+
 	private boolean ativo;
 	
-	@Column(name = "cin_titulo", nullable = false)
+	@NotBlank(message = "O campo Título é de preenchimento obrigatório!")
 	private String titulo;
-	
-	@Column(name = "cin_descricao", nullable = false)
+
+	@NotBlank(message = "O campo Descrição é de preenchimento obrigatório!")
 	private String descricao;
-	
-	@Column(name = "cin_complementar")
+
 	private String complementar;
-	
-	@Column(name = "cin_informacao1", nullable = false)
 	private String informacao1;
-	
-	@Column(name = "cin_informacao2")
 	private String informacao2;
-	
-	@Column(name = "cin_informacao3")
 	private String informacao3;
-	
-	@Column(name = "cin_informacao4")
 	private String informacao4;
-	
-	@Column(name = "cin_informacao5")
 	private String informacao5;
-	
-	@Column(name = "cin_informacao6")
 	private String informacao6;
-	
-	@Column(name = "cin_informacao7")
 	private String informacao7;
-	
-	@Column(name = "cin_informacao8")
 	private String informacao8;
-	
-	@Column(name = "cin_informacao9")
 	private String informacao9;
-	
-	@Column(name = "cin_informacao10")
 	private String informacao10;
-	
-	@Column(name = "cin_informacao1_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel1;
-	
-	@Column(name = "cin_informacao2_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel2;
-	
-	@Column(name = "cin_informacao3_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel3;
-	
-	@Column(name = "cin_informacao4_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel4;
-	
-	@Column(name = "cin_informacao5_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel5;
-	
-	@Column(name = "cin_informacao6_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel6;
-	
-	@Column(name = "cin_informacao7_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel7;
-	
-	@Column(name = "cin_informacao8_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel8;
-	
-	@Column(name = "cin_informacao9_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel9;
-	
-	@Column(name = "cin_informacao10_visivel", columnDefinition = "boolean default false")
 	private boolean informacaoVisivel10;
 	
-	public ConfigInformacaoAgendamento() {
+	public ConfigInformacaoAgendamentoDTO() {
 	}
 
-	public ConfigInformacaoAgendamento(Integer id, boolean ativo, String titulo, String descricao, String complementar,
-			String informacao1,	String informacao2, String informacao3, String informacao4, String informacao5, 
-			String informacao6,	String informacao7, String informacao8, String informacao9, String informacao10, 
-			boolean informacaoVisivel1,	boolean informacaoVisivel2, boolean informacaoVisivel3, 
-			boolean informacaoVisivel4, boolean informacaoVisivel5, boolean informacaoVisivel6, 
-			boolean informacaoVisivel7,	boolean informacaoVisivel8, boolean informacaoVisivel9, 
-			boolean informacaoVisivel10) {
-		super();
-		this.id = id;
-		this.ativo = ativo;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.complementar = complementar;
-		this.informacao1 = informacao1;
-		this.informacao2 = informacao2;
-		this.informacao3 = informacao3;
-		this.informacao4 = informacao4;
-		this.informacao5 = informacao5;
-		this.informacao6 = informacao6;
-		this.informacao7 = informacao7;
-		this.informacao8 = informacao8;
-		this.informacao9 = informacao9;
-		this.informacao10 = informacao10;
-		this.informacaoVisivel1 = informacaoVisivel1;
-		this.informacaoVisivel2 = informacaoVisivel2;
-		this.informacaoVisivel3 = informacaoVisivel3;
-		this.informacaoVisivel4 = informacaoVisivel4;
-		this.informacaoVisivel5 = informacaoVisivel5;
-		this.informacaoVisivel6 = informacaoVisivel6;
-		this.informacaoVisivel7 = informacaoVisivel7;
-		this.informacaoVisivel8 = informacaoVisivel8;
-		this.informacaoVisivel9 = informacaoVisivel9;
-		this.informacaoVisivel10 = informacaoVisivel10;
+	public ConfigInformacaoAgendamentoDTO(ConfigInformacaoAgendamento obj) {
+		this.id = obj.getId();
+		this.ativo = obj.isAtivo();
+		this.titulo = obj.getTitulo();
+		this.descricao = obj.getDescricao();
+		this.complementar = obj.getComplementar();
+		this.informacao1 = obj.getInformacao1();
+		this.informacao2 = obj.getInformacao2();
+		this.informacao3 = obj.getInformacao3();
+		this.informacao4 = obj.getInformacao4();
+		this.informacao5 = obj.getInformacao5();
+		this.informacao6 = obj.getInformacao6();
+		this.informacao7 = obj.getInformacao7();
+		this.informacao8 = obj.getInformacao8();
+		this.informacao9 = obj.getInformacao9();
+		this.informacao10 = obj.getInformacao10();
+		this.informacaoVisivel1 = obj.isInformacaoVisivel1();
+		this.informacaoVisivel2 = obj.isInformacaoVisivel2();
+		this.informacaoVisivel3 = obj.isInformacaoVisivel3();
+		this.informacaoVisivel4 = obj.isInformacaoVisivel4();
+		this.informacaoVisivel5 = obj.isInformacaoVisivel5();
+		this.informacaoVisivel6 = obj.isInformacaoVisivel6();
+		this.informacaoVisivel7 = obj.isInformacaoVisivel7();
+		this.informacaoVisivel8 = obj.isInformacaoVisivel8();
+		this.informacaoVisivel9 = obj.isInformacaoVisivel9();
+		this.informacaoVisivel10 = obj.isInformacaoVisivel10();
 	}
 
 	public Integer getId() {
@@ -327,24 +268,4 @@ public class ConfigInformacaoAgendamento implements Serializable {
 	public void setInformacaoVisivel10(boolean informacaoVisivel10) {
 		this.informacaoVisivel10 = informacaoVisivel10;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ConfigInformacaoAgendamento other = (ConfigInformacaoAgendamento) obj;
-		return Objects.equals(id, other.id);
-	}
-	
-	
-
 }
