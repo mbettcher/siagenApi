@@ -28,13 +28,13 @@ public class VersiculoResource {
 	private VersiculoService versiculoService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<Versiculo>> listar() {
 		List<Versiculo> obj = versiculoService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Versiculo> buscar(@PathVariable Integer id) {
 		Versiculo obj = versiculoService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -51,7 +51,7 @@ public class VersiculoResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> save(@RequestBody @Valid VersiculoDTO objDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid VersiculoDTO objDTO) {
 		Versiculo obj = versiculoService.fromDTO(objDTO);
 		obj = versiculoService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,7 +60,7 @@ public class VersiculoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody @Valid VersiculoDTO objDTO, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid VersiculoDTO objDTO, @PathVariable Integer id) {
 		Versiculo obj = versiculoService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = versiculoService.update(obj);
@@ -68,7 +68,7 @@ public class VersiculoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		versiculoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

@@ -28,13 +28,13 @@ public class ConfigAgendamentoResource {
 	private ConfigAgendamentoService configAgendamentoService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
+	public ResponseEntity<List<ConfigAgendamento>> findAll() {
 		List<ConfigAgendamento> obj = configAgendamentoService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<ConfigAgendamento> find(@PathVariable Integer id) {
 		ConfigAgendamento obj = configAgendamentoService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -51,7 +51,7 @@ public class ConfigAgendamentoResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> save(@RequestBody @Valid ConfigAgendamentoDTO objDTO) {
+	public ResponseEntity<ConfigAgendamento> save(@RequestBody @Valid ConfigAgendamentoDTO objDTO) {
 		ConfigAgendamento obj = configAgendamentoService.fromDTO(objDTO);
 		obj = configAgendamentoService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,7 +60,7 @@ public class ConfigAgendamentoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody @Valid ConfigAgendamentoDTO objDTO, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid ConfigAgendamentoDTO objDTO, @PathVariable Integer id) {
 		ConfigAgendamento obj = configAgendamentoService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = configAgendamentoService.update(obj);
@@ -68,7 +68,7 @@ public class ConfigAgendamentoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		configAgendamentoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

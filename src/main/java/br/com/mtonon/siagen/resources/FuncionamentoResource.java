@@ -20,13 +20,13 @@ public class FuncionamentoResource {
 	private FuncionamentoService funcionamentoService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<Funcionamento>> listar() {
 		List<Funcionamento> obj = funcionamentoService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Funcionamento> buscar(@PathVariable Integer id) {
 		Funcionamento obj = funcionamentoService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

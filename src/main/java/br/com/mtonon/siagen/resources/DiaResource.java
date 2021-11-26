@@ -28,13 +28,13 @@ public class DiaResource {
 	private DiaService diaService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Dia> find(@PathVariable Integer id) {
 		Dia obj = diaService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
+	public ResponseEntity<List<Dia>> findAll() {
 		List<Dia> obj = diaService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
@@ -68,7 +68,7 @@ public class DiaResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		diaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

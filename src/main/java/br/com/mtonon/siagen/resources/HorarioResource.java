@@ -28,13 +28,13 @@ public class HorarioResource {
 	private HorarioService horarioService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
+	public ResponseEntity<List<Horario>> findAll() {
 		List<Horario> obj = horarioService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Horario> find(@PathVariable Integer id) {
 		Horario obj = horarioService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -52,7 +52,7 @@ public class HorarioResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> save(@RequestBody @Valid HorarioDTO objDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid HorarioDTO objDTO) {
 		Horario obj = horarioService.fromDTO(objDTO);
 		obj = horarioService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -61,7 +61,7 @@ public class HorarioResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody @Valid HorarioDTO objDTO, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid HorarioDTO objDTO, @PathVariable Integer id) {
 		Horario obj = horarioService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = horarioService.update(obj);
@@ -69,7 +69,7 @@ public class HorarioResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		horarioService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

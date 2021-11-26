@@ -20,14 +20,14 @@ public class DiaTemHorarioResource {
 	private DiaTemHorarioService diaTemHorarioService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<DiaTemHorario>> listar() {
 		List<DiaTemHorario> obj = diaTemHorarioService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<DiaTemHorario> buscar(@PathVariable Integer id) {
 		DiaTemHorario obj = diaTemHorarioService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

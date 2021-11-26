@@ -21,13 +21,13 @@ public class UnidadeSaudeResource {
 	private UnidadeSaudeService unidadeSaudeService;
 	
 	@GetMapping
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<UnidadeSaude>> listar() {
 		List<UnidadeSaude> obj = unidadeSaudeService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<UnidadeSaude> buscar(@PathVariable Integer id) {
 		UnidadeSaude obj = unidadeSaudeService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

@@ -20,13 +20,13 @@ public class AgendamentoResource {
 	private AgendamentoService agendamentoService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<Agendamento>> listar() {
 		List<Agendamento> obj = agendamentoService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Agendamento> buscar(@PathVariable Integer id) {
 		Agendamento obj = agendamentoService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

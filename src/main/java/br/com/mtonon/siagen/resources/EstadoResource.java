@@ -36,7 +36,7 @@ public class EstadoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Estado> buscar(@PathVariable Integer id) {
 		Estado obj = estadoService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -59,7 +59,7 @@ public class EstadoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		estadoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

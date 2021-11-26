@@ -20,13 +20,13 @@ public class EnderecoUnidadeSaudeResource {
 	private EnderecoUnidadeSaudeService endeUnidadeSaudeService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<EnderecoUnidadeSaude>> listar() {
 		List<EnderecoUnidadeSaude> obj = endeUnidadeSaudeService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<EnderecoUnidadeSaude> buscar(@PathVariable Integer id) {
 		EnderecoUnidadeSaude obj = endeUnidadeSaudeService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}
