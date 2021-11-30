@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 public class CidadeNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;

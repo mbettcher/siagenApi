@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Servico;
+import br.com.mtonon.siagen.domain.TipoServico;
+import br.com.mtonon.siagen.domain.UnidadeSaude;
+import br.com.mtonon.siagen.domain.enums.Dose;
 import br.com.mtonon.siagen.dto.ServicoDTO;
-import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
+import br.com.mtonon.siagen.dto.ServicoNewDTO;
 import br.com.mtonon.siagen.repositories.ServicoRepository;
+import br.com.mtonon.siagen.repositories.UnidadeSaudeRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
@@ -22,7 +26,8 @@ public class ServicoService {
 	private ServicoRepository servicoRepository;
 	
 	@Autowired
-	private NomeVacinaRepository nomeVacinaRepository;
+	private UnidadeSaudeRepository unidadeSaudeRepository;
+
 	
 	public List<Servico> findAll() {
 		List<Servico> obj = servicoRepository.findAll();
@@ -33,6 +38,13 @@ public class ServicoService {
 		Optional<Servico> obj = servicoRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Servico.class.getName()));
+	}
+	
+	public Servico save(Servico obj) {
+		obj.setId(null);
+		obj = servicoRepository.save(obj);
+		unidadeSaudeRepository.saveAll(obj.getUnidadesSaude());
+		return obj;
 	}
 	
 	public Servico update(Servico obj) {
@@ -57,6 +69,18 @@ public class ServicoService {
 		return new Servico(null, objDTO.getDescricao(), objDTO.getTempoExecucao(), objDTO.getIdadeMinima(), 
 				objDTO.getIdadeMaxima(), objDTO.getObservacoes(), null, 
 				null, null);
+	}
+	
+	
+	public Servico fromDTO(ServicoNewDTO objDTO) {
+		TipoServico tipoServico = new TipoServico(objDTO.getTipoServicoId(), null);
+		NomeVacina nomeVacina = new NomeVacina(objDTO.getNomeVacina(), null, null);
+		UnidadeSaude unidadeSaude = new UnidadeSaude(objDTO.getUnidadeSaudeId(), null, null, null, null);
+		Servico servico = new Servico(null, objDTO.getDescricao(), objDTO.getTempoExecucao(), objDTO.getIdadeMinima(), 
+				objDTO.getIdadeMaxima(), objDTO.getObservacoes(), Dose.toEnum(objDTO.getDose()), nomeVacina, 
+				tipoServico);
+		servico.getUnidadesSaude().add(unidadeSaude);
+		return servico;
 	}
 
 	

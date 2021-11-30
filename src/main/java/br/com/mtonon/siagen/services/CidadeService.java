@@ -16,7 +16,6 @@ import br.com.mtonon.siagen.domain.Estado;
 import br.com.mtonon.siagen.dto.CidadeDTO;
 import br.com.mtonon.siagen.dto.CidadeNewDTO;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
-import br.com.mtonon.siagen.repositories.EstadoRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
@@ -25,9 +24,6 @@ public class CidadeService {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
-	
-	@Autowired
-	private EstadoRepository estadoRepository;
 	
 	public List<Cidade> findAll() {
 		List<Cidade> obj = cidadeRepository.findAll();
