@@ -68,7 +68,7 @@ public class Servico implements Serializable{
 		this.idadeMinima = idadeMinima;
 		this.idadeMaxima = idadeMaxima;
 		this.observacoes = observacoes;
-		this.dose = dose.getCodigo();
+		this.dose = (dose == null) ? null : dose.getCodigo();
 		this.nomeVacina = nomeVacina;
 		this.tipoServico = tipoServico;
 	}
