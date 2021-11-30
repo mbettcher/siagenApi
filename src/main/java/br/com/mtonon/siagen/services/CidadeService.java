@@ -9,12 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.mtonon.siagen.domain.Cidade;
 import br.com.mtonon.siagen.domain.Estado;
 import br.com.mtonon.siagen.dto.CidadeDTO;
 import br.com.mtonon.siagen.dto.CidadeNewDTO;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
+import br.com.mtonon.siagen.repositories.EstadoRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
@@ -23,6 +25,9 @@ public class CidadeService {
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
 	
 	public List<Cidade> findAll() {
 		List<Cidade> obj = cidadeRepository.findAll();
@@ -40,9 +45,11 @@ public class CidadeService {
 		return cidadeRepository.findAll(pageRequest);
 	}
 	
+	@Transactional
 	public Cidade save(Cidade obj) {
 		obj.setId(null);
-		return cidadeRepository.save(obj);
+		obj = cidadeRepository.save(obj);
+		return obj;
 	}
 	
 	public Cidade update(Cidade obj) {
@@ -68,10 +75,17 @@ public class CidadeService {
 	}
 	
 	public Cidade fromDTO(CidadeNewDTO objDTO) {
-		return new Cidade(null, objDTO.getNome(), objDTO.getIbge(), objDTO.getIbge7(), null);
+		
+		Cidade cidade = new Cidade(null, objDTO.getNome(), objDTO.getIbge(), objDTO.getIbge7(), null);
+		Estado estado = new Estado(objDTO.getEstadoId(), null);
+		cidade.setEstado(estado);
+		
+		return cidade; 
 	}
 	
 	private void updateData(Cidade newObj, Cidade obj) {
 		newObj.setNome(obj.getNome());
+		newObj.setIbge(obj.getIbge());
+		newObj.setIbge7(obj.getIbge7());
 	}
 }

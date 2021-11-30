@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Servico;
 import br.com.mtonon.siagen.dto.ServicoDTO;
+import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
 import br.com.mtonon.siagen.repositories.ServicoRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
@@ -18,6 +20,9 @@ public class ServicoService {
 	
 	@Autowired
 	private ServicoRepository servicoRepository;
+	
+	@Autowired
+	private NomeVacinaRepository nomeVacinaRepository;
 	
 	public List<Servico> findAll() {
 		List<Servico> obj = servicoRepository.findAll();
@@ -53,6 +58,7 @@ public class ServicoService {
 				objDTO.getIdadeMaxima(), objDTO.getObservacoes(), null, 
 				null, null);
 	}
+
 	
 	private void updateData(Servico newObj, Servico obj) {
 		newObj.setDescricao(obj.getDescricao());

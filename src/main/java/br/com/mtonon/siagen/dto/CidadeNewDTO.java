@@ -13,15 +13,14 @@ public class CidadeNewDTO implements Serializable{
 	private String nome;
 	
 	@NotNull(message = "O campo ibge é de preenchimento obrigatório!")
-	@Size(min = 6, max = 6, message = "O campo deve possuir 6 dígitos!")
 	private Integer ibge;
 	
 	@NotNull(message = "O campo ibge7 é de preenchimento obrigatório!")
-	@Size(min = 7, max = 7, message = "O campo deve possuir 7 dígitos!")
 	private Integer ibge7;
 	
-	@NotBlank(message = "O campo Estado é de preenchimento obrigatório!")
+	@NotNull(message = "O campo Estado é de preenchimento obrigatório!")
 	private Integer estadoId;
+
 	
 	public CidadeNewDTO() {
 	}
@@ -57,4 +56,5 @@ public class CidadeNewDTO implements Serializable{
 	public void setEstadoId(Integer estadoId) {
 		this.estadoId = estadoId;
 	}
+
 }

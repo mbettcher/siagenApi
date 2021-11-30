@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.mtonon.siagen.domain.Cidade;
 import br.com.mtonon.siagen.dto.CidadeDTO;
+import br.com.mtonon.siagen.dto.CidadeNewDTO;
 import br.com.mtonon.siagen.services.CidadeService;
 
 @RestController
@@ -51,7 +52,7 @@ public class CidadeResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody @Valid CidadeDTO objDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid CidadeNewDTO objDTO) {
 		Cidade obj = cidadeService.fromDTO(objDTO);
 		obj = cidadeService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
