@@ -20,13 +20,13 @@ public class HistoricoPacienteResource {
 	private HistoricoPacienteService historicoPacienteService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<HistoricoPaciente>> listar() {
 		List<HistoricoPaciente> obj = historicoPacienteService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<HistoricoPaciente> buscar(@PathVariable Integer id) {
 		HistoricoPaciente obj = historicoPacienteService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

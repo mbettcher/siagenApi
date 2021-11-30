@@ -36,7 +36,7 @@ public class TipoServicoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<TipoServico> buscar(@PathVariable Integer id) {
 		TipoServico obj = tipoServicoService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -60,7 +60,7 @@ public class TipoServicoResource {
 	
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		tipoServicoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

@@ -28,13 +28,13 @@ public class ConfigInformacaoAgendamentoResource {
 	private ConfigInformacaoAgendamentoService configInformacaoAgendamentoService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
+	public ResponseEntity<List<ConfigInformacaoAgendamento>> findAll() {
 		List<ConfigInformacaoAgendamento> obj = configInformacaoAgendamentoService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<ConfigInformacaoAgendamento> find(@PathVariable Integer id) {
 		ConfigInformacaoAgendamento obj = configInformacaoAgendamentoService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -51,7 +51,7 @@ public class ConfigInformacaoAgendamentoResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> save(@RequestBody @Valid ConfigInformacaoAgendamentoDTO objDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid ConfigInformacaoAgendamentoDTO objDTO) {
 		ConfigInformacaoAgendamento obj = configInformacaoAgendamentoService.fromDTO(objDTO);
 		obj = configInformacaoAgendamentoService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,7 +60,7 @@ public class ConfigInformacaoAgendamentoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody @Valid ConfigInformacaoAgendamentoDTO objDTO, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid ConfigInformacaoAgendamentoDTO objDTO, @PathVariable Integer id) {
 		ConfigInformacaoAgendamento obj = configInformacaoAgendamentoService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = configInformacaoAgendamentoService.update(obj);
@@ -68,7 +68,7 @@ public class ConfigInformacaoAgendamentoResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		configInformacaoAgendamentoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

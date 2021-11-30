@@ -21,13 +21,13 @@ public class PacienteResource {
 	private PacienteService pacienteService;
 	
 	@GetMapping
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<Paciente>> listar() {
 		List<Paciente> obj = pacienteService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Paciente> buscar(@PathVariable Integer id) {
 		Paciente obj = pacienteService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

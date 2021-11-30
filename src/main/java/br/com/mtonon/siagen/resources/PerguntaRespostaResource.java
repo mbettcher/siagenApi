@@ -28,13 +28,13 @@ public class PerguntaRespostaResource {
 	private PerguntaRespostaService perguntaRespostaService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> findAll() {
+	public ResponseEntity<List<PerguntaResposta>> findAll() {
 		List<PerguntaResposta> obj = perguntaRespostaService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<PerguntaResposta> find(@PathVariable Integer id) {
 		PerguntaResposta obj = perguntaRespostaService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -51,7 +51,7 @@ public class PerguntaRespostaResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> save(@RequestBody @Valid PerguntaRespostaDTO objDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid PerguntaRespostaDTO objDTO) {
 		PerguntaResposta obj = perguntaRespostaService.fromDTO(objDTO);
 		obj = perguntaRespostaService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,7 +60,7 @@ public class PerguntaRespostaResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody @Valid PerguntaRespostaDTO objDTO, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid PerguntaRespostaDTO objDTO, @PathVariable Integer id) {
 		PerguntaResposta obj = perguntaRespostaService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = perguntaRespostaService.update(obj);
@@ -68,7 +68,7 @@ public class PerguntaRespostaResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		perguntaRespostaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

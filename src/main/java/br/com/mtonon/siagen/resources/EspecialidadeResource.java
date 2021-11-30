@@ -29,7 +29,7 @@ public class EspecialidadeResource {
 	private EspecialidadeService especialidadeService;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Especialidade> find(@PathVariable Integer id) {
 		Especialidade obj = especialidadeService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -70,7 +70,7 @@ public class EspecialidadeResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		especialidadeService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

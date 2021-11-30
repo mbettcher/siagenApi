@@ -21,13 +21,13 @@ public class UsuarioResource {
 	private UsuarioService usuarioService;
 	
 	@GetMapping
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<Usuario>> listar() {
 		List<Usuario> obj = usuarioService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Usuario> buscar(@PathVariable Integer id) {
 		Usuario obj = usuarioService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

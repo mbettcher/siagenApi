@@ -248,8 +248,10 @@ public class SiagenApiApplication implements CommandLineRunner{
 		historicoPacienteRepository.saveAll(Arrays.asList(his1));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
+
 		Dia d1 = new Dia(null, LocalDate.now().plusDays(1));
 		Dia d2 = new Dia(null, LocalDate.now().plusDays(2));
+
 		
 		Horario h1 = new Horario(null, LocalTime.of(8, 0));
 		Horario h2 = new Horario(null, LocalTime.of(8, 2));
@@ -294,9 +296,9 @@ public class SiagenApiApplication implements CommandLineRunner{
 		Versiculo ver6 = new Versiculo(null, "João 14:6", "Respondeu Jesus: \"Eu sou o caminho, a verdade e a vida. Ninguém vem ao Pai, a não ser por mim.\"");
 		
 		versiculoRepository.saveAll(Arrays.asList(ver1,ver2,ver3,ver4,ver5,ver6));
-		
+
 		ConfigAgendamento cfa1 = new ConfigAgendamento(null, LocalDate.now().plusDays(1), LocalDate.now().plusDays(1), LocalTime.of(8, 0), LocalTime.of(16, 0), false, false, true);
-		
+
 		ConfigInformacaoAgendamento cfi1 = new ConfigInformacaoAgendamento(null, true, "Agendamento para Pessoas com Comorbidades", "Todas as Pessoas com mais de 18 anos que possuirem laudo médico de comorbidade", "RG", "Documentos de Apresentação Obrigatória", null, null, null, null, null, null, null, null, null, true, false, false, false, false, false, false, false, false, false);
 		
 		configAgendamentoRepository.saveAll(Arrays.asList(cfa1));
@@ -304,6 +306,7 @@ public class SiagenApiApplication implements CommandLineRunner{
 		configInformacaoAgendamentoRepository.saveAll(Arrays.asList(cfi1));
 		
 		Agendamento age1 = new Agendamento(null, LocalDateTime.now(), "192.168.0.100", 
+
 				LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1), 
 				false, StatusEvento.PADRAO, "Vacinação Covid-19", 
 				"Pessoas com 18 anos ou mais e portadoras de Comorbidades", 

@@ -29,13 +29,13 @@ public class PerfilResource {
 	private PerfilService perfilService;
 	
 	@GetMapping
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<Perfil>> listar() {
 		List<Perfil> obj = perfilService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Perfil> buscar(@PathVariable Integer id) {
 		Perfil obj = perfilService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -52,7 +52,7 @@ public class PerfilResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> save(@RequestBody @Valid PerfilDTO objDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid PerfilDTO objDTO) {
 		Perfil obj = perfilService.fromDTO(objDTO);
 		obj = perfilService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -61,7 +61,7 @@ public class PerfilResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody @Valid PerfilDTO objDTO, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid PerfilDTO objDTO, @PathVariable Integer id) {
 		Perfil obj = perfilService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = perfilService.update(obj);
@@ -69,7 +69,7 @@ public class PerfilResource {
 		}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		perfilService.delete(id);
 		return ResponseEntity.noContent().build();
 		}

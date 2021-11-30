@@ -28,13 +28,13 @@ public class NomeVacinaResource {
 	private NomeVacinaService nomeVacinaService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<NomeVacina>> listar() {
 		List<NomeVacina> obj = nomeVacinaService.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<NomeVacina> buscar(@PathVariable Integer id) {
 		NomeVacina obj = nomeVacinaService.find(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -51,7 +51,7 @@ public class NomeVacinaResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<?> save(@RequestBody @Valid NomeVacinaDTO objDTO) {
+	public ResponseEntity<Void> save(@RequestBody @Valid NomeVacinaDTO objDTO) {
 		NomeVacina obj = nomeVacinaService.fromDTO(objDTO);
 		obj = nomeVacinaService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -60,7 +60,7 @@ public class NomeVacinaResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody @Valid NomeVacinaDTO objDTO, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@RequestBody @Valid NomeVacinaDTO objDTO, @PathVariable Integer id) {
 		NomeVacina obj = nomeVacinaService.fromDTO(objDTO);
 		obj.setId(id);
 		obj = nomeVacinaService.update(obj);
@@ -68,7 +68,7 @@ public class NomeVacinaResource {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		nomeVacinaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}

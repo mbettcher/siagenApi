@@ -20,13 +20,13 @@ public class ServicoResource {
 	private ServicoService servicoService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar() {
+	public ResponseEntity<List<Servico>> listar() {
 		List<Servico> obj = servicoService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id) {
+	public ResponseEntity<Servico> buscar(@PathVariable Integer id) {
 		Servico obj = servicoService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}

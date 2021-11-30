@@ -20,13 +20,13 @@ public class DiaSemanaResource {
 	private DiaSemanaService diaSemanaService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<?> listar(){
+	public ResponseEntity<List<DiaSemana>> listar(){
 		List<DiaSemana> obj = diaSemanaService.listar();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> buscar(@PathVariable Integer id){
+	public ResponseEntity<DiaSemana> buscar(@PathVariable Integer id){
 		DiaSemana obj = diaSemanaService.buscar(id);
 		return ResponseEntity.ok().body(obj);
 	}
