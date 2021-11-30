@@ -103,6 +103,7 @@ public class Paciente implements Serializable {
 	
 	/* Um paciente tem um ou Muitos Históricos */
 	@OneToMany(mappedBy = "paciente")
+	@JsonIgnore
 	private List<HistoricoPaciente> historicosPaciente = new ArrayList<>();
 	
 	public Paciente() {

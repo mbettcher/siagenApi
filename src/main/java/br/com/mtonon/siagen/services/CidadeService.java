@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.mtonon.siagen.domain.Cidade;
 import br.com.mtonon.siagen.domain.Estado;
 import br.com.mtonon.siagen.dto.CidadeDTO;
+import br.com.mtonon.siagen.dto.CidadeNewDTO;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
@@ -62,7 +63,12 @@ public class CidadeService {
 	}
 	
 	public Cidade fromDTO(CidadeDTO objDTO) {
-		return new Cidade(objDTO.getId(), objDTO.getNome(), new Estado(objDTO.getEstado().getId(), objDTO.getEstado().getNome()));
+		Estado estado = new Estado(objDTO.getEstado(), null);
+		return new Cidade(objDTO.getId(), objDTO.getNome(), objDTO.getIbge(), objDTO.getIbge7(), estado);
+	}
+	
+	public Cidade fromDTO(CidadeNewDTO objDTO) {
+		return new Cidade(null, objDTO.getNome(), objDTO.getIbge(), objDTO.getIbge7(), null);
 	}
 	
 	private void updateData(Cidade newObj, Cidade obj) {

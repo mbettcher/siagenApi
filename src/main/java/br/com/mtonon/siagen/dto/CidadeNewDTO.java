@@ -4,42 +4,26 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import br.com.mtonon.siagen.domain.Cidade;
-
-public class CidadeDTO implements Serializable{
+public class CidadeNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	private Integer id;
 	
 	@NotBlank(message = "O campo Nome da Cidade é de preenchimento obrigatório!")
 	private String nome;
 	
 	@NotNull(message = "O campo ibge é de preenchimento obrigatório!")
+	@Size(min = 6, max = 6, message = "O campo deve possuir 6 dígitos!")
 	private Integer ibge;
 	
 	@NotNull(message = "O campo ibge7 é de preenchimento obrigatório!")
+	@Size(min = 7, max = 7, message = "O campo deve possuir 7 dígitos!")
 	private Integer ibge7;
 	
-	private Integer estado;
+	@NotBlank(message = "O campo Estado é de preenchimento obrigatório!")
+	private Integer estadoId;
 	
-	public CidadeDTO() {
-	}
-	
-	public CidadeDTO(Cidade obj) {
-		this.id = obj.getId();
-		this.nome = obj.getNome();
-		this.ibge = obj.getIbge();
-		this.ibge7 = obj.getIbge7();
-		this.estado = obj.getEstado().getId();
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
+	public CidadeNewDTO() {
 	}
 
 	public String getNome() {
@@ -49,7 +33,7 @@ public class CidadeDTO implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
 	public Integer getIbge() {
 		return ibge;
 	}
@@ -66,11 +50,11 @@ public class CidadeDTO implements Serializable{
 		this.ibge7 = ibge7;
 	}
 
-	public Integer getEstado() {
-		return estado;
+	public Integer getEstadoId() {
+		return estadoId;
 	}
 
-	public void setEstado(Integer estado) {
-		this.estado = estado;
-	}	
+	public void setEstadoId(Integer estadoId) {
+		this.estadoId = estadoId;
+	}
 }
