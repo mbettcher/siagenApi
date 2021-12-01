@@ -3,6 +3,8 @@ package br.com.mtonon.siagen.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.mtonon.siagen.domain.Paciente;
 import br.com.mtonon.siagen.dto.PacienteNewDTO;
 import br.com.mtonon.siagen.services.PacienteService;
+import br.com.mtonon.siagen.utils.HttpUtils;
 
 @RestController
 @RequestMapping(value = "/pacientes")
@@ -37,8 +40,9 @@ public class PacienteResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Paciente> save(@RequestBody PacienteNewDTO objDTO) {
+	public ResponseEntity<Paciente> save(@RequestBody PacienteNewDTO objDTO, HttpServletRequest request) {
 		Paciente obj = pacienteService.fromDTO(objDTO);
+		obj.setIpAddrAlteracao(HttpUtils.getRequestIP(request));
 		obj = pacienteService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();

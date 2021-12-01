@@ -55,8 +55,7 @@ public class PacienteService {
 		Paciente paciente = new Paciente(objDTO.getId(), objDTO.getNome(), objDTO.getCpf(), objDTO.getRg(),
 				Emissor.toEnum(objDTO.getEmissor()), objDTO.getCartaoSus(), objDTO.getDataNascimento(),
 				Sexo.toEnum(objDTO.getSexo()), EstadoCivil.toEnum(objDTO.getEstadoCivil()), objDTO.getEmail(), null,
-				LocalDateTime.now(), Status.toEnum(objDTO.getStatus()), objDTO.getIpAddrAlteracao(),
-				Etnia.toEnum(objDTO.getEtnia()));
+				LocalDateTime.now(), Status.toEnum(objDTO.getStatus()), null, Etnia.toEnum(objDTO.getEtnia()));
 
 		return paciente;
 	}
@@ -87,5 +86,5 @@ public class PacienteService {
 
 		return paciente;
 	}
-
+	
 }

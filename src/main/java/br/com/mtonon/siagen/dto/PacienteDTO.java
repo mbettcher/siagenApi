@@ -48,9 +48,6 @@ public class PacienteDTO implements Serializable {
 	@NotNull(message = "O campo Status é obrigatório!")
 	private Integer status;
 
-	@NotBlank(message = "O campo Endereco IP é obrigatório!")
-	private String ipAddrAlteracao;
-
 	@NotNull(message = "O campo Etnia é obrigatório!")
 	private Integer etnia;
 
@@ -160,14 +157,6 @@ public class PacienteDTO implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public String getIpAddrAlteracao() {
-		return ipAddrAlteracao;
-	}
-
-	public void setIpAddrAlteracao(String ipAddrAlteracao) {
-		this.ipAddrAlteracao = ipAddrAlteracao;
 	}
 
 	public Integer getEtnia() {
