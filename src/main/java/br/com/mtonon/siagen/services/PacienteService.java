@@ -18,6 +18,7 @@ import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.dto.PacienteDTO;
 import br.com.mtonon.siagen.dto.PacienteNewDTO;
+import br.com.mtonon.siagen.repositories.EnderecoRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
@@ -26,6 +27,9 @@ public class PacienteService {
 
 	@Autowired
 	private PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public Paciente findById(Integer id) {
 		Optional<Paciente> obj = pacienteRepository.findById(id);
@@ -41,7 +45,9 @@ public class PacienteService {
 	@Transactional
 	public Paciente save(Paciente obj) {
 		obj.setId(null);
-		return pacienteRepository.save(obj);
+		obj = pacienteRepository.save(obj);
+		enderecoRepository.saveAll(obj.getEnderecos());
+		return obj;
 	}
 
 	public Paciente fromDTO(PacienteDTO objDTO) {
@@ -67,6 +73,8 @@ public class PacienteService {
 
 		Endereco endereco = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(),
 				objDTO.getBairro(), objDTO.getCep(), paciente, cidade);
+		
+		paciente.getEnderecos().add(endereco);
 
 		paciente.getTelefones().add(objDTO.getTelefone1());
 
@@ -76,8 +84,6 @@ public class PacienteService {
 		if (objDTO.getTelefone3() != null) {
 			paciente.getTelefones().add(objDTO.getTelefone3());
 		}
-
-		paciente.getEnderecos().add(endereco);
 
 		return paciente;
 	}
