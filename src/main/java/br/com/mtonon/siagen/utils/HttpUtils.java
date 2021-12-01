@@ -1,6 +1,10 @@
 package br.com.mtonon.siagen.utils;
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 public final class HttpUtils {
 	
@@ -22,7 +26,7 @@ public final class HttpUtils {
     }
 	
 	public static String getRequestIP(HttpServletRequest request) {
-		
+
 		for(String header: IP_HEADERS) {
 			String value = request.getHeader(header);
 			if(value == null || value.isEmpty()) {
@@ -35,6 +39,6 @@ public final class HttpUtils {
 		String ip = request.getRemoteAddr();
 		if(ip.equals("0:0:0:0:0:0:0:1")) ip = "127.0.0.1";
 		
-		return ip;	
+		return ip;
     }
 }
