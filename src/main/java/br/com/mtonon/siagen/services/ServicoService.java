@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Servico;
@@ -40,6 +41,7 @@ public class ServicoService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Servico.class.getName()));
 	}
 	
+	@Transactional
 	public Servico save(Servico obj) {
 		obj.setId(null);
 		obj = servicoRepository.save(obj);
@@ -67,18 +69,22 @@ public class ServicoService {
 	
 	public Servico fromDTO(ServicoDTO objDTO) {
 		return new Servico(null, objDTO.getDescricao(), objDTO.getTempoExecucao(), objDTO.getIdadeMinima(), 
-				objDTO.getIdadeMaxima(), objDTO.getObservacoes(), null, 
-				null, null);
+				objDTO.getIdadeMaxima(), objDTO.getObservacoes(), Dose.toEnum(objDTO.getDose()), null, null);
 	}
 	
 	
 	public Servico fromDTO(ServicoNewDTO objDTO) {
+		
+		Servico servico = new Servico(null, objDTO.getDescricao(), objDTO.getTempoExecucao(), objDTO.getIdadeMinima(), 
+				objDTO.getIdadeMaxima(), objDTO.getObservacoes(), Dose.toEnum(objDTO.getDose()), null, 
+				null);
+		
 		TipoServico tipoServico = new TipoServico(objDTO.getTipoServicoId(), null);
 		NomeVacina nomeVacina = new NomeVacina(objDTO.getNomeVacina(), null, null);
 		UnidadeSaude unidadeSaude = new UnidadeSaude(objDTO.getUnidadeSaudeId(), null, null, null, null);
-		Servico servico = new Servico(null, objDTO.getDescricao(), objDTO.getTempoExecucao(), objDTO.getIdadeMinima(), 
-				objDTO.getIdadeMaxima(), objDTO.getObservacoes(), Dose.toEnum(objDTO.getDose()), nomeVacina, 
-				tipoServico);
+		
+		servico.setNomeVacina(nomeVacina);
+		servico.setTipoServico(tipoServico);
 		servico.getUnidadesSaude().add(unidadeSaude);
 		return servico;
 	}
@@ -90,6 +96,7 @@ public class ServicoService {
 		newObj.setIdadeMinima(obj.getIdadeMinima());
 		newObj.setIdadeMaxima(obj.getIdadeMaxima());
 		newObj.setObservacoes(obj.getObservacoes());
+		newObj.setDose(obj.getDose());
 	}
 
 }

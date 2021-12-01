@@ -17,11 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-
-import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -34,78 +30,74 @@ import br.com.mtonon.siagen.domain.enums.Status;
 @Entity(name = "paciente")
 public class Paciente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pac_codigo")
 	private Integer id;
-	
+
 	@Column(name = "pac_nome", nullable = false)
 	private String nome;
-	
+
 	@Column(name = "pac_cpf", nullable = false, unique = true)
-	@CPF(message = "O número informado para o CPF não é válido")
 	@NotBlank(message = "O campo CPF é obrigatório")
 	private String cpf;
-	
+
 	@Column(name = "pac_rg", nullable = false, unique = true)
 	@NotBlank(message = "O campo CPF é obrigatório")
 	private String rg;
-	
+
 	@Column(name = "pac_emissor", nullable = false)
 	private Integer emissor;
-	
+
 	@Column(name = "pac_cartao_sus")
 	private String cartaoSus;
-	
+
 	@Column(name = "pac_data_nascimento")
-	@Past(message = "A data de nascimento deve ser uma data pretérita")
 	private LocalDate dataNascimento;
-	
+
 	@Column(name = "pac_sexo")
 	private Integer sexo;
-	
+
 	@Column(name = "pac_estado_civil")
 	private Integer estadoCivil;
-	
+
 	@Column(name = "pac_email")
-	@Email(message = "O e-mail informado não é um endereço válido")
-	@NotBlank(message = "O campo e-mail é obrigatório")
 	private String email;
-	
+
 	@Column(name = "pac_data_cadastro")
-	private LocalDateTime dataCadastro;	
-	
+	private LocalDateTime dataCadastro;
+
 	@Column(name = "pac_data_alteracao")
 	private LocalDateTime dataAlteracao;
-	
+
 	@Column(name = "pac_status")
 	private Integer status;
-	
+
 	@Column(name = "pac_ipaddr_alteracao")
 	private String ipAddrAlteracao;
-	
+
 	@Column(name = "pac_etnia")
 	private Integer etnia;
-	
+
 	/* Um Paciente tem Um ou Muitos Enderecos */
 	@OneToMany(mappedBy = "paciente")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	/* Um Paciente tem uma coleção de Telefones */
 	@ElementCollection
 	@CollectionTable(name = "paciente_telefone")
 	private Set<String> telefones = new HashSet<>();
-	
+
 	/* Um Paciente tem muitos Agendamentos */
 	@OneToMany(mappedBy = "pacienteAgendamento")
 	private List<Agendamento> agendamentos = new ArrayList<>();
-	
+
 	/* Um paciente tem um ou Muitos Históricos */
 	@OneToMany(mappedBy = "paciente")
 	@JsonIgnore
 	private List<HistoricoPaciente> historicosPaciente = new ArrayList<>();
-	
+
 	public Paciente() {
 	}
 
@@ -249,7 +241,7 @@ public class Paciente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
+
 	public String getIpAddrAlteracao() {
 		return ipAddrAlteracao;
 	}
@@ -257,7 +249,7 @@ public class Paciente implements Serializable {
 	public void setIpAddrAlteracao(String ipAddrAlteracao) {
 		this.ipAddrAlteracao = ipAddrAlteracao;
 	}
-	
+
 	public Etnia getEtnia() {
 		return Etnia.toEnum(etnia);
 	}
@@ -299,7 +291,5 @@ public class Paciente implements Serializable {
 		Paciente other = (Paciente) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 
 }

@@ -7,8 +7,6 @@ import javax.validation.constraints.NotNull;
 
 public class ServicoNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-
-	private Integer id;
 	
 	@NotBlank(message = "O campo descrição é obrigatório!")
 	private String descricao;
@@ -36,15 +34,6 @@ public class ServicoNewDTO implements Serializable{
 	private Integer unidadeSaudeId;
 	
 	public ServicoNewDTO() {
-	}
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public String getDescricao() {

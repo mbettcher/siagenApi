@@ -40,7 +40,7 @@ public class UnidadeSaude implements Serializable{
 	@Column(name = "usa_data_alteracao")
 	private LocalDateTime dataAlteracao;
 	
-	@Column(name = "usa_ativo", columnDefinition = "BOOLEAN", nullable = false)
+	@Column(name = "usa_ativo", columnDefinition = "BOOLEAN")
 	private Boolean ativo;
 	
 	@ElementCollection
