@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.br.CPF;
+import br.com.mtonon.siagen.domain.Paciente;
 
 public class PacienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,21 +18,11 @@ public class PacienteDTO implements Serializable {
 	@NotBlank(message = "O campo nome do paciente é obrigatório!")
 	private String nome;
 
-	@CPF(message = "O número informado para o CPF não é válido")
-	@NotBlank(message = "O campo CPF é obrigatório!")
-	private String cpf;
-
-	@NotBlank(message = "O campo RG é obrigatório!")
-	private String rg;
-
-	@NotNull(message = "O campo Emissor do RG é obrigatório!")
-	private Integer emissor;
-
 	@NotBlank(message = "O campo Cartão do SUS é obrigatório!")
 	private String cartaoSus;
 
 	@Past(message = "O campo Data de Nascimento deve ser uma data pretérita!")
-	@NotBlank(message = "O campo Data de Nascimento é obrigatório!")
+	@NotNull(message = "O campo Data de Nascimento é obrigatório!")
 	private LocalDate dataNascimento;
 
 	@NotNull(message = "O campo Sexo é obrigatório!")
@@ -51,24 +41,20 @@ public class PacienteDTO implements Serializable {
 	@NotNull(message = "O campo Etnia é obrigatório!")
 	private Integer etnia;
 
-	@NotNull(message = "O campo Logradouro é obrigatório!")
-	private Integer logradouro;
-
-	@NotNull(message = "O campo Cidade é obrigatório!")
-	private Integer cidadeId;
-
-	@NotBlank(message = "O campo Telefone é obrigatório!")
-	private String telefone1;
-
-	private String telefone2;
-
-	private String telefone3;
-
-	private Integer historicoPaciente;
-
-	private Integer agendamento;
 
 	public PacienteDTO() {
+	}
+	
+	public PacienteDTO(Paciente obj) {
+		this.id = obj.getId();
+		this.nome = obj.getNome();
+		this.cartaoSus = obj.getCartaoSus();
+		this.dataNascimento = obj.getDataNascimento();
+		this.sexo = obj.getSexo().getCodigo();
+		this.estadoCivil = obj.getEstadoCivil().getCodigo();
+		this.email = obj.getEmail();
+		this.status = obj.getStatus().getCodigo();
+		this.etnia = obj.getEtnia().getCodigo();		
 	}
 
 	public Integer getId() {
@@ -85,30 +71,6 @@ public class PacienteDTO implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-
-	public Integer getEmissor() {
-		return emissor;
-	}
-
-	public void setEmissor(Integer emissor) {
-		this.emissor = emissor;
 	}
 
 	public String getCartaoSus() {
@@ -167,59 +129,4 @@ public class PacienteDTO implements Serializable {
 		this.etnia = etnia;
 	}
 
-	public Integer getCidadeId() {
-		return cidadeId;
-	}
-
-	public void setCidadeId(Integer cidadeId) {
-		this.cidadeId = cidadeId;
-	}
-
-	public Integer getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(Integer logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getTelefone1() {
-		return telefone1;
-	}
-
-	public void setTelefone1(String telefone1) {
-		this.telefone1 = telefone1;
-	}
-
-	public String getTelefone2() {
-		return telefone2;
-	}
-
-	public void setTelefone2(String telefone2) {
-		this.telefone2 = telefone2;
-	}
-
-	public String getTelefone3() {
-		return telefone3;
-	}
-
-	public void setTelefone3(String telefone3) {
-		this.telefone3 = telefone3;
-	}
-
-	public Integer getHistoricoPaciente() {
-		return historicoPaciente;
-	}
-
-	public void setHistoricoPaciente(Integer historicoPaciente) {
-		this.historicoPaciente = historicoPaciente;
-	}
-
-	public Integer getAgendamento() {
-		return agendamento;
-	}
-
-	public void setAgendamento(Integer agendamento) {
-		this.agendamento = agendamento;
-	}
 }

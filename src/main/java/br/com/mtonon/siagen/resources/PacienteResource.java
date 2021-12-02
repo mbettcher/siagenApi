@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.mtonon.siagen.domain.Paciente;
+import br.com.mtonon.siagen.dto.PacienteDTO;
 import br.com.mtonon.siagen.dto.PacienteNewDTO;
 import br.com.mtonon.siagen.services.PacienteService;
 import br.com.mtonon.siagen.utils.HttpUtils;
@@ -40,13 +42,28 @@ public class PacienteResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Paciente> save(@RequestBody PacienteNewDTO objDTO, HttpServletRequest request) {
+	public ResponseEntity<Paciente> save(@Valid @RequestBody PacienteNewDTO objDTO, HttpServletRequest request) {
 		Paciente obj = pacienteService.fromDTO(objDTO);
 		obj.setIpAddrAlteracao(HttpUtils.getRequestIP(request));
 		obj = pacienteService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody PacienteDTO objDTO, HttpServletRequest request) {
+		Paciente obj = pacienteService.fromDTO(objDTO);
+		obj.setId(id);
+		obj.setIpAddrAlteracao(HttpUtils.getRequestIP(request));
+		obj = pacienteService.update(obj);
+		return ResponseEntity.ok().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		pacienteService.delete(id);
+		return ResponseEntity.ok().build();
 	}
 
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -81,7 +82,7 @@ public class Paciente implements Serializable {
 	private Integer etnia;
 
 	/* Um Paciente tem Um ou Muitos Enderecos */
-	@OneToMany(mappedBy = "paciente")
+	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	/* Um Paciente tem uma coleção de Telefones */
@@ -109,17 +110,17 @@ public class Paciente implements Serializable {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.rg = rg;
-		this.emissor = emissor.getCodigo();
+		this.emissor = (emissor == null) ? null : emissor.getCodigo();
 		this.cartaoSus = cartaoSus;
 		this.dataNascimento = dataNascimento;
-		this.sexo = sexo.getCodigo();
-		this.estadoCivil = estadoCivil.getCodigo();
+		this.sexo = (sexo == null) ? null : sexo.getCodigo();
+		this.estadoCivil = (estadoCivil == null) ? null : estadoCivil.getCodigo();
 		this.email = email;
 		this.dataCadastro = dataCadastro;
 		this.dataAlteracao = dataAlteracao;
-		this.status = status.getCodigo();
+		this.status = (status == null) ? null : status.getCodigo();
 		this.ipAddrAlteracao = ipAddrAlteracao;
-		this.etnia = etnia.getCodigo();
+		this.etnia = (etnia == null) ? null : etnia.getCodigo();
 	}
 
 	public Integer getId() {

@@ -1,10 +1,6 @@
 package br.com.mtonon.siagen.utils;
 
-import java.util.Arrays;
-
 import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 public final class HttpUtils {
 	

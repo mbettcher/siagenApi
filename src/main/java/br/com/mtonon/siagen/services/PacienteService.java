@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ import br.com.mtonon.siagen.dto.PacienteDTO;
 import br.com.mtonon.siagen.dto.PacienteNewDTO;
 import br.com.mtonon.siagen.repositories.EnderecoRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
+import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -49,23 +51,51 @@ public class PacienteService {
 		enderecoRepository.saveAll(obj.getEnderecos());
 		return obj;
 	}
+	
+	public void delete(Integer id) {
+		findById(id);
+		try {
+			pacienteRepository.deleteById(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException(
+					"Não é possível excluir um Paciente que esteja sendo usado por outra tabela!"
+					);
+		}
+		
+	}
+	
+	public Paciente update(Paciente obj) {
+		Paciente newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		return pacienteRepository.save(newObj);
+	}
+	
+	private void updateData(Paciente newObj, Paciente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setCartaoSus(obj.getCartaoSus());
+		newObj.setDataNascimento(obj.getDataNascimento());
+		newObj.setSexo(obj.getSexo());
+		newObj.setEstadoCivil(obj.getEstadoCivil());
+		newObj.setEmail(obj.getEmail());
+		newObj.setDataAlteracao(obj.getDataAlteracao());
+		newObj.setStatus(obj.getStatus());
+		newObj.setIpAddrAlteracao(obj.getIpAddrAlteracao());
+		newObj.setEtnia(obj.getEtnia());
+	}
 
 	public Paciente fromDTO(PacienteDTO objDTO) {
-
-		Paciente paciente = new Paciente(objDTO.getId(), objDTO.getNome(), objDTO.getCpf(), objDTO.getRg(),
-				Emissor.toEnum(objDTO.getEmissor()), objDTO.getCartaoSus(), objDTO.getDataNascimento(),
+		Paciente paciente = new Paciente(objDTO.getId(), objDTO.getNome(), null, null,
+				null, objDTO.getCartaoSus(), objDTO.getDataNascimento(),
 				Sexo.toEnum(objDTO.getSexo()), EstadoCivil.toEnum(objDTO.getEstadoCivil()), objDTO.getEmail(), null,
 				LocalDateTime.now(), Status.toEnum(objDTO.getStatus()), null, Etnia.toEnum(objDTO.getEtnia()));
-
 		return paciente;
 	}
 
 	public Paciente fromDTO(PacienteNewDTO objDTO) {
-
 		Paciente paciente = new Paciente(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getRg(),
 				Emissor.toEnum(objDTO.getEmissor()), objDTO.getCartaoSus(), objDTO.getDataNascimento(),
 				Sexo.toEnum(objDTO.getSexo()), EstadoCivil.toEnum(objDTO.getEstadoCivil()), objDTO.getEmail(),
-				LocalDateTime.now(), null, Status.toEnum(objDTO.getStatus()), objDTO.getIpAddrAlteracao(),
+				LocalDateTime.now(), null, Status.toEnum(objDTO.getStatus()), null,
 				Etnia.toEnum(objDTO.getEtnia()));
 
 		Cidade cidade = new Cidade(objDTO.getCidadeId(), null, null, null, null);
@@ -83,7 +113,6 @@ public class PacienteService {
 		if (objDTO.getTelefone3() != null) {
 			paciente.getTelefones().add(objDTO.getTelefone3());
 		}
-
 		return paciente;
 	}
 	
