@@ -20,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "unidade_saude")
@@ -35,9 +36,11 @@ public class UnidadeSaude implements Serializable{
 	private String nome;
 	
 	@Column(name = "usa_data_cadastro")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataCadastro;
 	
 	@Column(name = "usa_data_alteracao")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataAlteracao;
 	
 	@Column(name = "usa_ativo", columnDefinition = "BOOLEAN")
