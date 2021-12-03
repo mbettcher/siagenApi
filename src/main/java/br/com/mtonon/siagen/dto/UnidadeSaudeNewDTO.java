@@ -1,7 +1,6 @@
 package br.com.mtonon.siagen.dto;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -11,8 +10,6 @@ public class UnidadeSaudeNewDTO implements Serializable{
 	
 	private Integer id;
 	private String nome;
-	private LocalDateTime dataCadastro;
-	private LocalDateTime dataAlteracao;
 	private Boolean ativo;
 	
 	@NotBlank(message = "O campo telefone é obrigatório!")
@@ -21,10 +18,10 @@ public class UnidadeSaudeNewDTO implements Serializable{
 	private String telefone3;
 	
 	@NotNull(message = "O campo especialidade é obrigatório!")
-	private Integer Especialidade1;
-	private Integer Especialidade2;
-	private Integer Especialidade3;
-	private Integer Especialidade4;
+	private Integer especialidade1;
+	private Integer especialidade2;
+	private Integer especialidade3;
+	private Integer especialidade4;
 	
 	private String logradouro;
 	private String numero;
@@ -74,22 +71,6 @@ public class UnidadeSaudeNewDTO implements Serializable{
 		this.nome = nome;
 	}
 
-	public LocalDateTime getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(LocalDateTime dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public LocalDateTime getDataAlteracao() {
-		return dataAlteracao;
-	}
-
-	public void setDataAlteracao(LocalDateTime dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
-	}
-
 	public Boolean getAtivo() {
 		return ativo;
 	}
@@ -123,35 +104,35 @@ public class UnidadeSaudeNewDTO implements Serializable{
 	}
 
 	public Integer getEspecialidade1() {
-		return Especialidade1;
+		return especialidade1;
 	}
 
 	public void setEspecialidade1(Integer especialidade1) {
-		Especialidade1 = especialidade1;
+		this.especialidade1 = especialidade1;
 	}
 
 	public Integer getEspecialidade2() {
-		return Especialidade2;
+		return especialidade2;
 	}
 
 	public void setEspecialidade2(Integer especialidade2) {
-		Especialidade2 = especialidade2;
+		this.especialidade2 = especialidade2;
 	}
 
 	public Integer getEspecialidade3() {
-		return Especialidade3;
+		return especialidade3;
 	}
 
 	public void setEspecialidade3(Integer especialidade3) {
-		Especialidade3 = especialidade3;
+		this.especialidade3 = especialidade3;
 	}
 
 	public Integer getEspecialidade4() {
-		return Especialidade4;
+		return especialidade4;
 	}
 
 	public void setEspecialidade4(Integer especialidade4) {
-		Especialidade4 = especialidade4;
+		this.especialidade4 = especialidade4;
 	}
 
 	public String getLogradouro() {
