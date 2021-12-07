@@ -10,7 +10,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.mtonon.siagen.domain.Cidade;
 import br.com.mtonon.siagen.domain.DiaSemana;
 import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
 import br.com.mtonon.siagen.domain.Especialidade;
@@ -19,6 +18,8 @@ import br.com.mtonon.siagen.domain.UnidadeSaude;
 import br.com.mtonon.siagen.dto.UnidadeSaudeDTO;
 import br.com.mtonon.siagen.dto.UnidadeSaudeNewDTO;
 import br.com.mtonon.siagen.repositories.EnderecoUnidadeSaudeRepository;
+import br.com.mtonon.siagen.repositories.EspecialidadeRepository;
+import br.com.mtonon.siagen.repositories.ServicoRepository;
 import br.com.mtonon.siagen.repositories.UnidadeSaudeRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
@@ -32,6 +33,11 @@ public class UnidadeSaudeService {
 	@Autowired
 	private EnderecoUnidadeSaudeRepository enderecoUnidadeSaudeRepository;
 
+	@Autowired
+	private EspecialidadeRepository especialidadeRepository;
+
+	@Autowired
+	private ServicoRepository servicoRepository;
 
 	public UnidadeSaude findById(Integer id) {
 		Optional<UnidadeSaude> obj = unidadeSaudeRepository.findById(id);
@@ -48,23 +54,6 @@ public class UnidadeSaudeService {
 	public UnidadeSaude save(UnidadeSaude obj) {
 		obj.setId(null);
 		enderecoUnidadeSaudeRepository.saveAll(obj.getEnderecos());
-		
-		for(Especialidade esp : obj.getEspecialidades()) {
-			esp.setUnidadesSaude(Arrays.asList(obj));
-		}
-		
-		for(EnderecoUnidadeSaude end : obj.getEnderecos()) {
-			end.setUnidadeSaude(obj);
-		}
-		
-		for(Servico serv : obj.getServicos()) {
-			serv.setUnidadesSaude(Arrays.asList(obj));
-		}
-		
-		for(DiaSemana ds : obj.getDiasFuncionamento()) {
-			ds.setUnidadesSaude(Arrays.asList(obj));
-		}
-		
 		return unidadeSaudeRepository.save(obj);
 	}
 
@@ -72,13 +61,9 @@ public class UnidadeSaudeService {
 	public UnidadeSaude update(UnidadeSaude obj) {
 		UnidadeSaude newObj = findById(obj.getId());
 		updateData(newObj, obj);
-		for(DiaSemana ds : obj.getDiasFuncionamento()) {
-			ds.setUnidadesSaude(Arrays.asList(newObj));
-		}
-		for(EnderecoUnidadeSaude end : obj.getEnderecos()){
-			end.setUnidadeSaude(newObj);
-		}
-		//enderecoUnidadeSaudeRepository.saveAll(obj.getEnderecos());
+		enderecoUnidadeSaudeRepository.saveAll(obj.getEnderecos());
+		servicoRepository.saveAll(obj.getServicos());
+		especialidadeRepository.saveAll(obj.getEspecialidades());
 		return unidadeSaudeRepository.save(newObj);
 	}
 
@@ -95,21 +80,39 @@ public class UnidadeSaudeService {
 	private void updateData(UnidadeSaude newObj, UnidadeSaude obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setAtivo(obj.getAtivo());
-		newObj.getTelefones().clear();
-		newObj.getTelefones().addAll(obj.getTelefones());
+		newObj.setTelefones(obj.getTelefones());
 		newObj.setEnderecos(obj.getEnderecos());
 		newObj.setEspecialidades(obj.getEspecialidades());
 		newObj.setServicos(obj.getServicos());
 		newObj.setDataAlteracao(obj.getDataAlteracao());
 		newObj.setDiasFuncionamento(obj.getDiasFuncionamento());
 	}
-	
+
 	public UnidadeSaude fromDTO(UnidadeSaudeDTO objDTO) {
+
 		UnidadeSaude usa = new UnidadeSaude(objDTO.getId(), objDTO.getNome(), null, LocalDateTime.now(),
 				objDTO.getAtivo());
 		usa.setTelefones(objDTO.getTelefones());
-		usa.setEnderecos(objDTO.getEnderecos());
-		usa.setDiasFuncionamento(objDTO.getDiasFuncionamento());
+
+		for (EnderecoUnidadeSaude endereco : objDTO.getEnderecos()) {
+			endereco.setUnidadeSaude(usa);
+			usa.getEnderecos().add(endereco);
+		}
+
+		for (Especialidade especialidade : objDTO.getEspecialidades()) {
+			especialidade.setUnidadesSaude(Arrays.asList(usa));
+			usa.getEspecialidades().add(especialidade);
+		}
+
+		for (Servico servico : objDTO.getServicos()) {
+			servico.setUnidadesSaude(Arrays.asList(usa));
+			usa.getServicos().add(servico);
+		}
+
+		for (DiaSemana diaSemana : objDTO.getDiasFuncionamento()) {
+			diaSemana.setUnidadesSaude(Arrays.asList(usa));
+			usa.getDiasFuncionamento().add(diaSemana);
+		}
 		return usa;
 	}
 
@@ -127,18 +130,25 @@ public class UnidadeSaudeService {
 			unidadeSaude.getTelefones().add(objDTO.getTelefone3());
 		}
 
-		Cidade cidade = new Cidade(objDTO.getCidadeId(), null, null, null, null);
-		EnderecoUnidadeSaude endereco = new EnderecoUnidadeSaude(null, objDTO.getLogradouro(), objDTO.getNumero(),
-				objDTO.getComplemento(), objDTO.getBairro(), objDTO.getCep(), cidade, unidadeSaude);
+		for (Especialidade especialidade : objDTO.getEspecialidades()) {
+			especialidade.setUnidadesSaude(Arrays.asList(unidadeSaude));
+			unidadeSaude.getEspecialidades().add(especialidade);
+		}
 
-		unidadeSaude.getEnderecos().add(endereco);
-		endereco.setUnidadeSaude(unidadeSaude);
+		for (EnderecoUnidadeSaude endereco : objDTO.getEnderecos()) {
+			endereco.setUnidadeSaude(unidadeSaude);
+			unidadeSaude.getEnderecos().add(endereco);
+		}
 
-		unidadeSaude.setEspecialidades(objDTO.getEspecialidades());
-		unidadeSaude.setServicos(objDTO.getServicos());
-		unidadeSaude.setDiasFuncionamento(objDTO.getDiasFuncionamento());
+		for (Servico servico : objDTO.getServicos()) {
+			servico.setUnidadesSaude(Arrays.asList(unidadeSaude));
+			unidadeSaude.getServicos().add(servico);
+		}
 
+		for (DiaSemana diaSemana : objDTO.getDiasFuncionamento()) {
+			diaSemana.setUnidadesSaude(Arrays.asList(unidadeSaude));
+			unidadeSaude.getDiasFuncionamento().add(diaSemana);
+		}
 		return unidadeSaude;
 	}
-
 }

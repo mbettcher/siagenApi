@@ -1,11 +1,13 @@
 package br.com.mtonon.siagen.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
 import br.com.mtonon.siagen.domain.DiaSemana;
+import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
 import br.com.mtonon.siagen.domain.Especialidade;
 import br.com.mtonon.siagen.domain.Servico;
 
@@ -20,18 +22,13 @@ public class UnidadeSaudeNewDTO implements Serializable {
 	private String telefone2;
 	private String telefone3;
 
-	private String logradouro;
-	private String numero;
-	private String complemento;
-	private String bairro;
-	private String cep;
-	private Integer cidadeId;
+	private List<EnderecoUnidadeSaude> enderecos = new ArrayList<>();
 
-	private List<Especialidade> especialidades;
+	private List<Especialidade> especialidades = new ArrayList<>();
 
-	private List<Servico> servicos;
+	private List<Servico> servicos = new ArrayList<>();
 
-	private List<DiaSemana> diasFuncionamento;
+	private List<DiaSemana> diasFuncionamento = new ArrayList<>();
 
 	public UnidadeSaudeNewDTO() {
 	}
@@ -76,52 +73,12 @@ public class UnidadeSaudeNewDTO implements Serializable {
 		this.telefone3 = telefone3;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
+	public List<EnderecoUnidadeSaude> getEnderecos() {
+		return enderecos;
 	}
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public Integer getCidadeId() {
-		return cidadeId;
-	}
-
-	public void setCidadeId(Integer cidadeId) {
-		this.cidadeId = cidadeId;
+	public void setEnderecos(List<EnderecoUnidadeSaude> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public List<Especialidade> getEspecialidades() {
