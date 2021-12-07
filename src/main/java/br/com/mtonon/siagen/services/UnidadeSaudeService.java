@@ -2,7 +2,6 @@ package br.com.mtonon.siagen.services;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +51,10 @@ public class UnidadeSaudeService {
 		
 		for(Especialidade esp : obj.getEspecialidades()) {
 			esp.setUnidadesSaude(Arrays.asList(obj));
+		}
+		
+		for(EnderecoUnidadeSaude end : obj.getEnderecos()) {
+			end.setUnidadeSaude(obj);
 		}
 		
 		for(Servico serv : obj.getServicos()) {
