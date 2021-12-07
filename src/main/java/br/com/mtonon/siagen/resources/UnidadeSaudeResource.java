@@ -27,14 +27,14 @@ public class UnidadeSaudeResource {
 	private UnidadeSaudeService unidadeSaudeService;
 	
 	@GetMapping
-	public ResponseEntity<List<UnidadeSaudeDTO>> listar() {
+	public ResponseEntity<List<UnidadeSaudeDTO>> findAll() {
 		List<UnidadeSaude> list = unidadeSaudeService.findAll();
 		List<UnidadeSaudeDTO> ListDTO = list.stream().map(obj -> new UnidadeSaudeDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(ListDTO);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<UnidadeSaude> buscar(@PathVariable Integer id) {
+	public ResponseEntity<UnidadeSaude> findById(@PathVariable Integer id) {
 		UnidadeSaude obj = unidadeSaudeService.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
@@ -46,6 +46,13 @@ public class UnidadeSaudeResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@PathVariable Integer id,@RequestBody UnidadeSaudeDTO objDTO) {
+		UnidadeSaude obj = unidadeSaudeService.fromDTO(objDTO);
+		obj = unidadeSaudeService.update(obj);
+		return ResponseEntity.ok().build();
 	}
 
 }

@@ -2,7 +2,14 @@ package br.com.mtonon.siagen.dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import br.com.mtonon.siagen.domain.DiaSemana;
+import br.com.mtonon.siagen.domain.EnderecoUnidadeSaude;
+import br.com.mtonon.siagen.domain.Especialidade;
+import br.com.mtonon.siagen.domain.Servico;
 import br.com.mtonon.siagen.domain.UnidadeSaude;
 
 public class UnidadeSaudeDTO implements Serializable{
@@ -10,19 +17,24 @@ public class UnidadeSaudeDTO implements Serializable{
 	
 	private Integer id;
 	private String nome;
-	private LocalDateTime dataCadastro;
-	private LocalDateTime dataAlteracao;
 	private Boolean ativo;
 	
+	private Set<String> telefones = new HashSet<>();
+	
+	private List<EnderecoUnidadeSaude> enderecos;
+	
+	private List<DiaSemana> diasFuncionamento;
+
 	public UnidadeSaudeDTO() {
 	}
 	
 	public UnidadeSaudeDTO(UnidadeSaude obj) {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
-		this.dataCadastro = obj.getDataCadastro();
-		this.dataAlteracao = obj.getDataAlteracao();
 		this.ativo = obj.getAtivo();
+		this.telefones = obj.getTelefones();
+		this.enderecos = obj.getEnderecos();
+		this.diasFuncionamento = obj.getDiasFuncionamento();
 	}
 
 	public Integer getId() {
@@ -41,27 +53,35 @@ public class UnidadeSaudeDTO implements Serializable{
 		this.nome = nome;
 	}
 
-	public LocalDateTime getDataCadastro() {
-		return dataCadastro;
-	}
-
-	public void setDataCadastro(LocalDateTime dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
-
-	public LocalDateTime getDataAlteracao() {
-		return dataAlteracao;
-	}
-
-	public void setDataAlteracao(LocalDateTime dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
-	}
-
 	public Boolean getAtivo() {
 		return ativo;
 	}
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
+	public List<EnderecoUnidadeSaude> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<EnderecoUnidadeSaude> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public List<DiaSemana> getDiasFuncionamento() {
+		return diasFuncionamento;
+	}
+
+	public void setDiasFuncionamento(List<DiaSemana> diasFuncionamento) {
+		this.diasFuncionamento = diasFuncionamento;
 	}
 }

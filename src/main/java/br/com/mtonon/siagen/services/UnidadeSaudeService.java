@@ -2,6 +2,7 @@ package br.com.mtonon.siagen.services;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,9 +65,18 @@ public class UnidadeSaudeService {
 		return unidadeSaudeRepository.save(obj);
 	}
 
+	@Transactional
 	public UnidadeSaude update(UnidadeSaude obj) {
-		findById(obj.getId());
-		return unidadeSaudeRepository.save(obj);
+		UnidadeSaude newObj = findById(obj.getId());
+		updateData(newObj, obj);
+		for(DiaSemana ds : obj.getDiasFuncionamento()) {
+			ds.setUnidadesSaude(Arrays.asList(newObj));
+		}
+		for(EnderecoUnidadeSaude end : obj.getEnderecos()){
+			end.setUnidadeSaude(newObj);
+		}
+		//enderecoUnidadeSaudeRepository.saveAll(obj.getEnderecos());
+		return unidadeSaudeRepository.save(newObj);
 	}
 
 	public void delete(Integer id) {
@@ -79,9 +89,25 @@ public class UnidadeSaudeService {
 		}
 	}
 
+	private void updateData(UnidadeSaude newObj, UnidadeSaude obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setAtivo(obj.getAtivo());
+		newObj.getTelefones().clear();
+		newObj.getTelefones().addAll(obj.getTelefones());
+		newObj.setEnderecos(obj.getEnderecos());
+		newObj.setEspecialidades(obj.getEspecialidades());
+		newObj.setServicos(obj.getServicos());
+		newObj.setDataAlteracao(obj.getDataAlteracao());
+		newObj.setDiasFuncionamento(obj.getDiasFuncionamento());
+	}
+	
 	public UnidadeSaude fromDTO(UnidadeSaudeDTO objDTO) {
-		return new UnidadeSaude(objDTO.getId(), objDTO.getNome(), objDTO.getDataCadastro(), objDTO.getDataAlteracao(),
+		UnidadeSaude usa = new UnidadeSaude(objDTO.getId(), objDTO.getNome(), null, LocalDateTime.now(),
 				objDTO.getAtivo());
+		usa.setTelefones(objDTO.getTelefones());
+		usa.setEnderecos(objDTO.getEnderecos());
+		usa.setDiasFuncionamento(objDTO.getDiasFuncionamento());
+		return usa;
 	}
 
 	public UnidadeSaude fromDTO(UnidadeSaudeNewDTO objDTO) {
@@ -104,7 +130,7 @@ public class UnidadeSaudeService {
 
 		unidadeSaude.getEnderecos().add(endereco);
 		endereco.setUnidadeSaude(unidadeSaude);
-		
+
 		unidadeSaude.setEspecialidades(objDTO.getEspecialidades());
 		unidadeSaude.setServicos(objDTO.getServicos());
 		unidadeSaude.setDiasFuncionamento(objDTO.getDiasFuncionamento());
