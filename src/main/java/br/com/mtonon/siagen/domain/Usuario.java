@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.mtonon.siagen.domain.enums.Status;
 
 @Entity(name = "usuario")
@@ -36,6 +38,7 @@ public class Usuario {
 	@Column(name = "usu_email", nullable = false)
 	private String email;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Column(name = "usu_data_cadastramento")
 	private LocalDateTime dataCadastramento;
 	
@@ -48,9 +51,11 @@ public class Usuario {
 	@Column(name = "usu_codigo_validacao")
 	private String codigoValidacao;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Column(name = "usu_ultimo_acesso")
 	private LocalDateTime dataUltimoAcesso;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Column(name = "usu_data_alteracao")
 	private LocalDateTime dataAlteracao;
 	

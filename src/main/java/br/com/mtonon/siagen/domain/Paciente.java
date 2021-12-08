@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.mtonon.siagen.domain.enums.Emissor;
@@ -54,6 +55,7 @@ public class Paciente implements Serializable {
 	@Column(name = "pac_cartao_sus")
 	private String cartaoSus;
 
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Column(name = "pac_data_nascimento")
 	private LocalDate dataNascimento;
 
@@ -66,9 +68,11 @@ public class Paciente implements Serializable {
 	@Column(name = "pac_email")
 	private String email;
 
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Column(name = "pac_data_cadastro")
 	private LocalDateTime dataCadastro;
 
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Column(name = "pac_data_alteracao")
 	private LocalDateTime dataAlteracao;
 
@@ -96,7 +100,6 @@ public class Paciente implements Serializable {
 
 	/* Um paciente tem um ou Muitos Históricos */
 	@OneToMany(mappedBy = "paciente")
-	@JsonIgnore
 	private List<HistoricoPaciente> historicosPaciente = new ArrayList<>();
 
 	public Paciente() {

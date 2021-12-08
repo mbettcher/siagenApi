@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.PastOrPresent;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "historico_paciente")
@@ -26,6 +27,7 @@ public class HistoricoPaciente implements Serializable {
 	
 	@Column(name = "hpa_data_historico")
 	@PastOrPresent(message = "A data do histórico deve ser a data atual ou data pretérita")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime dataHistorico;
 	
 	@Column(name = "hpa_observacao", nullable = false)
