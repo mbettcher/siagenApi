@@ -69,7 +69,6 @@ public class Usuario {
 	public Usuario(Integer id, String nome, String cpf, String login, String senha, String email,
 			LocalDateTime dataCadastramento, Status status, boolean emailVerificado, String codigoValidacao,
 			LocalDateTime dataUltimoAcesso, LocalDateTime dataAlteracao, Perfil perfil) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
