@@ -2,6 +2,7 @@ package br.com.mtonon.siagen.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,10 @@ public class DiaTemHorarioResource {
 	private DiaTemHorarioService diaTemHorarioService;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<DiaTemHorario>> findAll() {
-		List<DiaTemHorario> obj = diaTemHorarioService.findAll();
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<List<DiaTemHorarioDTO>> findAll() {
+		List<DiaTemHorario> list = diaTemHorarioService.findAll();
+		List<DiaTemHorarioDTO> listDTO = list.stream().map(obj -> new DiaTemHorarioDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	
