@@ -11,9 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-@Entity(name = "dia_tem_horario")
+@Entity(name = "agenda")
 public class DiaTemHorario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -44,7 +42,8 @@ public class DiaTemHorario implements Serializable{
 	public DiaTemHorario() {
 	}
 
-	public DiaTemHorario(Integer id, boolean disponivel, Dia dia, Horario horario, Servico servico, UnidadeSaude unidadeSaude) {
+	public DiaTemHorario(Integer id, boolean disponivel, Dia dia, 
+			Horario horario, Servico servico, UnidadeSaude unidadeSaude) {
 		super();
 		this.id = id;
 		this.disponivel = disponivel;
@@ -94,7 +93,7 @@ public class DiaTemHorario implements Serializable{
 		this.servico = servico;
 	}
 
-	@JsonIgnore
+
 	public UnidadeSaude getUnidadeSaude() {
 		return unidadeSaude;
 	}
