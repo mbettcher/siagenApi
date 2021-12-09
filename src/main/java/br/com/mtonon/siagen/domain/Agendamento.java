@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
 
+import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.domain.enums.StatusEvento;
 
 @Entity(name = "agendamento")
@@ -77,17 +78,16 @@ public class Agendamento implements Serializable{
 	}
 
 	public Agendamento(Integer id, LocalDateTime dataAgendamento, String addrAgendamento, LocalDateTime dataInicio,
-			LocalDateTime dataFim, boolean diaInteiro, StatusEvento statusEvento, String titulo, String descricao,
+			LocalDateTime dataFim, boolean diaInteiro, Status status, String titulo, String descricao,
 			String chaveAgendamento, LocalDateTime dataAlteracao, Paciente pacienteAgendamento, UnidadeSaude unidadeSaude,
 			Servico servico) {
-		super();
 		this.id = id;
 		this.dataAgendamento = dataAgendamento;
 		this.addrAgendamento = addrAgendamento;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.diaInteiro = diaInteiro;
-		this.statusEvento = statusEvento.getCodigo();
+		this.statusEvento = (status == null) ? null : status.getCodigo();
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.chaveAgendamento = chaveAgendamento;

@@ -39,7 +39,6 @@ import br.com.mtonon.siagen.domain.enums.EstadoCivil;
 import br.com.mtonon.siagen.domain.enums.Etnia;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
-import br.com.mtonon.siagen.domain.enums.StatusEvento;
 import br.com.mtonon.siagen.repositories.AgendamentoRepository;
 import br.com.mtonon.siagen.repositories.CidadeRepository;
 import br.com.mtonon.siagen.repositories.ConfigAgendamentoRepository;
@@ -308,7 +307,7 @@ public class SiagenApiApplication implements CommandLineRunner{
 		Agendamento age1 = new Agendamento(null, LocalDateTime.now(), "192.168.0.100", 
 
 				LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1), 
-				false, StatusEvento.PADRAO, "Vacinação Covid-19", 
+				false, Status.ATIVO, "Vacinação Covid-19", 
 				"Pessoas com 18 anos ou mais e portadoras de Comorbidades", 
 				"a1b2c3d4", null, pac1, usa3, ser1);
 		
