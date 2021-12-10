@@ -313,6 +313,11 @@ public class SiagenApiApplication implements CommandLineRunner{
 		
 		agendamentoRepository.save(age1);
 		
+		var min = Math.ceil(1);
+		var max = Math.floor(1000000);
+		var numero = Math.floor(Math.random() * (max - min)) + min;
+		System.out.println("numero gerado: " + numero);
+		
 	}
 
 }
