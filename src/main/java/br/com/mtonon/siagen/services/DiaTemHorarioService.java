@@ -57,6 +57,7 @@ public class DiaTemHorarioService {
 					);
 		}
 	}
+
 	
 	public DiaTemHorario fromDTO(DiaTemHorarioDTO objDTO) {
 		Dia dia = new Dia(objDTO.getDiaId(), null);

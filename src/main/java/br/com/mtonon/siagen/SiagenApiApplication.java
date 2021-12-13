@@ -62,6 +62,7 @@ import br.com.mtonon.siagen.repositories.TipoServicoRepository;
 import br.com.mtonon.siagen.repositories.UnidadeSaudeRepository;
 import br.com.mtonon.siagen.repositories.UsuarioRepository;
 import br.com.mtonon.siagen.repositories.VersiculoRepository;
+import br.com.mtonon.siagen.utils.GeneratorNumber;
 
 @SpringBootApplication
 public class SiagenApiApplication implements CommandLineRunner{
@@ -312,11 +313,8 @@ public class SiagenApiApplication implements CommandLineRunner{
 				"a1b2c3d4", null, pac1, usa3, ser1);
 		
 		agendamentoRepository.save(age1);
-		
-		var min = Math.ceil(1);
-		var max = Math.floor(1000000);
-		var numero = Math.floor(Math.random() * (max - min)) + min;
-		System.out.println("numero gerado: " + numero);
+
+		System.out.println(GeneratorNumber.GenerateNumber());
 		
 	}
 

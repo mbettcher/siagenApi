@@ -7,8 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.mtonon.siagen.domain.Agendamento;
+import br.com.mtonon.siagen.domain.DiaTemHorario;
 import br.com.mtonon.siagen.domain.Paciente;
 import br.com.mtonon.siagen.domain.Servico;
 import br.com.mtonon.siagen.domain.UnidadeSaude;
@@ -24,6 +26,9 @@ public class AgendamentoService {
 
 	@Autowired
 	private AgendamentoRepository agendamentoRepository;
+	
+	@Autowired
+	private DiaTemHorarioService diaTemHorarioService;
 
 	public List<Agendamento> findAll() {
 		List<Agendamento> obj = agendamentoRepository.findAll();
@@ -70,25 +75,36 @@ public class AgendamentoService {
 				servico);
 	}
 
+	@Transactional
 	public Agendamento fromDTO(AgendamentoNewDTO objDTO) {
+		
+		DiaTemHorario agenda = diaTemHorarioService.findById(objDTO.getAgendaId());
 
 		Paciente paciente = new Paciente(objDTO.getPacienteId(), null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null);
-		UnidadeSaude unidadeSaude = new UnidadeSaude(objDTO.getUnidadeSaudeId(), null, null, null, null);
-		Servico servico = new Servico(objDTO.getServicoId(), null, null, null, null, null, null, null, null);
-
+		
+		UnidadeSaude unidadeSaude = agenda.getUnidadeSaude();
+		
+		Servico servico = agenda.getServico();
+		
 		Agendamento agendamento = new Agendamento(null, LocalDateTime.now(), null,
-				objDTO.getDataInicio().atTime(objDTO.getHoraInicio()), null, false, Status.toEnum(objDTO.getStatusEvento()),
-				objDTO.getTitulo(), objDTO.getDescricao(), null, null, paciente, unidadeSaude, servico);
+				agenda.getDia().getData().atTime(agenda.getHorario().getHora()), 
+				agenda.getDia().getData().atTime(agenda.getHorario().getHora().plusMinutes(servico.getTempoExecucao())), 
+				false, Status.toEnum(objDTO.getStatusEvento()),	objDTO.getTitulo(), servico.getDescricao(), 
+				null, null, paciente, unidadeSaude, servico);
+		
 		paciente.getAgendamentos().add(agendamento);
 		unidadeSaude.getAgendamentos().add(agendamento);
+		
+		agenda.setDisponivel(false);
+		diaTemHorarioService.update(agenda);
+		
 		return agendamento;
 	}
 
 	private void updateData(Agendamento newObj, Agendamento obj) {
 		newObj.setAddrAgendamento(obj.getAddrAgendamento());
 		newObj.setDataAlteracao(obj.getDataAlteracao());
-		newObj.setDescricao(obj.getDescricao());
 		newObj.setTitulo(obj.getTitulo());
 		newObj.setStatusEvento(obj.getStatusEvento());
 	}

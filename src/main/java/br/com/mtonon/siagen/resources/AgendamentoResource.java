@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import br.com.mtonon.siagen.domain.Agendamento;
 import br.com.mtonon.siagen.dto.AgendamentoDTO;
 import br.com.mtonon.siagen.dto.AgendamentoNewDTO;
 import br.com.mtonon.siagen.services.AgendamentoService;
+import br.com.mtonon.siagen.utils.HttpUtils;
 
 @RestController
 @RequestMapping("/agendamentos")
@@ -39,8 +42,10 @@ public class AgendamentoResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody AgendamentoNewDTO objDTO){
+	public ResponseEntity<Agendamento> save(@RequestBody AgendamentoNewDTO objDTO, HttpServletRequest request){
 		Agendamento obj = agendamentoService.fromDTO(objDTO);
+		obj.setAddrAgendamento(HttpUtils.getRequestIP(request));
+		obj.setChaveAgendamento("123456789");
 		obj = agendamentoService.save(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
