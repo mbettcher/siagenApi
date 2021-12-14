@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.mtonon.siagen.domain.Agendamento;
