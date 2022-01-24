@@ -15,6 +15,7 @@ import br.com.mtonon.siagen.dto.UsuarioDTO;
 import br.com.mtonon.siagen.dto.UsuarioNewDTO;
 import br.com.mtonon.siagen.repositories.UsuarioRepository;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
+import br.com.mtonon.siagen.services.exceptions.ObjectExistsException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -28,7 +29,21 @@ public class UsuarioService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Usuario.class.getName()));
 	}
+	
+	public Usuario findByLoginAndSenha(String login, String senha) {
+		Optional<Usuario> obj = usuarioRepository.findByLoginAndSenha(login, senha);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Nenhum usuário localizado para o login = " + login + " e senha = " + senha));
+	}
 
+
+	public void existsCpf(String cpf) {
+		boolean exist = usuarioRepository.existsByCpf(cpf);
+		if(exist) {
+			throw new ObjectExistsException("O CPF informado já está cadastrado para um usuário!");
+		}
+	}
+	
 	public List<Usuario> findAll() {
 		List<Usuario> lista = usuarioRepository.findAll();
 		return lista;
