@@ -10,9 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 
-@Entity(name = "config_agendamento")
+@Entity
+@Table(name = "config_agendamento", schema = "siagen_db")
 public class ConfigAgendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

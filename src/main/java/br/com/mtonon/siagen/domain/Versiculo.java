@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "versiculo")
+@Entity
+@Table(name = "versiculo", schema = "siagen_db")
 public class Versiculo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

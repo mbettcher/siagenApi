@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "config_informacao_agendamento")
+@Entity
+@Table(name = "config_informacao_agendamento", schema = "siagen_db")
 public class ConfigInformacaoAgendamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

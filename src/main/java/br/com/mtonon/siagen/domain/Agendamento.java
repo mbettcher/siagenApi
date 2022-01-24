@@ -11,13 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
 
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.domain.enums.StatusEvento;
 
-@Entity(name = "agendamento")
+@Entity
+@Table(name = "agendamento", schema = "siagen_db")
 public class Agendamento implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

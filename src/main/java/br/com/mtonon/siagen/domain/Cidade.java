@@ -9,8 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name = "cidade")
+@Entity
+@Table(name = "cidade", schema = "siagen_db")
 public class Cidade {
 	
 	@Id

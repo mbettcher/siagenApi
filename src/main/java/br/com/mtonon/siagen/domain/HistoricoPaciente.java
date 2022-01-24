@@ -11,12 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.PastOrPresent;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "historico_paciente")
+@Entity
+@Table(name = "historico_paciente", schema = "siagen_db")
 public class HistoricoPaciente implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

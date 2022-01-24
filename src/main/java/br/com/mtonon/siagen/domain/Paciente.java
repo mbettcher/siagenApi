@@ -18,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -29,7 +30,8 @@ import br.com.mtonon.siagen.domain.enums.Etnia;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 
-@Entity(name = "paciente")
+@Entity
+@Table(name = "paciente", schema = "siagen_db")
 public class Paciente implements Serializable {
 	private static final long serialVersionUID = 1L;
 

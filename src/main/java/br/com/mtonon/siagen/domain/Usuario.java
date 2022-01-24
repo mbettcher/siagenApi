@@ -10,12 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.mtonon.siagen.domain.enums.Status;
 
-@Entity(name = "usuario")
+@Entity
+@Table(name = "usuario", schema = "siagen_db")
 public class Usuario {
 	
 	@Id
