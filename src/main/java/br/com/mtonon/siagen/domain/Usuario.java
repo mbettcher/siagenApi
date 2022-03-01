@@ -1,10 +1,16 @@
 package br.com.mtonon.siagen.domain;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +21,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.mtonon.siagen.domain.enums.Perfil;
 import br.com.mtonon.siagen.domain.enums.Status;
 
 @Entity
@@ -63,16 +70,17 @@ public class Usuario {
 	@Column(name = "usu_data_alteracao")
 	private LocalDateTime dataAlteracao;
 	
-	@ManyToOne
-	@JoinColumn(name = "usu_perfil_codigo")
-	private Perfil perfil;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "perfis")
+	private Set<Integer> perfis = new HashSet<>();
 	
 	public Usuario() {
+		addPerfil(Perfil.PACIENTE);
 	}
 
 	public Usuario(Integer id, String nome, String cpf, String login, String senha, String email,
 			LocalDateTime dataCadastramento, Status status, boolean emailVerificado, String codigoValidacao,
-			LocalDateTime dataUltimoAcesso, LocalDateTime dataAlteracao, Perfil perfil) {
+			LocalDateTime dataUltimoAcesso, LocalDateTime dataAlteracao) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
@@ -85,7 +93,7 @@ public class Usuario {
 		this.codigoValidacao = codigoValidacao;
 		this.dataUltimoAcesso = dataUltimoAcesso;
 		this.dataAlteracao = dataAlteracao;
-		this.perfil = perfil;
+		addPerfil(Perfil.PACIENTE);
 	}
 
 	public Integer getId() {
@@ -184,12 +192,12 @@ public class Usuario {
 		this.dataAlteracao = dataAlteracao;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCodigo());
 	}
 
 	@Override

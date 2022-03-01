@@ -26,7 +26,6 @@ import br.com.mtonon.siagen.domain.HistoricoPaciente;
 import br.com.mtonon.siagen.domain.Horario;
 import br.com.mtonon.siagen.domain.NomeVacina;
 import br.com.mtonon.siagen.domain.Paciente;
-import br.com.mtonon.siagen.domain.Perfil;
 import br.com.mtonon.siagen.domain.PerguntaResposta;
 import br.com.mtonon.siagen.domain.Servico;
 import br.com.mtonon.siagen.domain.TipoServico;
@@ -37,6 +36,7 @@ import br.com.mtonon.siagen.domain.enums.Dose;
 import br.com.mtonon.siagen.domain.enums.Emissor;
 import br.com.mtonon.siagen.domain.enums.EstadoCivil;
 import br.com.mtonon.siagen.domain.enums.Etnia;
+import br.com.mtonon.siagen.domain.enums.Perfil;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.repositories.AgendamentoRepository;
@@ -55,7 +55,6 @@ import br.com.mtonon.siagen.repositories.HistoricoPacienteRepository;
 import br.com.mtonon.siagen.repositories.HorarioRepository;
 import br.com.mtonon.siagen.repositories.NomeVacinaRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
-import br.com.mtonon.siagen.repositories.PerfilRepository;
 import br.com.mtonon.siagen.repositories.PerguntaRespostaRepository;
 import br.com.mtonon.siagen.repositories.ServicoRepository;
 import br.com.mtonon.siagen.repositories.TipoServicoRepository;
@@ -107,9 +106,6 @@ public class DBService {
 	
 	@Autowired
 	private DiaTemHorarioRepository diaTemHorarioRepository;
-	
-	@Autowired
-	private PerfilRepository perfilRepository;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -266,19 +262,16 @@ public class DBService {
 		diaRepository.saveAll(Arrays.asList(d1,d2));
 		horarioRepository.saveAll(Arrays.asList(h1,h2,h3));
 		diaTemHorarioRepository.saveAll(Arrays.asList(dth1,dth2,dth3,dth4,dth5)); 
-		
-		Perfil pe1 = new Perfil(null, "Administrador");
-		Perfil pe2 = new Perfil(null, "Gerente");
-		Perfil pe3 = new Perfil(null, "Operador");
+
 		
 		Usuario us1 = new Usuario(null, "Marcelo Tonon", "01697339719", "mtonon", pe.encode("123456"), "mtonon.pmg@gmail.com", 
-				LocalDateTime.now(), Status.ATIVO, true, "123456", null, null, pe1);
+				LocalDateTime.now(), Status.ATIVO, true, "123456", null, null);
 		Usuario us2 = new Usuario(null, "José das Couves Júnior", "12345678900", "jcouves", pe.encode("123456"), "jose@gmail.com", 
-				LocalDateTime.now(), Status.ATIVO, true, "654321", null, null, pe2);
+				LocalDateTime.now(), Status.ATIVO, true, "654321", null, null);
 		Usuario us3 = new Usuario(null, "Maria das Taiobas", "74125896311", "m.taiobas", pe.encode("123456"), "maria@gmail.com", 
-				LocalDateTime.now(), Status.ATIVO, true, "369852", null, null, pe3);
-		
-		perfilRepository.saveAll(Arrays.asList(pe1,pe2,pe3));
+				LocalDateTime.now(), Status.ATIVO, true, "369852", null, null);
+
+		us1.addPerfil(Perfil.ADMIN);
 		usuarioRepository.saveAll(Arrays.asList(us1, us2, us3));
 		
 

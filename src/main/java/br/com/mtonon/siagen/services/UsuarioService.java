@@ -9,7 +9,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.mtonon.siagen.domain.Perfil;
 import br.com.mtonon.siagen.domain.Usuario;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.dto.UsuarioDTO;
@@ -76,18 +75,16 @@ public class UsuarioService {
 	}
 	
 	public Usuario fromDTO(UsuarioDTO objDTO) {
-		Perfil perfil = new Perfil(objDTO.getPerfilId(), null);
 		return new Usuario(null, objDTO.getNome(), null, objDTO.getLogin(), null, 
 				objDTO.getEmail(), objDTO.getDataCadastramento(), Status.toEnum(objDTO.getStatus()), 
 				objDTO.isEmailVerificado(), objDTO.getCodigoValidacao(), objDTO.getDataUltimoAcesso(), 
-				objDTO.getDataAlteracao(), perfil);
+				objDTO.getDataAlteracao());
 	}
 	
 	public Usuario fromDTO(UsuarioNewDTO objDTO) {
-		Perfil perfil = new Perfil(objDTO.getPerfilId(), null);
 		return new Usuario(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getLogin(), pe.encode(objDTO.getSenha()) , 
 				objDTO.getEmail(), LocalDateTime.now(), Status.toEnum(objDTO.getStatus()), 
-				false, objDTO.getCodigoValidacao(), null, null, perfil);
+				false, objDTO.getCodigoValidacao(), null, null);
 	}
 	
 	private void updateData(Usuario newObj, Usuario obj) {
@@ -95,6 +92,5 @@ public class UsuarioService {
 		newObj.setLogin(obj.getLogin());
 		newObj.setEmail(obj.getEmail());
 		newObj.setStatus(obj.getStatus());
-		newObj.setPerfil(obj.getPerfil());
 	}
 }

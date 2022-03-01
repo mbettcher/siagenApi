@@ -41,7 +41,6 @@ public class UsuarioDTO implements Serializable{
 		this.codigoValidacao = obj.getCodigoValidacao();
 		this.dataUltimoAcesso = obj.getDataUltimoAcesso();
 		this.dataAlteracao = obj.getDataAlteracao();
-		this.perfilId = obj.getPerfil().getId();
 	}
 
 	public String getNome() {
