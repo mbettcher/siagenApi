@@ -20,7 +20,6 @@ public class EstadoDTO implements Serializable{
 	}
 
 	public EstadoDTO(Estado obj) {
-		super();
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 	}

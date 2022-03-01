@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.mtonon.siagen.domain.enums.Status;
 
@@ -34,6 +35,7 @@ public class Usuario {
 	@Column(name = "usu_login", nullable = false)
 	private String login;
 	
+	@JsonIgnore
 	@Column(name = "usu_senha", nullable = false)
 	private String senha;
 	

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import br.com.mtonon.siagen.services.DBService;
 
 @Configuration
-@Profile("test")
+@Profile("development")
 public class TestConfig {
 	
 	@Autowired

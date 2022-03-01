@@ -2,6 +2,8 @@ package br.com.mtonon.siagen.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 
@@ -25,6 +28,9 @@ public class Dia implements Serializable{
 	@Column(name = "dia_data", nullable = false, unique = true)
 	@FutureOrPresent(message = "A data deve ser o dia de hoje ou uma data futura!")
 	private LocalDate data;
+	
+	@OneToMany(mappedBy = "dia")
+	private List<DiaTemHorario> agendamentos = new ArrayList<>();
 	
 	public Dia() {
 	}
@@ -49,6 +55,15 @@ public class Dia implements Serializable{
 
 	public void setData(LocalDate data) {
 		this.data = data;
+	}
+	
+
+	public List<DiaTemHorario> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<DiaTemHorario> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 
 	@Override

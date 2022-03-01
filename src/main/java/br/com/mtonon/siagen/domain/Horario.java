@@ -2,6 +2,8 @@ package br.com.mtonon.siagen.domain;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,11 +27,13 @@ public class Horario implements Serializable{
 	@Column(name = "hor_hora", nullable = false, unique = true)
 	private LocalTime hora;
 	
+	@OneToMany(mappedBy = "horario")
+	private List<DiaTemHorario> agendamentos = new ArrayList<>();
+	
 	public Horario() {
 	}
 
 	public Horario(Integer id, LocalTime hora) {
-		super();
 		this.id = id;
 		this.hora = hora;
 	}
@@ -47,6 +52,15 @@ public class Horario implements Serializable{
 
 	public void setHora(LocalTime hora) {
 		this.hora = hora;
+	}
+
+
+	public List<DiaTemHorario> getAgendamentos() {
+		return agendamentos;
+	}
+
+	public void setAgendamentos(List<DiaTemHorario> agendamentos) {
+		this.agendamentos = agendamentos;
 	}
 
 	@Override

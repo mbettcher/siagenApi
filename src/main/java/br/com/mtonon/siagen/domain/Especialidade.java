@@ -37,7 +37,6 @@ public class Especialidade implements Serializable{
 	}
 
 	public Especialidade(Integer id, String descricao) {
-		super();
 		this.id = id;
 		this.descricao = descricao;
 	}

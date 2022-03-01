@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "agenda", schema = "siagen_db")
+@Table(name = "dia_has_horario", schema = "siagen_db")
 public class DiaTemHorario implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -24,21 +24,21 @@ public class DiaTemHorario implements Serializable{
 	
 	@Column(name = "dhh_disponivel", columnDefinition = "boolean default true")
 	private boolean disponivel;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "dhh_dia_codigo")
 	private Dia dia;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "dhh_horario_codigo")
+	@JoinColumn(name = "dhh_hor_codigo")
 	private Horario horario;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "dhh_servico_codigo")
+	@JoinColumn(name = "dhh_ser_codigo")
 	private Servico servico;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "dhh_unidade_saude_codigo")
+	@JoinColumn(name = "dhh_usa_codigo")
 	private UnidadeSaude unidadeSaude;
 	
 	public DiaTemHorario() {

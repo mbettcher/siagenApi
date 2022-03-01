@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.mtonon.siagen.domain.Perfil;
@@ -23,6 +24,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	public Usuario findById(Integer id) {
 		Optional<Usuario> obj = usuarioRepository.findById(id);
@@ -81,7 +85,7 @@ public class UsuarioService {
 	
 	public Usuario fromDTO(UsuarioNewDTO objDTO) {
 		Perfil perfil = new Perfil(objDTO.getPerfilId(), null);
-		return new Usuario(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getLogin(), objDTO.getSenha(), 
+		return new Usuario(null, objDTO.getNome(), objDTO.getCpf(), objDTO.getLogin(), pe.encode(objDTO.getSenha()) , 
 				objDTO.getEmail(), LocalDateTime.now(), Status.toEnum(objDTO.getStatus()), 
 				false, objDTO.getCodigoValidacao(), null, null, perfil);
 	}

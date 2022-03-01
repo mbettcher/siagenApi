@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.mtonon.siagen.domain.Agendamento;
@@ -64,6 +65,9 @@ import br.com.mtonon.siagen.repositories.VersiculoRepository;
 
 @Service
 public class DBService {
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private EspecialidadeRepository especialidadeRepository;
@@ -252,6 +256,7 @@ public class DBService {
 		Horario h2 = new Horario(null, LocalTime.of(8, 2));
 		Horario h3 = new Horario(null, LocalTime.of(8, 4));
 		
+		
 		DiaTemHorario dth1 = new DiaTemHorario(null, true, d1, h1, ser1, usa1);
 		DiaTemHorario dth2 = new DiaTemHorario(null, true, d1, h2, ser1, usa1);
 		DiaTemHorario dth3 = new DiaTemHorario(null, true, d1, h3, ser1, usa1);
@@ -260,17 +265,17 @@ public class DBService {
 		
 		diaRepository.saveAll(Arrays.asList(d1,d2));
 		horarioRepository.saveAll(Arrays.asList(h1,h2,h3));
-		diaTemHorarioRepository.saveAll(Arrays.asList(dth1,dth2,dth3,dth4,dth5));
+		diaTemHorarioRepository.saveAll(Arrays.asList(dth1,dth2,dth3,dth4,dth5)); 
 		
 		Perfil pe1 = new Perfil(null, "Administrador");
 		Perfil pe2 = new Perfil(null, "Gerente");
 		Perfil pe3 = new Perfil(null, "Operador");
 		
-		Usuario us1 = new Usuario(null, "Marcelo Tonon", "01697339719", "mtonon", "123456", "mtonon.pmg@gmail.com", 
+		Usuario us1 = new Usuario(null, "Marcelo Tonon", "01697339719", "mtonon", pe.encode("123456"), "mtonon.pmg@gmail.com", 
 				LocalDateTime.now(), Status.ATIVO, true, "123456", null, null, pe1);
-		Usuario us2 = new Usuario(null, "José das Couves Júnior", "12345678900", "jcouves", "654321", "jose@gmail.com", 
+		Usuario us2 = new Usuario(null, "José das Couves Júnior", "12345678900", "jcouves", pe.encode("123456"), "jose@gmail.com", 
 				LocalDateTime.now(), Status.ATIVO, true, "654321", null, null, pe2);
-		Usuario us3 = new Usuario(null, "Maria das Taiobas", "74125896311", "m.taiobas", "369852", "maria@gmail.com", 
+		Usuario us3 = new Usuario(null, "Maria das Taiobas", "74125896311", "m.taiobas", pe.encode("123456"), "maria@gmail.com", 
 				LocalDateTime.now(), Status.ATIVO, true, "369852", null, null, pe3);
 		
 		perfilRepository.saveAll(Arrays.asList(pe1,pe2,pe3));

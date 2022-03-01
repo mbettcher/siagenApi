@@ -2,6 +2,8 @@ package br.com.mtonon.siagen.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 public class UsuarioNewDTO implements Serializable{
@@ -12,10 +14,13 @@ public class UsuarioNewDTO implements Serializable{
 	@CPF(message = "O CPF informado não é válido!")
 	private String cpf;
 
+	@NotEmpty(message = "O campo Login é de preenchimento obrigatório!")
 	private String login;
 	
+	@NotEmpty(message = "O campo Senha é de preenchimento obrigatório!")
 	private String senha;
 
+	@NotEmpty(message = "O campo E-mail é de preenchimento obrigatório!")
 	private String email;
 
 	private Integer status;

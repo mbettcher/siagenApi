@@ -58,16 +58,22 @@ public class UnidadeSaude implements Serializable {
 
 	/* Uma Unidade de Saúde tem Um ou Muitos Especialidades */
 	@ManyToMany
-	@JoinTable(name = "unidade_saude_tem_especialidade", joinColumns = @JoinColumn(name = "unidade_saude_codigo"), inverseJoinColumns = @JoinColumn(name = "especialidade_codigo"))
+	@JoinTable(name = "unidade_saude_tem_especialidade", 
+				joinColumns = @JoinColumn(name = "unidade_saude_codigo"), 
+				inverseJoinColumns = @JoinColumn(name = "especialidade_codigo"))
 	private List<Especialidade> especialidades = new ArrayList<>();
 
 	/* Uma UnidadeSaude tem Um ou Muitos Serviços */
 	@ManyToMany
-	@JoinTable(name = "unidade_saude_tem_servico", joinColumns = @JoinColumn(name = "uss_unidade_saude_codigo"), inverseJoinColumns = @JoinColumn(name = "uss_servico_codigo"))
+	@JoinTable(name = "unidade_saude_tem_servico", 
+				joinColumns = @JoinColumn(name = "uss_unidade_saude_codigo"), 
+				inverseJoinColumns = @JoinColumn(name = "uss_servico_codigo"))
 	private List<Servico> servicos = new ArrayList<>();
 
 	@ManyToMany
-	@JoinTable(name = "unidade_saude_tem_dia_fucionamento", joinColumns = @JoinColumn(name = "udf_unidade_saude_codigo"), inverseJoinColumns = @JoinColumn(name = "udf_dia_semana_codigo"))
+	@JoinTable(name = "unidade_saude_tem_dia_fucionamento", 
+				joinColumns = @JoinColumn(name = "udf_unidade_saude_codigo"), 
+				inverseJoinColumns = @JoinColumn(name = "udf_dia_semana_codigo"))
 	private List<DiaSemana> diasFuncionamento = new ArrayList<>();
 
 	/* Uma Unidade de Saúde tem um ou muitos Agendamentos */

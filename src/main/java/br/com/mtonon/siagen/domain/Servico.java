@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,9 +47,7 @@ public class Servico implements Serializable{
 	
 	@Column(name = "ser_dose")
 	private Integer dose;
-	
-	@ManyToOne
-	@JoinColumn(name = "ser_nome_vacina_codigo")
+
 	private NomeVacina nomeVacina;
 	
 	@ManyToOne
@@ -57,6 +56,9 @@ public class Servico implements Serializable{
 	
 	@ManyToMany(mappedBy = "servicos")
 	private List<UnidadeSaude> unidadesSaude = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "servico")
+	private List<DiaTemHorario> agendamentos = new ArrayList<>();
 	
 	public Servico() {
 	}
