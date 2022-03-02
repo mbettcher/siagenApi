@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import br.com.mtonon.siagen.security.JWTAuthenticationFilter;
+import br.com.mtonon.siagen.security.JWTAuthorizationFilter;
 import br.com.mtonon.siagen.security.JWTUtil;
 
 @Configuration
@@ -64,8 +65,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest()
 			.authenticated();
 		
-		/* REGISTRANDO O FILTRO*/
+		/* REGISTRANDO O FILTRO DE AUTHENTICATION */
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		
+		/* REGISTRANDO O FILTRO DE AUTHORIZATION */
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		
 		/*CONFIGURAÇÃO PARA QUE O SISTEMA NÃO CRIE UMA SESSÃO PARA O USUÁRIO, PREVALECENDO O STATELESS*/
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
