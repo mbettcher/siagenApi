@@ -30,7 +30,6 @@ import br.com.mtonon.siagen.domain.PerguntaResposta;
 import br.com.mtonon.siagen.domain.Servico;
 import br.com.mtonon.siagen.domain.TipoServico;
 import br.com.mtonon.siagen.domain.UnidadeSaude;
-import br.com.mtonon.siagen.domain.Usuario;
 import br.com.mtonon.siagen.domain.Versiculo;
 import br.com.mtonon.siagen.domain.enums.Dose;
 import br.com.mtonon.siagen.domain.enums.Emissor;
@@ -59,7 +58,6 @@ import br.com.mtonon.siagen.repositories.PerguntaRespostaRepository;
 import br.com.mtonon.siagen.repositories.ServicoRepository;
 import br.com.mtonon.siagen.repositories.TipoServicoRepository;
 import br.com.mtonon.siagen.repositories.UnidadeSaudeRepository;
-import br.com.mtonon.siagen.repositories.UsuarioRepository;
 import br.com.mtonon.siagen.repositories.VersiculoRepository;
 
 @Service
@@ -106,9 +104,6 @@ public class DBService {
 	
 	@Autowired
 	private DiaTemHorarioRepository diaTemHorarioRepository;
-	
-	@Autowired
-	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
 	private PerguntaRespostaRepository perguntaRespostaRepository;
@@ -225,23 +220,35 @@ public class DBService {
 		
 		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
 				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
-				"jose@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "192.168.0.10", Etnia.BRANCO);
+				"jose@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "192.168.0.10", Etnia.BRANCO, pe.encode("123456"));
 		pac1.getTelefones().addAll(Arrays.asList("2733618200", "27999321234"));
+		
+		Paciente pac2 = new Paciente(null, "Marcelo Tonon Bettcher", "01697339719", "1065523", Emissor.SSP, 
+				"00000000000", LocalDate.of(1974, 3, 24), Sexo.MASCULINO, EstadoCivil.CASADO, 
+				"mtonon.pmg@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "191.6.43.83", Etnia.BRANCO, pe.encode("123456"));
+		pac2.getTelefones().addAll(Arrays.asList("27981499002", "27981517213"));
+		pac2.addPerfil(Perfil.ADMIN);
 		
 		Endereco e1 = new Endereco(null, "Avenida Santa Cruz", "123", "Casa", "Santa Mônica", "29220970", pac1, c1);
 		Endereco e2 = new Endereco(null, "Rua das Orquídeas", "478", "Apto 504", "Centro", "28220970", pac1, c3);
+		Endereco e3 = new Endereco(null, "Rua São Pedro", "216", "Casa", "Perocão", "29220500", pac2, c1);
 		
 		pac1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		pac1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		pac2.getEnderecos().addAll(Arrays.asList(e3));
 		
-		HistoricoPaciente his1 = new HistoricoPaciente(null, LocalDateTime.now(), "Teste de Registro de Histórico de Paciente", pac1);
+		
+		HistoricoPaciente his1 = new HistoricoPaciente(null, LocalDateTime.now(), "Teste de Registro de Histórico de Paciente 1", pac1);
+		HistoricoPaciente his2 = new HistoricoPaciente(null, LocalDateTime.now(), "Teste de Registro de Histórico de Paciente 2", pac2);
 		
 		
 		
 		pac1.getHistoricosPaciente().addAll(Arrays.asList(his1));
+		pac2.getHistoricosPaciente().addAll(Arrays.asList(his2));
 		
-		pacienteRepository.saveAll(Arrays.asList(pac1));
-		historicoPacienteRepository.saveAll(Arrays.asList(his1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		pacienteRepository.saveAll(Arrays.asList(pac1,pac2));
+		historicoPacienteRepository.saveAll(Arrays.asList(his1,his2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 		
 
 		Dia d1 = new Dia(null, LocalDate.now().plusDays(1));
@@ -262,17 +269,6 @@ public class DBService {
 		diaRepository.saveAll(Arrays.asList(d1,d2));
 		horarioRepository.saveAll(Arrays.asList(h1,h2,h3));
 		diaTemHorarioRepository.saveAll(Arrays.asList(dth1,dth2,dth3,dth4,dth5)); 
-
-		
-		Usuario us1 = new Usuario(null, "Marcelo Tonon", "01697339719", "mtonon", pe.encode("123456"), "mtonon.pmg@gmail.com", 
-				LocalDateTime.now(), Status.ATIVO, true, "123456", null, null);
-		Usuario us2 = new Usuario(null, "José das Couves Júnior", "12345678900", "jcouves", pe.encode("123456"), "jose@gmail.com", 
-				LocalDateTime.now(), Status.ATIVO, true, "654321", null, null);
-		Usuario us3 = new Usuario(null, "Maria das Taiobas", "74125896311", "m.taiobas", pe.encode("123456"), "maria@gmail.com", 
-				LocalDateTime.now(), Status.ATIVO, true, "369852", null, null);
-
-		us1.addPerfil(Perfil.ADMIN);
-		usuarioRepository.saveAll(Arrays.asList(us1, us2, us3));
 		
 
 		PerguntaResposta per1 = new PerguntaResposta(null, "Por que a galinha atravessou a rua?", "Pra chegar do outro lado.");

@@ -8,12 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import br.com.mtonon.siagen.domain.enums.Emissor;
 import br.com.mtonon.siagen.domain.enums.EstadoCivil;
 import br.com.mtonon.siagen.domain.enums.Etnia;
+import br.com.mtonon.siagen.domain.enums.Perfil;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 
@@ -86,6 +89,14 @@ public class Paciente implements Serializable {
 
 	@Column(name = "pac_etnia")
 	private Integer etnia;
+	
+	@JsonIgnore
+	@Column(name = "pac_senha")
+	private String senha;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "perfis")
+	private Set<Integer> perfis = new HashSet<>();
 
 	/* Um Paciente tem Um ou Muitos Enderecos */
 	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
@@ -105,11 +116,12 @@ public class Paciente implements Serializable {
 	private List<HistoricoPaciente> historicosPaciente = new ArrayList<>();
 
 	public Paciente() {
+		addPerfil(Perfil.PACIENTE);
 	}
 
 	public Paciente(Integer id, String nome, String cpf, String rg, Emissor emissor, String cartaoSus,
 			LocalDate dataNascimento, Sexo sexo, EstadoCivil estadoCivil, String email, LocalDateTime dataCadastro,
-			LocalDateTime dataAlteracao, Status status, String ipAddrAlteracao, Etnia etnia) {
+			LocalDateTime dataAlteracao, Status status, String ipAddrAlteracao, Etnia etnia, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -126,6 +138,8 @@ public class Paciente implements Serializable {
 		this.status = (status == null) ? null : status.getCodigo();
 		this.ipAddrAlteracao = ipAddrAlteracao;
 		this.etnia = (etnia == null) ? null : etnia.getCodigo();
+		this.senha = senha;
+		addPerfil(Perfil.PACIENTE);
 	}
 
 	public Integer getId() {
@@ -262,6 +276,22 @@ public class Paciente implements Serializable {
 
 	public void setEtnia(Etnia etnia) {
 		this.etnia = etnia.getCodigo();
+	}
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCodigo());
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@JsonIgnore

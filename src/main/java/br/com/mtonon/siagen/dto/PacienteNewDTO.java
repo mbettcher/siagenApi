@@ -48,6 +48,9 @@ public class PacienteNewDTO implements Serializable {
 
 	@NotNull(message = "O campo Etnia é obrigatório!")
 	private Integer etnia;
+	
+	@NotBlank(message = "O campo Senha é obrigatório!")
+	private String senha;
 
 	@NotBlank(message = "O campo Logradouro é obrigatório!")
 	private String logradouro;
@@ -158,6 +161,14 @@ public class PacienteNewDTO implements Serializable {
 
 	public void setEtnia(Integer etnia) {
 		this.etnia = etnia;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getLogradouro() {

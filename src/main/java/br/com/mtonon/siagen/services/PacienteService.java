@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,9 @@ import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 @Service
 public class PacienteService {
 
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 	@Autowired
 	private PacienteRepository pacienteRepository;
 	
@@ -87,7 +91,7 @@ public class PacienteService {
 		Paciente paciente = new Paciente(objDTO.getId(), objDTO.getNome(), null, null,
 				null, objDTO.getCartaoSus(), objDTO.getDataNascimento(),
 				Sexo.toEnum(objDTO.getSexo()), EstadoCivil.toEnum(objDTO.getEstadoCivil()), objDTO.getEmail(), null,
-				LocalDateTime.now(), Status.toEnum(objDTO.getStatus()), null, Etnia.toEnum(objDTO.getEtnia()));
+				LocalDateTime.now(), Status.toEnum(objDTO.getStatus()), null, Etnia.toEnum(objDTO.getEtnia()), null);
 		return paciente;
 	}
 
@@ -96,7 +100,7 @@ public class PacienteService {
 				Emissor.toEnum(objDTO.getEmissor()), objDTO.getCartaoSus(), objDTO.getDataNascimento(),
 				Sexo.toEnum(objDTO.getSexo()), EstadoCivil.toEnum(objDTO.getEstadoCivil()), objDTO.getEmail(),
 				LocalDateTime.now(), null, Status.toEnum(objDTO.getStatus()), null,
-				Etnia.toEnum(objDTO.getEtnia()));
+				Etnia.toEnum(objDTO.getEtnia()), pe.encode(objDTO.getSenha()));
 
 		Cidade cidade = new Cidade(objDTO.getCidadeId(), null, null, null, null);
 

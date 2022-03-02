@@ -65,7 +65,7 @@ public class AgendamentoService {
 	public Agendamento fromDTO(AgendamentoDTO objDTO) {
 
 		Paciente paciente = new Paciente(objDTO.getPacienteId(), null, null, null, null, null, null, null, null, null,
-				null, null, null, null, null);
+				null, null, null, null, null,null);
 		UnidadeSaude unidadeSaude = new UnidadeSaude(objDTO.getUnidadeSaudeId(), null, null, null, null);
 		Servico servico = new Servico(objDTO.getServicoId(), null, null, null, null, null, null, null, null);
 
@@ -81,7 +81,7 @@ public class AgendamentoService {
 		DiaTemHorario agenda = diaTemHorarioService.findById(objDTO.getAgendaId());
 
 		Paciente paciente = new Paciente(objDTO.getPacienteId(), null, null, null, null, null, null, null, null, null,
-				null, null, null, null, null);
+				null, null, null, null, null,null);
 		
 		UnidadeSaude unidadeSaude = agenda.getUnidadeSaude();
 		

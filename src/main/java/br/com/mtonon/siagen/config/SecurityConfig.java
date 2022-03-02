@@ -7,14 +7,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import br.com.mtonon.siagen.security.JWTAuthenticationFilter;
+import br.com.mtonon.siagen.security.JWTUtil;
 
 @Configuration
 @EnableWebSecurity
@@ -22,6 +27,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private Environment env;
+	
+	@Autowired
+	private JWTUtil jwtUtil;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	/* VETOR COM OS PATHS QUE ESTÃO LIBERADOS PARA ACESSO SEM SENHA */
 	private static final String[] PUBLIC_MATCHERS = {
@@ -31,7 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	/* VETOR COM OS PATHS QUE ESTÃO LIBERADOS APENAS PARA O MÉTODO GET PARA ACESSO SEM SENHA */
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/especialidades/**",
-			"/dias/horarios/**"
+			"/dias/horarios/**",
+			"/pacientes/**"
 	};
 	
 		
@@ -49,10 +61,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
-			.anyRequest().authenticated();
+			.anyRequest()
+			.authenticated();
+		
+		/* REGISTRANDO O FILTRO*/
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		
 		/*CONFIGURAÇÃO PARA QUE O SISTEMA NÃO CRIE UMA SESSÃO PARA O USUÁRIO, PREVALECENDO O STATELESS*/
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+	
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) throws Exception{
+		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 	
 	/* BEAN PARA PERMITIR O ACESSO AO NOSSO BACKEND POR DIVERSAS FONTES */
@@ -62,7 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
 		return source;
 	}
-	
 
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {

@@ -56,7 +56,7 @@ public class HistoricoPacienteService {
 	}
 
 	public HistoricoPaciente fromDTO(HistoricoPacienteDTO objDTO) {
-		Paciente paciente = new Paciente(objDTO.getPaciente(), null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+		Paciente paciente = new Paciente(objDTO.getPaciente(), null, null, null, null, null, null, null, null, null, null, null, null, null, null,null);
 		return new HistoricoPaciente(objDTO.getId(), objDTO.getDataHistorico(), objDTO.getObservacao(), paciente);
 	}
 	
