@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,7 @@ public class DiaTemHorarioResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> save(@RequestBody DiaTemHorarioNewDTO objDTO) {
 		DiaTemHorario obj = diaTemHorarioService.fromDTO(objDTO);
@@ -48,6 +50,7 @@ public class DiaTemHorarioResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody DiaTemHorarioDTO objDTO) {
 		DiaTemHorario obj = diaTemHorarioService.fromDTO(objDTO);
@@ -56,6 +59,7 @@ public class DiaTemHorarioResource {
 		return ResponseEntity.ok().build();
 	}
 
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		diaTemHorarioService.delete(id);

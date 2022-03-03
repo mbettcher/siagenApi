@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class AgendamentoResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Agendamento> save(@RequestBody AgendamentoNewDTO objDTO, HttpServletRequest request){
 		Agendamento obj = agendamentoService.fromDTO(objDTO);
@@ -52,7 +54,7 @@ public class AgendamentoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody AgendamentoDTO objDTO){
 		Agendamento obj = agendamentoService.fromDTO(objDTO);
@@ -61,6 +63,7 @@ public class AgendamentoResource {
 		return ResponseEntity.ok().build();
 	}
 
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		agendamentoService.delete(id);

@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "dia", schema = "siagen_db")
 public class Dia implements Serializable{
@@ -29,6 +31,7 @@ public class Dia implements Serializable{
 	@FutureOrPresent(message = "A data deve ser o dia de hoje ou uma data futura!")
 	private LocalDate data;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "dia")
 	private List<DiaTemHorario> agendamentos = new ArrayList<>();
 	

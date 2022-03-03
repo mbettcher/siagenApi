@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,7 @@ public class PacienteResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Paciente> save(@Valid @RequestBody PacienteNewDTO objDTO, HttpServletRequest request) {
 		Paciente obj = pacienteService.fromDTO(objDTO);
@@ -51,6 +53,7 @@ public class PacienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody PacienteDTO objDTO, HttpServletRequest request) {
 		Paciente obj = pacienteService.fromDTO(objDTO);
@@ -60,6 +63,7 @@ public class PacienteResource {
 		return ResponseEntity.ok().build();
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		pacienteService.delete(id);

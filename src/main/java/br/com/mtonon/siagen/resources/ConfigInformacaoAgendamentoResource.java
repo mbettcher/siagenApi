@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,7 @@ public class ConfigInformacaoAgendamentoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> save(@RequestBody @Valid ConfigInformacaoAgendamentoDTO objDTO) {
 		ConfigInformacaoAgendamento obj = configInformacaoAgendamentoService.fromDTO(objDTO);
@@ -59,6 +61,7 @@ public class ConfigInformacaoAgendamentoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody @Valid ConfigInformacaoAgendamentoDTO objDTO, @PathVariable Integer id) {
 		ConfigInformacaoAgendamento obj = configInformacaoAgendamentoService.fromDTO(objDTO);
@@ -67,6 +70,7 @@ public class ConfigInformacaoAgendamentoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		configInformacaoAgendamentoService.delete(id);

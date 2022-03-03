@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class DiaSemanaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> save(@RequestBody DiaSemanaNewDTO objDTO) {
 		DiaSemana obj = diaSemanaService.fromDTO(objDTO);
@@ -45,6 +47,7 @@ public class DiaSemanaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody DiaSemanaDTO objDTO) {
 		DiaSemana obj = diaSemanaService.fromDTO(objDTO);
@@ -52,6 +55,7 @@ public class DiaSemanaResource {
 		return ResponseEntity.ok().build();
 	}
 	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		diaSemanaService.delete(id);
