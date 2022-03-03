@@ -45,7 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	/* VETOR COM OS PATHS QUE ESTÃO LIBERADOS APENAS PARA O MÉTODO GET PARA ACESSO SEM SENHA */
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/especialidades/**",
-			"/dias/horarios/**",
+			"/unidades/**",
+			"/dias/horarios/**"
+	};
+	
+	/* VETOR COM OS PATHS QUE ESTÃO LIBERADOS APENAS PARA O MÉTODO POST PARA ACESSO SEM SENHA */
+	private static final String[] PUBLIC_MATCHERS_POST = {
 			"/pacientes/**"
 	};
 	
@@ -62,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.cors().and().csrf().disable();
 		
 		http.authorizeRequests()
+			.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
 			.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
 			.antMatchers(PUBLIC_MATCHERS).permitAll()
 			.anyRequest()

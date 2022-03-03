@@ -2,18 +2,20 @@ package br.com.mtonon.siagen.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -30,10 +32,24 @@ public class PacienteResource {
 	@Autowired
 	private PacienteService pacienteService;
 	
-	@GetMapping
-	public ResponseEntity<List<Paciente>> findAll() {
-		List<Paciente> obj = pacienteService.findAll();
-		return ResponseEntity.ok().body(obj);
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<PacienteDTO>> findAll() {
+		List<Paciente> list = pacienteService.findAll();
+		List<PacienteDTO> listDTO = list.stream().map(obj -> new PacienteDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
+	}
+	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<PacienteDTO>> findPage(
+			@RequestParam(value = "page", defaultValue = "0") Integer page,
+			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value = "direction", defaultValue = "ASC") String direction,
+			@RequestParam(value = "orderBy", defaultValue = "id") String orderBy) {
+		Page<Paciente> list = pacienteService.findPage(page, linesPerPage, direction, orderBy);
+		Page<PacienteDTO> listDTO = list.map(obj -> new PacienteDTO(obj));
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -42,7 +58,6 @@ public class PacienteResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Paciente> save(@Valid @RequestBody PacienteNewDTO objDTO, HttpServletRequest request) {
 		Paciente obj = pacienteService.fromDTO(objDTO);
@@ -53,7 +68,6 @@ public class PacienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@PathVariable Integer id, @Valid @RequestBody PacienteDTO objDTO, HttpServletRequest request) {
 		Paciente obj = pacienteService.fromDTO(objDTO);
@@ -63,7 +77,8 @@ public class PacienteResource {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE') or hasRole('ANALISTA')")
+	
+	@PreAuthorize("hasRole('ADMIN') or hasRole('GERENTE')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		pacienteService.delete(id);
