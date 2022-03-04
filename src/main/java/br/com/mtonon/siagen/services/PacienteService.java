@@ -19,12 +19,15 @@ import br.com.mtonon.siagen.domain.Paciente;
 import br.com.mtonon.siagen.domain.enums.Emissor;
 import br.com.mtonon.siagen.domain.enums.EstadoCivil;
 import br.com.mtonon.siagen.domain.enums.Etnia;
+import br.com.mtonon.siagen.domain.enums.Perfil;
 import br.com.mtonon.siagen.domain.enums.Sexo;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.dto.PacienteDTO;
 import br.com.mtonon.siagen.dto.PacienteNewDTO;
 import br.com.mtonon.siagen.repositories.EnderecoRepository;
 import br.com.mtonon.siagen.repositories.PacienteRepository;
+import br.com.mtonon.siagen.security.UserSS;
+import br.com.mtonon.siagen.services.exceptions.AuthorizationException;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
@@ -41,6 +44,13 @@ public class PacienteService {
 	private EnderecoRepository enderecoRepository;
 
 	public Paciente findById(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado!");
+		}
+		
 		Optional<Paciente> obj = pacienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado. Id " + id + ", Tipo: " + Paciente.class.getName()));
