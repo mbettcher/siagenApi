@@ -295,13 +295,15 @@ public class DBService {
 		configInformacaoAgendamentoRepository.saveAll(Arrays.asList(cfi1));
 		
 		Agendamento age1 = new Agendamento(null, LocalDateTime.now(), "192.168.0.100", 
-
 				LocalDateTime.now().plusDays(1), LocalDateTime.now().plusDays(1), 
 				false, Status.ATIVO, "Vacinação Covid-19", 
 				"Pessoas com 18 anos ou mais e portadoras de Comorbidades", 
 				"a1b2c3d4", null, pac1, usa3, ser1);
 		
 		agendamentoRepository.save(age1);
+		
+		pac1.getAgendamentos().add(age1);
+		usa3.getAgendamentos().add(age1);
 	}
 
 }

@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +21,9 @@ import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.dto.AgendamentoDTO;
 import br.com.mtonon.siagen.dto.AgendamentoNewDTO;
 import br.com.mtonon.siagen.repositories.AgendamentoRepository;
+import br.com.mtonon.siagen.repositories.PacienteRepository;
+import br.com.mtonon.siagen.security.UserSS;
+import br.com.mtonon.siagen.services.exceptions.AuthorizationException;
 import br.com.mtonon.siagen.services.exceptions.DataIntegrityException;
 import br.com.mtonon.siagen.services.exceptions.ObjectNotFoundException;
 
@@ -29,6 +35,9 @@ public class AgendamentoService {
 	
 	@Autowired
 	private DiaTemHorarioService diaTemHorarioService;
+	
+	@Autowired
+	private PacienteRepository pacienteRepository;
 
 	public List<Agendamento> findAll() {
 		List<Agendamento> obj = agendamentoRepository.findAll();
@@ -107,6 +116,18 @@ public class AgendamentoService {
 		newObj.setDataAlteracao(obj.getDataAlteracao());
 		newObj.setTitulo(obj.getTitulo());
 		newObj.setStatusEvento(obj.getStatusEvento());
+	}
+	
+	public Page<Agendamento> findPage(Integer page, Integer linesPerPage, String direction, String orderBy) {
+		
+		UserSS user = UserService.authenticated();
+		if(user == null) {
+			throw new AuthorizationException("Acesso Negado!");
+		}
+		
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Optional<Paciente> pacienteOpt = pacienteRepository.findById(user.getId());
+		return agendamentoRepository.findByPacienteAgendamento(pacienteOpt.get(), pageRequest);
 	}
 
 }
