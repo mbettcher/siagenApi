@@ -12,5 +12,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Integer>{
 	
 	@Transactional(readOnly=true)
 	Paciente findByCpf(String cpf);
+	
+	Paciente findByEmail(String email);
 
 }

@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.PastOrPresent;
 
+import br.com.mtonon.siagen.domain.enums.Dose;
 import br.com.mtonon.siagen.domain.enums.Status;
 import br.com.mtonon.siagen.domain.enums.StatusEvento;
 
@@ -227,5 +228,62 @@ public class Agendamento implements Serializable{
 		Agendamento other = (Agendamento) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Confirmação de Agendamento\n");
+		builder.append("Código do Agendamento: ");
+		builder.append(id);
+		builder.append(", Data do Agendamento: ");
+		builder.append(getDataAgendamento());
+		builder.append(", Paciente: ");
+		builder.append(pacienteAgendamento.getNome());
+		builder.append(", Data de Nascimento: ");
+		builder.append(pacienteAgendamento.getDataNascimento());
+		builder.append(", CPF: ");
+		builder.append(pacienteAgendamento.getCpf());
+		builder.append(", Cartão SUS: ");
+		builder.append(pacienteAgendamento.getCartaoSus());
+		builder.append(", Documento de Identidade: ");
+		builder.append(pacienteAgendamento.getRg());
+		builder.append(", Órgão Emissor: ");
+		builder.append(pacienteAgendamento.getEmissor().getDescricao());
+		builder.append("\nDetalhamento do Agendamento\n");
+		builder.append("Tipo de Atendimento Agendado: ");
+		builder.append(servico.getDescricao());
+		builder.append(", Data: ");
+		builder.append(dataInicio.toLocalDate());
+		builder.append(", Hora: ");
+		builder.append(dataInicio.toLocalTime());
+		if(!servico.getDose().equals(Dose.NAOSEAPLICA)) {
+			builder.append(", Nome do Laboratório: ");
+			builder.append(servico.getNomeVacina().getLaboratorio());
+			builder.append(", Nome da Vacina: ");
+			builder.append(servico.getNomeVacina().getNomeVacina());
+			builder.append(", Dose: ");
+			builder.append(servico.getDose().getDescricao());
+		}
+		builder.append(", Informações Complementares: ");
+		builder.append(servico.getObservacoes());
+		builder.append(", Local: ");
+		builder.append(unidadeSaude.getNome());
+		for(EnderecoUnidadeSaude end : unidadeSaude.getEnderecos()) {
+			builder.append(", Endereço: ");
+			builder.append(end.getLogradouro());
+			builder.append(", Número: ");
+			builder.append(end.getNumero());
+			builder.append(", Complemento: ");
+			builder.append(end.getComplemento());
+			builder.append(", Bairro: ");
+			builder.append(end.getBairro());
+			builder.append(", CEP: ");
+			builder.append(end.getCep());
+		}
+		
+		return builder.toString();
+	}
+	
+	
 
 }
