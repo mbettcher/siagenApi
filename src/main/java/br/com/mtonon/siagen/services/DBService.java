@@ -225,7 +225,7 @@ public class DBService {
 		
 		Paciente pac2 = new Paciente(null, "Marcelo Tonon Bettcher", "01697339719", "1065523", Emissor.SSP, 
 				"00000000000", LocalDate.of(1974, 3, 24), Sexo.MASCULINO, EstadoCivil.CASADO, 
-				"dalvajavarini@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "191.6.43.83", Etnia.BRANCO, pe.encode("123456"));
+				"mtonon.pmg@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "191.6.43.83", Etnia.BRANCO, pe.encode("123456"));
 		pac2.getTelefones().addAll(Arrays.asList("27981499002", "27981517213"));
 		pac2.addPerfil(Perfil.ADMIN);
 		
