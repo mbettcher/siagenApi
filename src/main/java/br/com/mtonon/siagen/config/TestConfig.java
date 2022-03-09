@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.mtonon.siagen.services.DBService;
+import br.com.mtonon.siagen.services.EmailService;
+import br.com.mtonon.siagen.services.MockMailService;
 
 @Configuration
 @Profile("development")
@@ -22,6 +24,11 @@ public class TestConfig {
 		dBService.instantiateTestDatabase();
 		
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new MockMailService();
 	}
 
 }

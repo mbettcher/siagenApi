@@ -38,6 +38,18 @@ public class AgendamentoService {
 	
 	@Autowired
 	private PacienteRepository pacienteRepository;
+	
+	@Autowired
+	private PacienteService pacienteService;
+	
+	@Autowired
+	private ServicoService servicoService;
+	
+	@Autowired
+	private UnidadeSaudeService unidadeSaudeService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	public List<Agendamento> findAll() {
 		List<Agendamento> obj = agendamentoRepository.findAll();
@@ -52,7 +64,14 @@ public class AgendamentoService {
 
 	public Agendamento save(Agendamento obj) {
 		obj.setId(null);
-		return agendamentoRepository.save(obj);
+		obj.setPacienteAgendamento(pacienteService.findById(obj.getPacienteAgendamento().getId()));
+		obj.setServico(servicoService.findById(obj.getServico().getId()));
+		obj.setUnidadeSaude(unidadeSaudeService.findById(obj.getUnidadeSaude().getId()));
+		
+		agendamentoRepository.save(obj);
+		
+		emailService.sendSchedulingConfirmationEmail(obj);
+		return obj;
 	}
 
 	public Agendamento update(Agendamento obj) {

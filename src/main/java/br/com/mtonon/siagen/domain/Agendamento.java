@@ -2,6 +2,7 @@ package br.com.mtonon.siagen.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -231,16 +232,19 @@ public class Agendamento implements Serializable{
 
 	@Override
 	public String toString() {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter formatterDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		
 		StringBuilder builder = new StringBuilder();
-		builder.append("Confirmação de Agendamento\n");
+		builder.append("\nConfirmação de Agendamento\n");
 		builder.append("Código do Agendamento: ");
 		builder.append(id);
 		builder.append(", Data do Agendamento: ");
-		builder.append(getDataAgendamento());
+		builder.append(getDataAgendamento().format(formatterDateTime));
 		builder.append(", Paciente: ");
 		builder.append(pacienteAgendamento.getNome());
 		builder.append(", Data de Nascimento: ");
-		builder.append(pacienteAgendamento.getDataNascimento());
+		builder.append(pacienteAgendamento.getDataNascimento().format(formatter));
 		builder.append(", CPF: ");
 		builder.append(pacienteAgendamento.getCpf());
 		builder.append(", Cartão SUS: ");
@@ -253,7 +257,7 @@ public class Agendamento implements Serializable{
 		builder.append("Tipo de Atendimento Agendado: ");
 		builder.append(servico.getDescricao());
 		builder.append(", Data: ");
-		builder.append(dataInicio.toLocalDate());
+		builder.append(dataInicio.toLocalDate().format(formatter));
 		builder.append(", Hora: ");
 		builder.append(dataInicio.toLocalTime());
 		if(!servico.getDose().equals(Dose.NAOSEAPLICA)) {
@@ -264,8 +268,12 @@ public class Agendamento implements Serializable{
 			builder.append(", Dose: ");
 			builder.append(servico.getDose().getDescricao());
 		}
-		builder.append(", Informações Complementares: ");
-		builder.append(servico.getObservacoes());
+		
+		if(servico.getObservacoes() != null) {
+			builder.append(", Informações Complementares: ");
+			builder.append(servico.getObservacoes());
+		}
+		
 		builder.append(", Local: ");
 		builder.append(unidadeSaude.getNome());
 		for(EnderecoUnidadeSaude end : unidadeSaude.getEnderecos()) {
@@ -273,8 +281,12 @@ public class Agendamento implements Serializable{
 			builder.append(end.getLogradouro());
 			builder.append(", Número: ");
 			builder.append(end.getNumero());
-			builder.append(", Complemento: ");
-			builder.append(end.getComplemento());
+			
+			if(end.getComplemento() != null) {
+				builder.append(", Complemento: ");
+				builder.append(end.getComplemento());
+			}
+			
 			builder.append(", Bairro: ");
 			builder.append(end.getBairro());
 			builder.append(", CEP: ");
