@@ -220,12 +220,12 @@ public class DBService {
 		
 		Paciente pac1 = new Paciente(null, "José das Couves", "79709365045", "1052231", Emissor.SSP, 
 				"74125873214", LocalDate.of(1978, 4, 12), Sexo.MASCULINO, EstadoCivil.SOLTEIRO, 
-				"jose@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "192.168.0.10", Etnia.BRANCO, pe.encode("123456"));
+				"dalvajavarini@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "192.168.0.10", Etnia.BRANCO, pe.encode("123456"));
 		pac1.getTelefones().addAll(Arrays.asList("2733618200", "27999321234"));
 		
 		Paciente pac2 = new Paciente(null, "Marcelo Tonon Bettcher", "01697339719", "1065523", Emissor.SSP, 
 				"00000000000", LocalDate.of(1974, 3, 24), Sexo.MASCULINO, EstadoCivil.CASADO, 
-				"mtonon.pmg@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "191.6.43.83", Etnia.BRANCO, pe.encode("123456"));
+				"dalvajavarini@gmail.com", LocalDateTime.now(), null, Status.ATIVO, "191.6.43.83", Etnia.BRANCO, pe.encode("123456"));
 		pac2.getTelefones().addAll(Arrays.asList("27981499002", "27981517213"));
 		pac2.addPerfil(Perfil.ADMIN);
 		

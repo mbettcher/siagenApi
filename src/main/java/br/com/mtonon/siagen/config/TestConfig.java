@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 
 import br.com.mtonon.siagen.services.DBService;
 import br.com.mtonon.siagen.services.EmailService;
-import br.com.mtonon.siagen.services.MockMailService;
+import br.com.mtonon.siagen.services.SmtpEmailService;
 
 @Configuration
 @Profile("development")
@@ -28,7 +28,7 @@ public class TestConfig {
 	
 	@Bean
 	public EmailService emailService() {
-		return new MockMailService();
+		return new SmtpEmailService();
 	}
 
 }
