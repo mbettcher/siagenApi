@@ -30,6 +30,10 @@ public class CidadeService {
 		return obj;
 	}
 	
+	public List<Cidade> findByEstado(Integer estadoId){
+		return cidadeRepository.findCidades(estadoId);
+	}
+	
 	public Cidade find(Integer id) {
 		Optional<Cidade> obj = cidadeRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(

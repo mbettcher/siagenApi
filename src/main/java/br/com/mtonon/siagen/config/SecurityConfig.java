@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	private static final String[] PUBLIC_MATCHERS_GET = {
 			"/especialidades/**",
 			"/unidades/**",
-			"/dias/horarios/**"
+			"/dias/horarios/**",
+			"/estados/**"
 	};
 	
 	/* VETOR COM OS PATHS QUE ESTÃO LIBERADOS APENAS PARA O MÉTODO POST PARA ACESSO SEM SENHA */

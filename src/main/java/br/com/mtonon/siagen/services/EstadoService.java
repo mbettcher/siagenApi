@@ -23,8 +23,7 @@ public class EstadoService {
 	private EstadoRepository estadoRepository;
 	
 	public List<Estado> findAll() {
-		List<Estado> obj = estadoRepository.findAll();
-		return obj;
+		return estadoRepository.findAllByOrderByNome();
 	}
 	
 	public Estado find(Integer id) {
