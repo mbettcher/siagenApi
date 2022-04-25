@@ -61,6 +61,21 @@ public class PacienteService {
 		return lista;
 	}
 	
+	public Paciente findByCpf(String cpf) {
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !cpf.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado!");
+		}
+		
+		Paciente obj = pacienteRepository.findByCpf(cpf);
+		if(obj == null) {
+			throw new ObjectNotFoundException("Usuário não localizado! CPF: " + user.getUsername());
+		}
+		
+		return obj;
+		
+	}
+	
 	public Page<Paciente> findPage(Integer page, Integer linesPerPage, String direction, String orderBy){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return pacienteRepository.findAll(pageRequest);
